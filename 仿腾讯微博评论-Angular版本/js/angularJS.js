@@ -19,6 +19,7 @@
             //最大输入数字
             var max=$scope.max_input=10;
             $scope.eq={num:"",n:max};
+            $scope.arr=[];
             //小图片选择事件
             $scope.select=function (index){
                 $scope.active=index;
@@ -29,10 +30,11 @@
                 $scope.eq.n=max-$scope.eq.num.length;
             };
             //点击按钮添加评论 不能绑定事件啊！
-            $scope.add=function ($compile){
-                var add=$scope.li.clone();
-                add.css('display','block');
-                $scope.li.parent().prepend(add);
+            //解决！
+            $scope.add=function (){
+                var obj={"src":$scope.active,"url":"#","n":$scope.name,
+                    "c":$scope.eq.num,"t":$scope.time};
+                $scope.arr.unshift(obj);
             }
         })();
 
@@ -52,7 +54,10 @@
         return {
             restrict:'E',
             replace:true,
-            templateUrl:'addcomment.html'
+            templateUrl:'addcomment.html',
+            link: function (scope,elem){
+                console.log(scope.arr);
+            }
         };
     });
     //评论区域图片载入
@@ -84,13 +89,4 @@
                 });
             }
         };
-    });
-    //获取节点
-    app.directive('addTo',function (){
-    return {
-        restrict:'A',
-        link: function (scope,elem){
-            scope.li=elem;
-        }
-    }
     });

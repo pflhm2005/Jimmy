@@ -1,9 +1,12 @@
-<div>
-    <div><img ng-src="{{item.src}}"/></div>
-    <ul>
-        <li>
-            <a href="{{item.url}}">{{item.name}}:&nbsp;</a>{{item.string}}
-        </li>
-        <li>{{item.time}}</li>
-    </ul>
-</div>
+<li class="comment" ng-repeat="item in list2">
+    <div>
+        <div><img ng-src="{{item.src}}"/></div>
+        <ul>
+            <li>
+                <a href="{{item.url}}">{{item.name}}:&nbsp;</a>{{item.string}}
+            </li>
+            <li>{{item.time}}</li>
+        </ul>
+    </div>
+    <del></del>
+</li>

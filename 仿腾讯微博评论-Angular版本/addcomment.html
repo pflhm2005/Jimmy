@@ -1,11 +1,11 @@
-<li class="comment" style="display: none">
+<li class="comment" ng-repeat="list in arr">
     <div>
-        <div><img ng-src="images/{{active+1}}.jpg"/></div>
+        <div><img ng-src="images/{{list.src+1}}.jpg"/></div>
         <ul>
             <li>
-                <a href="#">{{name}}:&nbsp;</a>{{eq.num}}
+                <a href="#">{{list.n}}:&nbsp;</a>{{list.c}}
             </li>
-            <li>{{time}}</li>
+            <li>{{list.t}}</li>
         </ul>
     </div>
     <del></del>

@@ -6,19 +6,9 @@ window.onload=function (){
         min=parseInt(tmin.innerHTML),
         id= 0,
         iter=true;
-        //tclass=tinput.getAttribute('class');
 
     tinput.addEventListener('click',function (){
         if(iter){
-            //setTimeout(function (){
-            //    if(sec<11){
-            //        tsec.innerHTML="0"+--sec;
-            //    }
-            //    else{
-            //        tsec.innerHTML=--sec;
-            //    }
-            //},10);
-            //tclass=tclass.concat('red');
             //Ìí¼ÓÀà
             tinput.setAttribute('class',"red");
             iter=false;
