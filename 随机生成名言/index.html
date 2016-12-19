@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <script src="lib/js/jquery-3.1.1.js"></script>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet/less" href="css/index.less"/>
+    <script src="../AngularJS练习/angular.js"></script>
+    <script src="js/index.js"></script>
+    <script src="lib/js/less.js"></script>
+</head>
+<body>
+    <header>
+        <div class="h-l fl">
+            <h5 class="logo"><a href="#">1</a></h5>
+            <ul>
+                <li class="lt"><a href="#">Random Quote Machine</a></li>
+                <li class="lb"><span>A PEN BY</span><a href="#">Free Code Camp</a></li>
+            </ul>
+        </div>
+        <div class="h-r fr">
+            <div class="nav-1"></div>
+            <div class="nav-2">Fork</div>
+            <div class="nav-3">Change View</div>
+            <div class="nav-4"></div>
+        </div>
+    </header>
+    <div class="content">
+        <div class="quote" ng-app="quote" ng-controller="QuoteController">
+            <div class="word">
+                <div class="text">{{text}}</div>
+                <div class="name fr">{{name}}</div>
+            </div>
+            <div class="btn">
+                <button class="btn1 fl">bird</button>
+                <button class="btn2 fl">t</button>
+                <button class="btn3" ng-click="click(2)">New quote</button>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+
+</script>
+</html>

@@ -1,0 +1,111 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>基本选择器</title>
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<!--
+	<link rel="stylesheet" type="text/css" href="styles.css">
+	-->
+  <script type="text/javascript" src="js/jquery-1.12.3.js"></script>
+      <script src="js/index.js"></script>
+  <script type="text/javascript">
+  	$('document').ready(
+	  	function(){
+
+	  		var flag = true;
+	  	
+		  	$('img').click(
+			  	function(){
+			  		var ele = this;
+			  		$("#pic0").fadeOut();
+			  		setTimeout(function(){
+						$("#pic0").attr("src",$(ele).attr("src"));
+						$("#pic0").fadeIn();
+			  		}, 320);
+			  	}
+		  	);
+		  	
+		  	$('#rnext').click(
+		  		function(){
+		  			var path = $("#pic0").attr("src");
+		  			var start = path.substring(0,path.lastIndexOf('/')+1);
+		  			var end = path.substring(path.lastIndexOf('.'));
+		  			var index = path.substring(path.lastIndexOf('/')+1,path.lastIndexOf('.'));
+		  			if(index != 10){
+		  				var url = start+(parseInt(index)+1)+end;
+		  				$("#pic0").fadeOut();
+				  		setTimeout(function(){
+							$("#pic0").attr("src",url);
+							$("#pic0").fadeIn();
+				  		}, 320);
+		  			}
+		  		}
+		  	);
+		  	
+		  	$('#lnext').click(
+		  		function(){
+		  			var path = $("#pic0").attr("src");
+		  			var start = path.substring(0,path.lastIndexOf('/')+1);
+		  			var end = path.substring(path.lastIndexOf('.'));
+		  			var index = path.substring(path.lastIndexOf('/')+1,path.lastIndexOf('.'));
+		  			if(index != 1){
+		  				var url = start+(parseInt(index)-1)+end;
+		  				$("#pic0").fadeOut();
+				  		setTimeout(function(){
+							$("#pic0").attr("src",url);
+							$("#pic0").fadeIn();
+				  		}, 320);
+		  			}
+		  		}
+		  	);
+
+	  	}
+  	);
+  </script>
+  <style type="text/css">
+  	.small {
+  		border:1px solid black;
+  		height: 50px;
+  		width:820px;
+  	}
+
+	body{
+		margin:0px;
+		padding:0px;
+	}
+  	
+  	.large {
+  		border:2px solid green;
+  		height:350px;
+  		width:770px;
+  		text-align: center;
+  		background-color:lightpink;
+  	}
+  </style>
+ </head>
+ <body>
+ <div class="small">
+	<img id="pic1" height="50px" src="img/1.jpg"/>
+	<img id="pic2" height="50px" src="img/2.jpg"/>
+	<img id="pic3" height="50px" src="img/3.jpg"/>
+	<img id="pic4" height="50px" src="img/4.jpg"/>
+	<img id="pic5" height="50px" src="img/5.jpg"/>
+	<img id="pic6" height="50px" src="img/6.jpg"/>
+	<img id="pic7" height="50px" src="img/7.jpg"/>
+	<img id="pic8" height="50px" src="img/8.jpg"/>
+	<img id="pic9" height="50px" src="img/9.jpg"/>
+	<img id="pic10" height="50px" src="img/10.jpg"/>
+ </div>
+ <div id="image" class="large">
+ 	<img id="pic0" height="100%" src="img/10.jpg" />
+ </div>
+<input type="button" id="lnext" value="上一张"/>
+<input type="button" id="rnext" value="下一张"/>
+ </body>
+</html>
