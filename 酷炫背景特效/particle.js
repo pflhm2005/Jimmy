@@ -10,38 +10,33 @@ window.onload=(function (){
         return Math.pow(num,2);
     }
     function canvasInit(Config){
-        //初始化标签
         var config=Config||{};
         var body=getTag("body")[0],
             canvasObj=document.createElement("canvas");
-        //定义参数对象
         var canvas={
             element:canvasObj,
             points:[],
             config:{
-                vx:config.vx||4,    //点的移速
+                vx:config.vx||4,
                 vy:config.vy||4,
-                height:config.height||2,    //点大小
+                height:config.height||2,
                 width:config.width||2,
-                dist:config.dist||6000, //连线的最短距离
-                e_dist:config.e_dist||20000,    //响应鼠标的最短距离
-                count:config.count||150,    //点的数量
-                max_line:config.max_conn||10,   //点的最高连线数
-                color:config.color||"aqua", //点的颜色
-                stroke:config.stroke||"lightgreen"  //线的颜色
+                dist:config.dist||6000,
+                e_dist:config.e_dist||20000,
+                count:config.count||150,
+                max_line:config.max_conn||10,
+                color:config.color||"aqua",
+                stroke:config.stroke||"lightgreen"
             }
         };
-        //修改样式并添加canvas标签
         body.style="margin:0;padding:0;";
         canvas.element.style="position:absolute;top:0;left:0;z-index:-1;";
         body.appendChild(canvas.element);
-        //获取2d 设置画布大小
         canvas.context=canvas.element.getContext("2d");
         convasResize(canvas);
         window.onresize=(function () {
             convasResize(canvas);
         });
-        //鼠标滑动与离开事件
         body.onmousemove=function (e){
             var event=e||window.event;
             canvas.mouse={
@@ -52,7 +47,6 @@ window.onload=(function (){
         document.onmouseleave=function (){
             canvas.mouse=undefined;
         };
-        //调用函数循环执行
         (function autoFlush(){
             drawPoint(canvas);
             setTimeout(function (){
@@ -60,12 +54,10 @@ window.onload=(function (){
             },40);
         })();
     }
-    //重置画布大小
     function convasResize(canvas){
         canvas.element.width=document.documentElement.clientWidth;
         canvas.element.height=document.documentElement.clientHeight;
     }
-    //画点
     function drawPoint(canvas){
         var context=canvas.context,point;
         context.beginPath();
@@ -80,7 +72,6 @@ window.onload=(function (){
                     vy:canvas.config.vy/2-getRandom(canvas.config.vx)
                 }
             }
-            //处理边界情况及点移动速率
             else{
                 point=borderPoint(canvas.points[i],canvas);
             }
@@ -90,7 +81,6 @@ window.onload=(function (){
         drawLine(canvas.context,canvas,canvas.mouse);
         context.closePath();
     }
-    //边界处理
     function borderPoint(point,canvas){
         var p=point;
         if(p.x<0 || p.x>canvas.element.width){
@@ -111,7 +101,6 @@ window.onload=(function (){
         }
         return p;
     }
-    //画线
     function drawLine(context,canvas,mouse){
         context=context||canvas.context;
         for(var i= 0,len=canvas.config.count;i<len;i++){
@@ -132,7 +121,6 @@ window.onload=(function (){
                     }
                 }
             }
-            //鼠标进入
             if(mouse){
                 dist=pow(canvas.points[i].x-mouse.x,2)+pow(canvas.points[i].y-mouse.y,2);
                 if(dist>canvas.config.dist&&dist<canvas.config.e_dist){

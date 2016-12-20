@@ -1,5 +1,5 @@
 $(function (){
-    //¶¯Ì¬¼ÓÔØÍ¼Æ¬
+    //ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
     (function init(){
     $.ajax({
         url:'text.json',
@@ -20,9 +20,10 @@ $(function (){
             changePic(config);
         }
     });
+
     })();
 
-    //Ð¡Í¼Æ¬clickÊÂ¼þ
+    //Ð¡Í¼Æ¬clickï¿½Â¼ï¿½
     function changePic(config){
         Del();
         $('.pic>li').click(function (){
@@ -36,8 +37,8 @@ $(function (){
         addPic(config);
     }
 
-    //666 ÖÕÓÚ³É¹¦ÁË ÒýÓÃ´«µÝÍêÃÀ½â¾ö
-    //µã»÷¹ã²¥Ìá½»±íµ¥ÄÚÈÝ
+    //666 ï¿½ï¿½ï¿½Ú³É¹ï¿½ï¿½ï¿½ ï¿½ï¿½ï¿½Ã´ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
+    //ï¿½ï¿½ï¿½ï¿½ã²¥ï¿½á½»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     function addPic(config){
         $('button').click(function (){
             var name=$('input').val(),
@@ -48,8 +49,8 @@ $(function (){
                 str=$("<li><div><img src='"+src+"'/></div><ul><li>" +
                     "<a href='#'>"+name+": "+"</a>"+content+"</li>" +
                     "<li>"+getTime()+"</li></ul><span class='delete'>" +
-                    "É¾³ý</span></li>").prependTo('.comment');
-                //×¢²áhoverÓëÉ¾³ýÊÂ¼þ
+                    "É¾ï¿½ï¿½</span></li>").prependTo('.comment');
+                //×¢ï¿½ï¿½hoverï¿½ï¿½É¾ï¿½ï¿½ï¿½Â¼ï¿½
                 Del();
             }else{
                 if(!name){
@@ -62,18 +63,18 @@ $(function (){
         });
     }
 
-    //»ñÈ¡¸ñÊ½»¯ºóµÄµ±Ç°Ê±¼ä
+    //ï¿½ï¿½È¡ï¿½ï¿½Ê½ï¿½ï¿½ï¿½ï¿½Äµï¿½Ç°Ê±ï¿½ï¿½
     function getTime(){
         var _= new Date();
         var month=(_.getMonth()+1)<10?"0"+(_.getMonth()+1):(_.getMonth()+1),
             day= _.getDate()<10?"0"+_.getDate(): _.getDate(),
             hour= _.getHours()<10?"0"+(_.getHours()): _.getHours(),
             min=  _.getMinutes()<10?"0"+ _.getMinutes():  _.getMinutes();
-        return month+"ÔÂ"+day +"ÈÕ "+ hour+":"+ min;
+        return month+"ï¿½ï¿½"+day +"ï¿½ï¿½ "+ hour+":"+ min;
     }
 
 
-    //ÆÀÂÛÇøÓòhoverÓëµã»÷É¾³ýÊÂ¼þ
+    //ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½hoverï¿½ï¿½ï¿½ï¿½É¾ï¿½ï¿½ï¿½Â¼ï¿½
     function Del(){
         $('.comment>li').on({mouseenter:function (){
             $(this).css('background',"#f5f5f5");
@@ -88,7 +89,7 @@ $(function (){
         });
     }
 
-    //¶¯Ì¬°ó¶¨×ÖÊýÏÞÖÆ
+    //ï¿½ï¿½Ì¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
     angular.module('app',[]).controller('nc',function ($scope){
         var max=$scope.max_input=10;
         $scope.eq={num:"",n:max};

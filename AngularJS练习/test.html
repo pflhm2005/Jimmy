@@ -1,1 +1,45 @@
-<div>123</div>
+<!doctype html>
+<html lang="en" ng-app="app">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script src="angular.js"></script>
+    <script src="angular-route.min.js"></script>
+</head>
+<style>
+
+</style>
+<body>
+    <header>
+        <h1>Header</h1>
+    </header>
+    <div class="content">
+        <div ng-view>
+
+        </div>
+    </div>
+    <footer>
+        <h5>Footer</h5>
+    </footer>
+</body>
+<script>
+//    用when和otherwise匹配 类似switch和default
+    angular.module('app',['ngRoute']).controller('nc',function ($scope){}).config(['$routeProvider',
+                function ($routeProvider){
+//      第一个参数是路径 第二个决定匹配路径后的行为
+        $routeProvider.when('/',{
+            templateUrl:'an.html',
+            controller:'nc',
+            template:"",
+            resolve:"",
+            redirectTo:"",
+            reloadOnSearch:""
+            //可匹配多个路由
+        }).when('/login',{
+
+        }).otherwise({
+            redirectTo:"/"
+        });
+    }]);
+</script>
+</html>

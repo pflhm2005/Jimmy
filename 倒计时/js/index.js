@@ -6,21 +6,19 @@ window.onload=function (){
         min=parseInt(tmin.innerHTML),
         id= 0,
         iter=true;
-
     tinput.addEventListener('click',function (){
         if(iter){
-            //添加类
             tinput.setAttribute('class',"red");
+            tinput.setAttribute('value','鏆傚仠');
             iter=false;
             autoPlay();
         }else{
             tinput.setAttribute('class',"");
+            tinput.setAttribute('value','鍚姩');
             iter=true;
             pause();
         }
     });
-
-    //暂停
     function pause(){
         clearTimeout(id);
     }
@@ -29,27 +27,14 @@ window.onload=function (){
             clearTimeout(id);
             return ;
         }
-        //为了显示0 所有数字判断变为-1
         if(sec>-1){
             id=setTimeout(function (){
-                //处理个位数字显示
-                if(sec<11){
-                    tsec.innerHTML="0"+--sec;
-                }
-                else{
-                    tsec.innerHTML=--sec;
-                }
+                tsec.innerHTML=sec<11?"0"+--sec:--sec;
                 autoPlay();
             },1000)
         }
-        //秒变为0时
         else if(sec==-1&&min!=0){
-            if(min<10){
-                tmin.innerHTML="0"+--min;
-            }
-            else{
-                tmin.innerHTML=--min;
-            }
+            tmin.innerHTML=min<11?"0"+--min:--min;
             sec=59;
             tsec.innerHTML=sec;
             autoPlay();

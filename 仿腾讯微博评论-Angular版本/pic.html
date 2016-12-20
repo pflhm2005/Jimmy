@@ -1,0 +1,6 @@
+<li ng-repeat="item in list1"
+    ng-click="select($index)"
+    ng-class="{on:$index==active}">
+    <span>{{$index}}</span>
+    <img ng-src="{{item.src}}"/>
+</li>
