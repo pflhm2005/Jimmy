@@ -6,26 +6,23 @@
     <link rel="stylesheet/less" href="css/index.less"/>
     <script src="lib/js/angular.js"></script>
     <script src="js/angularJS.js"></script>
+    <script src="lib/js/angular-messages.min.js"></script>
     <script src="lib/js/less.js"></script>
 </head>
 <body>
     <div class="box" ng-controller="nc">
         <!--头部表单输入区域-->
-        <form ng-submit="add(active)" name="comment">
+        <form ng-submit="add(active)" name="form">
             <h2>来，说说你在做什么，想什么</h2>
             <!--名字输入框-->
-            <input type="text" placeholder="Enter your name" ng-model="name"/>
+            <div class="error" ng-show="form.name.$dirty&&form.name.$invalid">name required</div>
+            <input type="text" name="name" placeholder="Enter your name" ng-model="name" required/>
             <!--头像图片载入-->
             <ul class="pic">
                 <pic></pic>
             </ul>
             <!--文本输入区域-->
-            <div ng-if="comment.content.$invalid">输入内容</div>
-            <textarea cols="50" rows="5"
-                      ng-model="eq.num"
-                      ng-change="count()"
-                      name="content">
-            </textarea>
+            <textarea cols="50" rows="5" ng-model="eq.num" ng-change="count()" name="content" required></textarea>
             <!--最大输入提示区域-->
             <p>还能输入<b>{{eq.n}}</b>个字
                 <button>广播</button>
