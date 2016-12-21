@@ -12,20 +12,20 @@
 </head>
 <body>
     <div class="box" ng-controller="nc">
-        <form>
-            <h2>À´£¬ËµËµÄãÔÚ×öÊ²Ã´£¬ÏëÊ²Ã´</h2>
+        <form name="form">
+            <h2>æ¥ï¼Œè¯´è¯´ä½ åœ¨åšä»€ä¹ˆï¼Œæƒ³ä»€ä¹ˆ</h2>
             <input type="text" placeholder="Enter your name"/>
             <div class="name-tip">Please enter your name</div>
             <ul class="pic">
 
             </ul>
             <div class="content-tip">Say something?</div>
-            <textarea placeholder="Enter the content" cols="50" ng-model="eq.num" ng-change="count()" rows="5"></textarea>
-            <p>»¹ÄÜÊäÈë<b>{{eq.n}}</b>¸ö×Ö <button>¹ã²¥</button></p>
+            <textarea name="content" placeholder="Enter the content" cols="50" ng-model="eq.num" ng-change="count()" rows="5"></textarea>
+            <p>è¿˜èƒ½è¾“å…¥<b>{{eq.n}}</b>å­— <button>å¹¿æ’­</button></p>
         </form>
         <div class="t">
             <div class="head">
-                <h3>´ó¼ÒÔÚËµ</h3>
+                <h3>å¤§å®¶åœ¨è¯´</h3>
             </div>
             <ul class="comment">
 
@@ -33,9 +33,9 @@
         </div>
     </div>
 </body>
-     <!--Ä£°å»»ĞĞºó firstChildÑ¡Ôñ»á³öÎÊÌâ-->
-     <!--Ò»ĞĞÄÚÕı³£ÏÔÊ¾-->
-     <!--Èç¹û»»ĞĞ»á³öÏÖ#testµÄ¿Õ¸ñ×Ö·û´®-->
+     <!--Ä£ï¿½å»»ï¿½Ğºï¿½ firstChildÑ¡ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½-->
+     <!--Ò»ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ê¾-->
+     <!--ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Ğ»ï¿½ï¿½ï¿½ï¿½#testï¿½Ä¿Õ¸ï¿½ï¿½Ö·ï¿½ï¿½ï¿½-->
 <script type="text/html" id="pic">
     {{each list as value i}}
     <li>
@@ -52,7 +52,7 @@
             <li><a href="{{value.url}}">{{value.name}}:&nbsp;</a>{{value.string}}</li>
             <li>{{value.time}}</li>
         </ul>
-        <span class="delete">É¾³ı</span>
+        <span class="delete">É¾ï¿½ï¿½</span>
     </li>
     {{/each}}
 </script>

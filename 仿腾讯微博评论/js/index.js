@@ -23,7 +23,7 @@ $(function (){
 
     })();
 
-    //СͼƬclick�¼�
+    //小图片点击事件
     function changePic(config){
         Del();
         $('.pic>li').click(function (){
@@ -37,8 +37,7 @@ $(function (){
         addPic(config);
     }
 
-    //666 ���ڳɹ��� ���ô����������
-    //����㲥�ύ������
+    //动态生成新评论
     function addPic(config){
         $('button').click(function (){
             var name=$('input').val(),
@@ -50,7 +49,7 @@ $(function (){
                     "<a href='#'>"+name+": "+"</a>"+content+"</li>" +
                     "<li>"+getTime()+"</li></ul><span class='delete'>" +
                     "ɾ��</span></li>").prependTo('.comment');
-                //ע��hover��ɾ���¼�
+                //注册事件
                 Del();
             }else{
                 if(!name){
@@ -63,7 +62,7 @@ $(function (){
         });
     }
 
-    //��ȡ��ʽ����ĵ�ǰʱ��
+    //获取当前时间
     function getTime(){
         var _= new Date();
         var month=(_.getMonth()+1)<10?"0"+(_.getMonth()+1):(_.getMonth()+1),
@@ -74,7 +73,7 @@ $(function (){
     }
 
 
-    //��������hover����ɾ���¼�
+    //评论区域hover事件
     function Del(){
         $('.comment>li').on({mouseenter:function (){
             $(this).css('background',"#f5f5f5");
@@ -89,13 +88,17 @@ $(function (){
         });
     }
 
-    //��̬����������
+    //动态绑定
     angular.module('app',[]).controller('nc',function ($scope){
         var max=$scope.max_input=10;
         $scope.eq={num:"",n:max};
         $scope.count=function (){
-            $scope.eq.num=$scope.eq.num.length>max?$scope.eq.num.substr(0,max):$scope.eq.num;
-            $scope.eq.n=max-$scope.eq.num.length;
+            if(form.content.value.length==0){
+                $scope.eq.n=10;
+            }else{
+                $scope.eq.num=$scope.eq.num.length>max?$scope.eq.num.substr(0,max):$scope.eq.num;
+                $scope.eq.n=max-$scope.eq.num.length;
+            }
         }
     });
 });

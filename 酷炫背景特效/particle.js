@@ -1,5 +1,6 @@
 //Go!
 window.onload=(function (){
+    //简化数学方法与选择器
     function getRandom(num){
         return parseInt(Math.random()*num)+1;
     }
@@ -9,6 +10,7 @@ window.onload=(function (){
     function pow(num){
         return Math.pow(num,2);
     }
+    //初始化画布并添加样式
     function canvasInit(Config){
         var config=Config||{};
         var body=getTag("body")[0],
@@ -33,10 +35,12 @@ window.onload=(function (){
         canvas.element.style="position:absolute;top:0;left:0;z-index:-1;";
         body.appendChild(canvas.element);
         canvas.context=canvas.element.getContext("2d");
+        //窗口大小变化时重新绘制画布
         convasResize(canvas);
         window.onresize=(function () {
             convasResize(canvas);
         });
+        //获取鼠标事件坐标
         body.onmousemove=function (e){
             var event=e||window.event;
             canvas.mouse={
@@ -47,6 +51,7 @@ window.onload=(function (){
         document.onmouseleave=function (){
             canvas.mouse=undefined;
         };
+        //定时调用初始化方法
         (function autoFlush(){
             drawPoint(canvas);
             setTimeout(function (){
@@ -58,6 +63,7 @@ window.onload=(function (){
         canvas.element.width=document.documentElement.clientWidth;
         canvas.element.height=document.documentElement.clientHeight;
     }
+    //画点
     function drawPoint(canvas){
         var context=canvas.context,point;
         context.beginPath();
@@ -81,6 +87,7 @@ window.onload=(function (){
         drawLine(canvas.context,canvas,canvas.mouse);
         context.closePath();
     }
+    //边界与速度问题
     function borderPoint(point,canvas){
         var p=point;
         if(p.x<0 || p.x>canvas.element.width){
@@ -101,6 +108,7 @@ window.onload=(function (){
         }
         return p;
     }
+    //画线
     function drawLine(context,canvas,mouse){
         context=context||canvas.context;
         for(var i= 0,len=canvas.config.count;i<len;i++){
@@ -121,6 +129,7 @@ window.onload=(function (){
                     }
                 }
             }
+            //鼠标进入事件
             if(mouse){
                 dist=pow(canvas.points[i].x-mouse.x,2)+pow(canvas.points[i].y-mouse.y,2);
                 if(dist>canvas.config.dist&&dist<canvas.config.e_dist){

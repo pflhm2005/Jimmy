@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <script src="angular.js"></script>
-    <script src="angular-route.min.js"></script>
 </head>
 <style>
 
@@ -14,8 +13,10 @@
         <h1>Header</h1>
     </header>
     <div class="content">
-        <div ng-view>
-
+        <div ng-controller="nc">
+            <input type="text" ng-model="num" ng-change="s()"/>
+            <input type="text" ng-model="num2" ng-change="s()"/>
+            <input type="text" ng-model="num3" ng-change="s()"/>
         </div>
     </div>
     <footer>
@@ -23,23 +24,13 @@
     </footer>
 </body>
 <script>
-//    用when和otherwise匹配 类似switch和default
-    angular.module('app',['ngRoute']).controller('nc',function ($scope){}).config(['$routeProvider',
-                function ($routeProvider){
-//      第一个参数是路径 第二个决定匹配路径后的行为
-        $routeProvider.when('/',{
-            templateUrl:'an.html',
-            controller:'nc',
-            template:"",
-            resolve:"",
-            redirectTo:"",
-            reloadOnSearch:""
-            //可匹配多个路由
-        }).when('/login',{
+    function getType(obj){
+        return Object.prototype.toString.call(obj).slice(8,-1);
+    }
+    angular.module('app',[]).controller('nc',function ($scope,$timeout){
+        $scope.s=function (){
 
-        }).otherwise({
-            redirectTo:"/"
-        });
-    }]);
+        }
+    });
 </script>
 </html>

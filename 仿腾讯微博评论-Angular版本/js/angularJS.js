@@ -1,7 +1,7 @@
 /**
  * Created by Administrator on 2016/12/17.
  */
-    var app=angular.module('app',[]);
+    var app=angular.module('app',['ngResource']);
 
     //获取时间的服务
     app.factory('time',function (){
@@ -13,29 +13,67 @@
         return month+"月"+day +"日 "+ hour+":"+ min;
     });
 
-    //问题1 异步服务获取数据返回后处理问题
-    //app.factory('getJSON',function ($http){
-    //    var text=[];
-    //    return $http.get('text.json').then(function (result){
-    //        //请求json文件并接受返回数据
-    //        return text.push(result.data[0],result.data[1]);
-    //    });
+    //constant方法定义的常量可以注入到配置函数中 .constant('url','#').config(function(url){})
+    app.value('url',"text2.json");
+
+    //自定义拦截器
+    app.factory('int',function ($q){
+        var inter={
+            'request':function (config){
+                console.log("请求成功");
+                return config;
+            },
+            'response':function (response){
+                console.log("响应成功");
+                return response;
+            },
+            'requestError':function (rejection){
+                console.log("req-error");
+                return $q.reject(rejection);
+            },
+            'responseError':function (rejection){
+                console.log("res-error");
+                return rejection;
+            }
+        };
+        return inter;
+    });
+
+    //注册拦截器
+    //app.config(function ($httpProvider){
+    //    $httpProvider.interceptors.push('int');
     //});
 
+    //请求JSON文件的服务
+    //返回Promise数据的处理以及该服务如何返回问题
+    //解决!
+    app.factory('getJSON',function ($http){
+        return function (url){
+            return $http.post(url,{cache:true});
+        }
+    });
+
+    app.factory('der',['$q',function ($q){
+        var der=$q.defer();
+        der.resolve({name:"jimmy"});
+        der.reject("failed");
+        return der;
+    }]);
 
     //service 是独立的，可以很方便易于测试，还能测试出逻辑处理是否正确
     //易于维护，service 中的方法有可能是用在多个地方的
     //严格来讲在controller中出现的逻辑都是和view相关的逻辑，例如控制显示隐藏啊 显示loading啊等等
 
     //控制器绑定
-    app.controller('nc',['$scope','$http','time',function ($scope,$http,time){
+    app.controller('nc',['$scope','getJSON','time',function ($scope,getJSON,time){
         //初始化
-        $scope.arr=[];
-        $http.get('text.json').then(function (result) {
-            //请求json文件并接受返回数据
+        getJSON('text.json').then(function (result){
             $scope.list1 = result.data[0];
             $scope.list2 = result.data[1];
         });
+
+        //存放添加追加评论的数组
+        $scope.arr=[];
 
         //默认选中第一张
         $scope.active=0;
@@ -48,12 +86,21 @@
         var max=$scope.max_input=10;
         $scope.eq={num:"",n:max};
         //动态绑定字数限制
-        //问题2 字数截取与显示问题
+        //问题 字数截取与显示问题
+        //解决！
         $scope.count=function (){
+            //完美解决 老子真是日了狗啊
+            if(form.content.value.length==0){
+                $scope.eq.n=10;
+            }else{
+                $scope.eq.num=$scope.eq.num.length>max?$scope.eq.num.substr(0,max):$scope.eq.num;
+                $scope.eq.n=max-$scope.eq.num.length;
+                //console.log($scope.$$watchers);
+            }
 
             //方法1 正常截取 字数显示正常 删除所有输入字符串会报错 length为undefined
-            $scope.eq.num=$scope.eq.num.length>max?$scope.eq.num.substr(0,max):$scope.eq.num;
-            $scope.eq.n=max-$scope.eq.num.length;
+            //$scope.eq.num=$scope.eq.num.length>max?$scope.eq.num.substr(0,max):$scope.eq.num;
+            //$scope.eq.n=max-$scope.eq.num.length;
 
             //方法2 字数显示正常 截取出问题 快速按键可以多输入1个字
             //form.content.value=form.content.value.length>max?form.content.value.substr(0,max):form.content.value;
@@ -65,10 +112,12 @@
 
             //console.log($scope.eq.num.length===form.content.value.length); //true
             //console.log($scope.eq.num===form.content.value); //true
+            //console.log(form.content.value);
+            //console.log(form.content.value.length);   //0-10
         };
 
-        //点击按钮添加评论 不能绑定事件啊！
-        //解决！
+        //点击按钮添加评论 clone()+prepend()不能绑定事件！
+        //ng-repeat完美解决！
         $scope.add=function (){
             var obj={"src":$scope.active,"url":"#","n":$scope.name,
                 "c":$scope.eq.num,"t":time};
@@ -80,6 +129,14 @@
         $scope.del=function (index){
             $scope.arr.splice(index,1);
         };
+    }]);
+
+    //第二个控制器测试各种方法
+    app.controller('nc2',['der','getJSON','url',function (der,getJSON,url){
+        //getJSON(url).then(function (result){
+        //    console.log(result.status);
+        //    console.log(result.headers());
+        //})
     }]);
 
     //头像图片载入
