@@ -77,7 +77,7 @@
     <!-- 分页与结算-->
     <div class="tab bx clearfix">
         <ul class="tab-l fl">
-            <li><a href="#">全部商品<span class="tab-all">7</span></a></li>
+            <li><a href="#">全部商品<span class="tab-all" ng-init="all=7">{{all}}</span></a></li>
             <li><a href="#">降价商品<span class="tab-sale">0</span></a></li>
             <li><a href="#">库存紧张<span>0</span></a></li>
             <div></div>
@@ -121,7 +121,7 @@
             <li><a href="#">分享</a></li>
         </ul>
         <ul class="foot-r fr">
-            <li class="f-count">已选商品<span class="red">0</span>件</li>
+            <li class="f-count">已选商品<span class="red" ng-init="selected=0">{{selected}}</span>件</li>
             <li class="f-total">合计（不含运费）：<span class="red" id="f-total">￥{{obj.all|number:2}}</span></li>
             <li><button id="f-submit" class="fb">结算</button></li>
         </ul>
