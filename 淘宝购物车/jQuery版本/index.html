@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title></title>
+    <link rel="stylesheet" href="lib/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet/less" href="css/index.less"/>
+</head>
+<body>
+    <!-- 头部-->
+    <header class="head">
+        <nav class="bx">
+            <div class="n-l fl">
+                <ul>
+                    <li><a href="#">Keith Chou</a></li>
+                    <li>
+                        <a href="#">
+                            <span class="red glyphicon glyphicon-envelope"></span>
+                            <span>消息</span>
+                        </a>
+                    </li>
+                    <li><a href="#">手机逛淘宝</a></li>
+                </ul>
+            </div>
+            <div class="n-r fr">
+                <ul>
+                    <li><a href="#">淘宝网首页</a></li>
+                    <li>
+                        <a href="#">我的淘宝<span class="glyphicon glyphicon-chevron-down"></span></a>
+                        <ul>
+                            <li><a href="#">已买到的宝贝</a></li>
+                            <li><a href="#">我的足迹</a></li>
+                            <li><a href="#">爱逛街</a></li>
+                            <li><a href="#">淘宝达人</a></li>
+                            <li><a href="#">新欢</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#"><span class="glyphicon glyphicon-star"></span>收藏夹<span class="glyphicon glyphicon-chevron-down"></span></a>
+                        <ul>
+                            <li><a href="#">收藏的宝贝</a></li>
+                            <li><a href="#">收藏的店铺</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">卖家中心<span class="glyphicon glyphicon-chevron-down"></span></a>
+                        <ul>
+                            <li><a href="#">免费开店</a></li>
+                            <li><a href="#">已卖出的宝贝</a></li>
+                            <li><a href="#">出售中的宝贝</a></li>
+                            <li><a href="#">卖家服务市场</a></li>
+                            <li><a href="#">卖家培训中心</a></li>
+                        </ul>
+                    </li>
+                    <li>
+                        <a href="#">联系客服<span class="glyphicon glyphicon-chevron-down"></span></a>
+                        <ul>
+                            <li>消费者客服</li>
+                            <li>卖家客服</li>
+                        </ul>
+                    </li>
+                </ul>
+            </div>
+        </nav>
+    </header>
+    <!-- logo区域与搜索框-->
+    <div class="logo bx">
+        <h1 class="fl">
+            <a href="#"><img src="images/taobao-icon.png"/></a>
+        </h1>
+        <div class="search fr">
+            <input type="text" placeholder="请输入内容"/>
+            <button>搜索</button>
+        </div>
+    </div>
+    <!-- 分页与结算-->
+    <div class="tab bx clearfix">
+        <ul class="tab-l fl">
+            <li><a href="#">全部商品<span class="tab-all">7</span></a></li>
+            <li><a href="#">降价商品<span class="tab-sale">0</span></a></li>
+            <li><a href="#">库存紧张<span>0</span></a></li>
+            <div></div>
+        </ul>
+        <ul class="tab-r fr">
+            <li>已选商品（不含运费）</li>
+            <li id="total" class="red">￥0.00</li>
+            <li><button id="submit">结算</button></li>
+        </ul>
+    </div>
+    <!-- 商品-->
+    <div class="content bx">
+        <div class="content-head">
+            <ul class="fl">
+                <li>
+                    <input type="checkbox" id="all"/>
+                    <label for="all">全选</label>
+                </li>
+                <li>商品信息</li>
+            </ul>
+            <ul class="fr">
+                <li>单价</li>
+                <li>数量</li>
+                <li>金额</li>
+                <li>操作</li>
+            </ul>
+        </div>
+        <div class="box">
+
+        </div>
+    </div>
+    <!-- 底部fixed-->
+    <footer class="foot">
+        <ul class="foot-l fl">
+            <li>
+                <input type="checkbox" id="all2"/>
+                <label for="all2">全选</label>
+            </li>
+            <li><a href="#">删除</a></li>
+            <li><a href="#">移入收藏夹</a></li>
+            <li><a href="#">分享</a></li>
+        </ul>
+        <ul class="foot-r fr">
+            <li class="f-count">已选商品<span class="red">0</span>件</li>
+            <li class="f-total">合计（不含运费）：<span class="red" id="f-total">￥0.00</span></li>
+            <li><button id="f-submit" class="fb">结算</button></li>
+        </ul>
+    </footer>
+    <script src="lib/js/jquery-3.1.1.js"></script>
+    <script src="js/index.js"></script>
+    <script src="lib/js/template.js"></script>
+    <script src="lib/js/less.min.js"></script>
+</body>
+<script type="text/html" id="content">
+    {{each list as value i}}
+    <ul class="delete">
+        <li><i>{{i}}</i>成功删除 1 件宝贝，可 <a class="cancel" href="#">撤销本次删除</a></li>
+    </ul>
+    <ul class="content">
+        <li>
+            <ul class="shop">
+                <li><input type="checkbox" id="shop-{{i}}"/><label for="shop-{{i}}">店铺:</label></li>
+                <li>{{value.shop}}</li>
+            </ul>
+        </li>
+        <li>
+            <div class="c">
+                <ul>
+                    <li><input type="checkbox" id="shop{{i}}"/></li>
+                    <li><a href="#"><img src="{{value.src}}"/></a></li>
+                    <li class="c-tip">
+                        <ul>
+                            <li><a href="#">{{value.tip}}</a></li>
+                            <li class="c-icon">
+                                <a href="#"><img src="{{value.srcTip1}}"/></a>
+                                <a href="#"><img src="{{value.srcTip2}}"/></a>
+                                <a href="#"><img src="{{value.srcTip3}}"/></a>
+                            </li>
+                        </ul>
+                    </li>
+                    <li class="c-type">
+                        <ul>
+                            <li>{{value.type}}</li>
+                            <li>{{value.size}}</li>
+                        </ul>
+                    </li>
+                    <li class="c-price">
+                        <ul>
+                            <li class="c-price-last">{{value.priceLast}}</li>
+                            <li class="c-price-now fb">{{value.priceNow}}</li>
+                            <li class="c-price-tip red"><span>{{value.extra}}</span></li>
+                        </ul>
+                    </li>
+                    <li class="c-count">
+                        <button>-</button>
+                        <input type="text" value="1"/>
+                        <button>+</button>
+                        <div class="tip">请输入0-574的正整数</div>
+                    </li>
+                    <li class="c-total red fb">{{value.priceNow}}</li>
+                    <li><a href="#" class="delete">删除</a></li>
+                </ul>
+            </div>
+        </li>
+    </ul>
+    {{/each}}
+</script>
+</html>
+
+
+
+
+
+
+<!--<ul>-->
+    <!--<li>-->
+        <!--<ul class="shop">-->
+            <!--<li><input type="checkbox" id="shop-1"/><label for="shop-1">店铺:</label></li>-->
+            <!--<li>生如海洋 men sho</li>-->
+        <!--</ul>-->
+    <!--</li>-->
+    <!--<li>-->
+        <!--<div class="c">-->
+            <!--<ul>-->
+                <!--<li><input type="checkbox" id="shop1"/></li>-->
+                <!--<li><a href="#"><img src="images/boyShoes.png"/></a></li>-->
+                <!--<li class="c-tip">-->
+                    <!--<ul>-->
+                        <!--<li><a href="#">夏日拖鞋潮男韩版潮流男士一字拖防滑凉鞋夏天个性沙滩潮拖凉拖男</a></li>-->
+                        <!--<li class="c-icon">-->
+                            <!--<a href="#"><img src="images/bankCard.png"/></a>-->
+                            <!--<a href="#"><img src="images/sevenDay.png"/></a>-->
+                            <!--<a href="#"><img src="images/guarantee.png"/></a>-->
+                        <!--</li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+                <!--<li class="c-type">-->
+                    <!--<ul>-->
+                        <!--<li>颜色分类：028黑蜂窝</li>-->
+                        <!--<li>尺码：41</li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+                <!--<li class="c-price">-->
+                    <!--<ul>-->
+                        <!--<li class="c-price-last">￥79.00</li>-->
+                        <!--<li class="c-price-now fb">￥49.00</li>-->
+                        <!--<li class="c-price-tip red">卖家促销 <span class="glyphicon glyphicon-chevron-down"></span></li>-->
+                    <!--</ul>-->
+                <!--</li>-->
+                <!--<li class="c-count"><button>-</button><input type="text" value="1"/><button>+</button></li>-->
+                <!--<li class="c-total red fb">￥49.00</li>-->
+                <!--<li><a href="#">删除</a></li>-->
+            <!--</ul>-->
+        <!--</div>-->
+    <!--</li>-->
+<!--</ul>-->

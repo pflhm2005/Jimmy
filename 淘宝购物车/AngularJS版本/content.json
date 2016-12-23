@@ -1,0 +1,29 @@
+[
+  {"shop":"生如海洋 men sho","src":"images/boyShoes.png","tip":"夏日拖鞋潮男韩版潮流男士一字拖防滑凉鞋夏天个性沙滩潮拖凉拖男",
+    "srcTip1":"images/bankCard.png","srcTip2":"images/sevenDay.png","srctip3":"images/guarantee.png",
+  "type":"颜色分类：028黑蜂窝","size":"尺码：41","priceLast":"￥79.00","priceNow":"49.00","extra":"卖家促销"},
+
+  {"shop":"nixu服饰旗舰店","src":"images/fashionClo.png","tip":"韩版中长款纯色休闲青年风衣英伦秋冬男毛呢料宽松外套时尚大衣",
+    "srcTip1":"images/bankCard.png","srcTip2":"images/sevenDay.png","srctip3":"images/guarantee.png",
+    "type":"颜色：卡其色有纽扣","size":"尺码：L","priceLast":"￥416.00","priceNow":"208.00","extra":"卖家促销"},
+
+  {"shop":"李宁官方网店","src":"images/lining-bas.png","tip":"李宁2016新款男子篮球鞋音速3高帮反弹篮球场地鞋ABAL031",
+    "srcTip1":"images/bankCard.png","srcTip2":"images/sevenDay.png","srctip3":"images/guarantee.png",
+    "type":"颜色分类：荧光果粉/木梅红","size":"鞋码：42","priceLast":"￥539.00","priceNow":"339.00","extra":"卖家促销"},
+
+  {"shop":"adidas官方旗舰店","src":"images/adidas.png","tip":"adidas 阿迪达斯 篮球 男子 篮球鞋 Regulate",
+    "srcTip1":"images/bankCard.png","srcTip2":"images/sevenDay.png","srctip3":"images/guarantee.png",
+    "type":"颜色分类：银金属/深藏青蓝/红色","size":"鞋码：43.5","priceLast":"","priceNow":"419.00","extra":""},
+
+  {"shop":"NIKE官方旗舰店","src":"images/nike.png","tip":"Nike 耐克官方 ZOOM KOBE VENOMENON 5 EP 男子篮球鞋",
+    "srcTip1":"images/bankCard.png","srcTip2":"images/sevenDay.png","srctip3":"images/guarantee.png",
+    "type":"颜色分类：氯蓝/鲜红橙/煤黑/白/冷灰黑","size":"鞋码：42.5","priceLast":"","priceNow":"949.00","extra":""},
+
+  {"shop":"zsuo走索旗舰店","src":"images/xuezi.png","tip":"Z．Suo/走索男鞋马丁靴男秋冬户外靴子沙漠靴男军靴皮靴情侣款潮",
+    "srcTip1":"images/bankCard.png","srcTip2":"images/sevenDay.png","srctip3":"images/guarantee.png",
+    "type":"颜色分类：ZS988H黑色","size":"尺码：42","priceLast":"￥452.00","priceNow":"339.00","extra":"卖家促销"},
+
+  {"shop":"张君雅小妹妹旗舰","src":"images/zhangjunyameimei.png","tip":"台湾进口零食张君雅小妹妹12包零食组合甜甜圈捏脆面点心面礼包",
+    "srcTip1":"images/bankCard.png","srcTip2":"images/sevenDay.png","srctip3":"images/guarantee.png",
+    "type":"口味：12包零食组合","size":"","priceLast":"￥79.00","priceNow":"39.00","extra":"卖家促销"}
+]

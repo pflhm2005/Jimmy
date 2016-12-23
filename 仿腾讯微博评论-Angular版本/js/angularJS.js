@@ -81,7 +81,6 @@
         $scope.select=function (index){
             $scope.active=index;
         };
-
         //最大输入数字
         var max=$scope.max_input=10;
         $scope.eq={num:"",n:max};

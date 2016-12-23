@@ -1,0 +1,49 @@
+<ul ng-repeat="item in data">
+    <li ng-hide="obj.jimmy[$index]">成功删除 1 件宝贝，可 <a ng-click="show($index)" href="#">撤销本次删除</a></li>
+    <li ng-show="obj.jimmy[$index]" ng-init="obj.jimmy[$index]=true">
+        <ul class="shop">
+            <li><input type="checkbox" ng-change="sum($index)" ng-model="obj.sum[$index]" id="shop"/><label for="shop">店铺:</label></li>
+            <li>{{item.shop}}</li>
+        </ul>
+    </li>
+    <li ng-show="obj.jimmy[$index]">
+        <div class="c">
+            <ul>
+                <li><input ng-change="sum($index)" ng-model="obj.sum[$index]" ng-init="obj.sum[$index]=false" type="checkbox" id="shop{{i}}"/></li>
+                <!-- 务必使用ng-src代替src属性 否则会在表达式生效前请求出现404error-->
+                <li><a href="#"><img ng-src={{item.src}}/></a></li>
+                <li class="c-tip">
+                    <ul>
+                        <li><a href="#">{{item.tip}}</a></li>
+                        <li class="c-icon">
+                            <a href="#"><img ng-src={{item.srcTip1}}/></a>
+                            <a href="#"><img ng-src={{item.srcTip2}}/></a>
+                            <a href="#"><img ng-src={{item.srctip3}}/></a>
+                        </li>
+                    </ul>
+                </li>
+                <li class="c-type">
+                    <ul>
+                        <li>{{item.type}}</li>
+                        <li>{{item.size}}</li>
+                    </ul>
+                </li>
+                <li class="c-price">
+                    <ul>
+                        <li class="c-price-last">{{item.priceLast}}</li>
+                        <li class="c-price-now fb">￥{{obj.price[$index]=item.priceNow}}</li>
+                        <li class="c-price-tip red"><span>{{item.extra}}</span></li>
+                    </ul>
+                </li>
+                <li class="c-count">
+                    <button ng-click="sub($index)">-</button>
+                    <input type="text" ng-change="count($index)" ng-init="obj.num[$index]=1" ng-model="obj.num[$index]" name="num"/>
+                    <button ng-click="add($index)">+</button>
+                    <div class="tip">请输入0-574的正整数</div>
+                </li>
+                <li class="c-total red fb" ng-init="obj.total[$index]=item.priceNow">￥{{obj.total[$index]|number:2}}</li>
+                <li><a href="#" ng-click="del($index)">删除</a></li>
+            </ul>
+        </div>
+    </li>
+</ul>
