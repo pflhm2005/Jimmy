@@ -7,7 +7,6 @@ $(function (){
 	            var list=template('content',html);
 	            $('.box').append(list);
 	            go();
-	            init();
             }
         })
     })();
@@ -143,17 +142,19 @@ $(function (){
 
 		//删除事件
 		$('a.delete').on('click',function (e){
-			console.log(objCount);
 			e.preventDefault();
 			--objCount;
 			var ul=$(this).parent().parent().parent().parent().parent(),
 				num=ul.prev().find('i').html();
+			if(obj1[num].checked){
+				obj1[num].click();
+				count();
+			}
 			$("ul.content").eq(num).css("display","none");
 			$("ul.delete").eq(num).css("display","block");
 			$('.tab-all').html(objCount);
 		});
 		$('a.cancel').on('click',function (e){
-			console.log(objCount);
 			e.preventDefault();
 		    var num=$(this).prev().html();
 			$("ul.content").eq(num).css("display","block");

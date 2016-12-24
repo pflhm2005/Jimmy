@@ -90,7 +90,7 @@
         $scope.count=function (){
             //完美解决 老子真是日了狗啊
             if(form.content.value.length==0){
-                $scope.eq.n=10;
+                $scope.eq.n=$scope.max_input;
             }else{
                 $scope.eq.num=$scope.eq.num.length>max?$scope.eq.num.substr(0,max):$scope.eq.num;
                 $scope.eq.n=max-$scope.eq.num.length;

@@ -150,10 +150,11 @@ header{
                 background: #aaa;
                 color:white;
                 padding:1px 15px;
-                cursor:not-allowed;
             }
-            >button.on{
-                cursor: pointer;
+            >button:hover{
+                color:white;
+            }
+            >button.btn{
                 background: #ff4400;
             }
             >button:focus{
@@ -223,10 +224,16 @@ header{
                 >.c{
                     border:1px solid #ccc;
                     height: 130px;
+                    >ul.on{
+                        background: #fff8e1;
+                    }
                     >ul{
                         padding:20px 20px 30px;
                         height: 100%;
                         background: #fcfcfc;
+                        >li:first-child{
+                            padding-left: 0;
+                        }
                         >li{
                             padding:0 10px;
                             float: left;
@@ -234,9 +241,6 @@ header{
                                 color:red;
                                 text-decoration: underline;
                             }
-                        }
-                        >li:first-child{
-                            padding-left: 0;
                         }
                         >li.c-tip{
                             padding-left: 5px;
@@ -339,14 +343,15 @@ footer{
             >button{
                 height: 100%;
                 background: #aaa;
-                cursor: not-allowed;
                 border:0;
                 width: 100px;
                 color:white;
                 font-size: 20px;
             }
-            >button.on{
-                cursor: pointer;
+            >button:hover{
+                color:white;
+            }
+            >button.btn{
                 background: #ff4400;
             }
             >button:focus{

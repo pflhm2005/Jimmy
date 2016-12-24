@@ -2,7 +2,7 @@
  * Created by Administrator on 2016/12/13.
  */
 $(function (){
-    //Í¬²½¼ÓÔØÍ¼Æ¬
+    //Í¬ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½Í¼Æ¬
     $.ajax({
         url:'text.json',
         async:false,
@@ -22,37 +22,37 @@ $(function (){
         startX= 0,
         endX=0;
 
-    //³õÊ¼»¯
+    //ï¿½ï¿½Ê¼ï¿½ï¿½
     $('.pic img').eq(0).css("opacity",1);
-    //×óÓÒ°´Å¥¸¡ÏÖ
+    //ï¿½ï¿½ï¿½Ò°ï¿½Å¥ï¿½ï¿½ï¿½ï¿½
     $('.slide').hover(function (){
-        $('.btn_l').animate({'left':0},500);
-        $('.btn_r').animate({'right':0},500);
+        $('.btn_l').stop().animate({'left':0},500);
+        $('.btn_r').stop().animate({'right':0},500);
     },function (){
-        $('.btn_l').animate({'left':"-20px"},500);
-        $('.btn_r').animate({'right':"-20px"},500);
+        $('.btn_l').stop().animate({'left':"-20px"},500);
+        $('.btn_r').stop().animate({'right':"-20px"},500);
     });
-    //Ç°Ò»ÕÅ
+    //Ç°Ò»ï¿½ï¿½
     function next(){
         if(num==0){num=max_num;}
         else{num--;}
         huan();
     }
-    //ºóÒ»ÕÅ
+    //ï¿½ï¿½Ò»ï¿½ï¿½
     function prev(){
         if(num==max_num){num=0;}
         else{num++;}
         huan();
     }
-    //×óÓÒ°´Å¥µã»÷
+    //ï¿½ï¿½ï¿½Ò°ï¿½Å¥ï¿½ï¿½ï¿½
     $('.btn_l').click(function (){next();});
     $('.btn_r').click(function (){prev();});
-    //Í¼Æ¬µã»÷
+    //Í¼Æ¬ï¿½ï¿½ï¿½
     $('li').click(function (){
         num=$(this).html();
         huan();
     });
-    //Í¼Æ¬¸ü»»
+    //Í¼Æ¬ï¿½ï¿½ï¿½ï¿½
     function huan(){
         $('.pic img').eq(lastnum).stop().animate({"opacity":0},500).
             css("z-index",1).end().eq(num).css("z-index",9).stop().animate({"opacity":1},500);
@@ -67,7 +67,7 @@ $(function (){
         }
         lastnum=num;
     }
-    //Ð¡Í¼ÍÏ¶¯
+    //Ð¡Í¼ï¿½Ï¶ï¿½
     slide.on('touchstart',function (e){
         startX= e.originalEvent.touches[0].clientX;
     });

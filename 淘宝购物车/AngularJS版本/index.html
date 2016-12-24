@@ -77,15 +77,33 @@
     <!-- 分页与结算-->
     <div class="tab bx clearfix">
         <ul class="tab-l fl">
-            <li><a href="#">全部商品<span class="tab-all" ng-init="all=7">{{all}}</span></a></li>
-            <li><a href="#">降价商品<span class="tab-sale">0</span></a></li>
-            <li><a href="#">库存紧张<span>0</span></a></li>
+            <li>
+                <a href="#">全部商品
+                    <span class="tab-all" ng-init="all=7">{{all}}</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">降价商品
+                    <span class="tab-sale">0</span>
+                </a>
+            </li>
+            <li>
+                <a href="#">库存紧张
+                    <span>0</span>
+                </a>
+            </li>
             <div></div>
         </ul>
         <ul class="tab-r fr">
             <li>已选商品（不含运费）</li>
             <li id="total" class="red">￥{{obj.all|number:2}}</li>
-            <li><button id="submit">结算</button></li>
+            <li>
+                <!-- 头部结算按钮-->
+                <button id="submit"
+                        ng-class="{btn:!obj.accounts}"
+                        ng-disabled="obj.accounts">结算
+                </button>
+            </li>
         </ul>
     </div>
     <!-- 商品-->
@@ -93,7 +111,11 @@
         <div class="content-head">
             <ul class="fl">
                 <li>
-                    <input type="checkbox" ng-model="sAll" ng-init="false" ng-change="selectAll()" id="all"/>
+                    <!-- 头部全选按钮-->
+                    <input type="checkbox"
+                           ng-model="sAll"
+                           ng-init="false"
+                           ng-change="selectAll()" id="all"/>
                     <label for="all">全选</label>
                 </li>
                 <li>商品信息</li>
@@ -106,6 +128,7 @@
             </ul>
         </div>
         <div class="box">
+            <!-- 商品条目-->
             <content></content>
         </div>
     </div>
@@ -113,7 +136,11 @@
     <footer class="foot">
         <ul class="foot-l fl">
             <li>
-                <input type="checkbox"  ng-model="sAll" ng-change="selectAll()" id="all2"/>
+                <!-- 底部全选按钮-->
+                <input type="checkbox"
+                       ng-model="sAll"
+                       ng-change="selectAll()"
+                       id="all2"/>
                 <label for="all2">全选</label>
             </li>
             <li><a href="#">删除</a></li>
@@ -121,9 +148,22 @@
             <li><a href="#">分享</a></li>
         </ul>
         <ul class="foot-r fr">
-            <li class="f-count">已选商品<span class="red" ng-init="selected=0">{{selected}}</span>件</li>
-            <li class="f-total">合计（不含运费）：<span class="red" id="f-total">￥{{obj.all|number:2}}</span></li>
-            <li><button id="f-submit" class="fb">结算</button></li>
+            <!-- 已选中商品-->
+            <li class="f-count">已选商品
+                <span class="red" ng-init="selected=0">{{selected}}</span>件
+            </li>
+            <!-- 底部总价-->
+            <li class="f-total">合计（不含运费）：
+                <span class="red" id="f-total">￥{{obj.all|number:2}}</span>
+            </li>
+            <li>
+                <!-- 底部结算按钮-->
+                <button id="f-submit"
+                        ng-class="{btn:!obj.accounts}"
+                        ng-disabled="obj.accounts"
+                        class="fb">结算
+                </button>
+            </li>
         </ul>
     </footer>
     <script src="lib/js/angular.min.js"></script>
