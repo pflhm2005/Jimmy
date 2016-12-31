@@ -39,16 +39,20 @@
 				    $scope.obj.arr[i]=Number($scope.obj.total[i]);
 			    }
 		    }
-			//计算总价
 			$scope.obj.all=$scope.obj.arr.reduce(function (prev,curr){
 			    return prev+curr;
 			})
 		}
 
+		//计算单价
+		function countPrice(index){
+			$scope.obj.total[index]=$scope.obj.num[index]*$scope.obj.price[index];
+		}
+
 		//加减按钮点击
 		$scope.add=function (index){
 		    ++$scope.obj.num[index];
-			$scope.obj.total[index]=$scope.obj.num[index]*$scope.obj.price[index];
+			countPrice(index);
 			countAll();
 		};
 		$scope.sub=function (index){
@@ -57,7 +61,7 @@
 		    }
 			else{
 			    --$scope.obj.num[index];
-			    $scope.obj.total[index]=$scope.obj.num[index]*$scope.obj.price[index];
+			    countPrice(index);
 			    countAll();
 		    }
 		};
@@ -68,7 +72,7 @@
 			if(isNaN($scope.obj.num[index])||$scope.obj.num[index]>500){
 				$scope.obj.num[index]=1;
 			}
-			$scope.obj.total[index]=$scope.obj.num[index]*$scope.obj.price[index];
+			countPrice(index);
 			countAll();
 		};
 
