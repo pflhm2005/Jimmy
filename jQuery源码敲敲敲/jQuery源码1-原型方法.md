@@ -2,7 +2,7 @@
 
 
 
-- ##### 类数组判断：isArrayLike
+#### 类数组判断：isArrayLike
 
 ```javascript
 //这个方法很好骗 不过也还好
@@ -28,7 +28,7 @@ function isArrayLike(obj){
 
 
 
-- ##### 自定义的变量
+#### 自定义的变量
 
 ```javascript
 var arr=[];	//空数组对象
@@ -77,8 +77,7 @@ function DOMEval(code,doc){
 
 
 
-- ##### 正则表达式
-
+#### 正则表达式
 
 
 ```javascript
@@ -97,7 +96,7 @@ var fcamelCase = function(all,letter){
 
 
 
-- ##### 原型方法
+#### 原型方法
 
 ```javascript
 jQuery.fn = jQuery.prototype = {
@@ -152,7 +151,7 @@ jQuery.fn = jQuery.prototype = {
 
 
 
-- ##### jQuery扩展：extend()方法
+#### jQuery扩展：extend()方法
 
 ```javascript
 //合并对象 接受2-n个参数 (布尔值,合并对象1,...)
@@ -223,8 +222,7 @@ jQuery.extend = jQuery.fn.extend = function(){
 
 
 
-- ##### jQuery.extend方法 可通过$.调用
-
+#### jQuery.extend方法
 
 
 ```javascript

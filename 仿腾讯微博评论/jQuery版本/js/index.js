@@ -1,5 +1,4 @@
 $(function (){
-    //��̬����ͼƬ
     (function init(){
     $.ajax({
         url:'text.json',
@@ -12,7 +11,8 @@ $(function (){
             html={list:obj[1]};
             list=template('comment',html);
             $('.comment').append(list);
-            $('.pic>li').eq(0).addClass('on');
+            $('.pic>li').eq(0).css({opacity: 1,outline:"1px solid orange"});
+//            $('.pic>li').eq(0).addClass('on');
             var config={
                 num:0,
                 lastnum:0
@@ -69,7 +69,7 @@ $(function (){
             day= _.getDate()<10?"0"+_.getDate(): _.getDate(),
             hour= _.getHours()<10?"0"+(_.getHours()): _.getHours(),
             min=  _.getMinutes()<10?"0"+ _.getMinutes():  _.getMinutes();
-        return month+"��"+day +"�� "+ hour+":"+ min;
+        return month+"月"+day +"日 "+ hour+":"+ min;
     }
 
 
