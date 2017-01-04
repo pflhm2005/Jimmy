@@ -131,19 +131,24 @@ var whitespace = /\x20\t\r\n\f/,
 #### Sizzle主函数
 
 ```javascript
-//selector:css选择器 context:上下文 results:结果集 seed:筛选集
+//selector:css选择器 context:上下文或document results:结果 seed:初始集合
+//主函数优先调用浏览器默认解析方法 否则返回select方法继续解析
 function Sizzle( selector, context, results, seed){
   var m, i, elem, nid, match, groups, newSelector,
       newContext = context && context.ownerDocument,
       nodeType = context ? context.nodeType : 9;
+  
+  //初始化结果集
   results = results || [];
-  //节点类型 1:元素Elem 9:文档Doc 11:属性Attr
+  
+  //如果CSS选择器是非法字符 直接返回结果
   if( typeof selector !== "string" || 
      !selector || nodeType !== 1 && 
      nodeType !==9 && nodeType !== 11){
     return results;
   }
-  //seed是参数
+  
+  //seed是啥参数啊...
   if( !seed ){
     if( (context ? context.ownerDocument || 
          context : preferredDoc ) !== document ){
@@ -154,7 +159,6 @@ function Sizzle( selector, context, results, seed){
   }
   //documentIsHTML = !isXML(document)
   if( documentIsHTML ){
-    //节点类型不是属性
     //requickExpr为快速匹配ID/CLASS/TAG选择器的正则
     ///^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/
     //1：ID 2：TAG 3：CLASS
@@ -175,6 +179,7 @@ function Sizzle( selector, context, results, seed){
             }
           }
         }
+        //如果传入的context不是document
         else{
           if( newContext && 
              ( elem = newContext.getElementById( m )) && 
@@ -195,6 +200,7 @@ function Sizzle( selector, context, results, seed){
         return results;
       }
     }
+    //如果支持高级查询querySelectorAll
     if( support.qsa && 
        !compilerCache[ selector + " " ] && 
        (!rbuggQSA || !rbuggyQSA.test( selector )) ){
@@ -209,7 +215,6 @@ function Sizzle( selector, context, results, seed){
         else{
           context.setAttribute("id", (nid = expando));
         }
-        //tokenize也不知道哪定义的 见上面
         groups = tokenize( selector );
         i = groups.length;
         while( i-- ){
@@ -234,7 +239,9 @@ function Sizzle( selector, context, results, seed){
         }
       }
     }
-  }
+  }--!seed
+  //原生方法搞不定 进入select函数
+  //正则替换(" div ") --> ("$1div$1")
   return select( selector.replace( rtrim, "$1" ), context, results, seed );
 }
 ```

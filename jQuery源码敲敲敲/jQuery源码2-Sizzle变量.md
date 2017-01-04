@@ -792,15 +792,18 @@ var push_native = arr.push;
 ```javascript
 var select = Sizzle.select = function(selector,context,results,seed){
   var i,tokens,token,type,find,
-      compile = typeof selector === "function" && selector,
-      match = !seed && tokenize((selector = compile.selector || selector));
+      //如果selector是function类型 compiled = selector
+      compiled = typeof selector === "function" && selector,
+      //如果没有提供seed 调用tokenize(selector)
+      match = !seed && tokenize((selector = compiled.selector || selector));
+  
   results = results || [];
-  //最好情况计算
+  //selector只有一个分组(没有逗号)
   if(match.length === 1){
     tokens = match[0] = match[0].slice(0);
     if(tokens.length > 2 && (token = token[0]).type === "ID" && 
       	context.nodeType === 9 && documentIsHTML && 
-      	Expr.relative[tokens[i].type]){
+      	Expr.relative[tokens[1].type]){
       context = (Expr.find["ID"]
                    (token.match[0].replace(runescape,funescape),context) || [])[0];
       if(!context){
@@ -1088,6 +1091,7 @@ var support;	//测试兼容的类
 ##### tokenCache
 
 ```javascript
+//选择器缓存
 var tokenCache = createCache();
 ```
 
@@ -1098,7 +1102,7 @@ var tokenize = Sizzle.tokenize = function(selector,parseOnly){
   var matched,match,tokens,type,
       soFar,groups,preFilters,
       cached = tokenCache[selector + " "];
-  //是否有缓存
+  //有缓存直接返回
   if(cached){
     return parseOnly ? 0 : cached.slice(0);
   }
@@ -1106,10 +1110,11 @@ var tokenize = Sizzle.tokenize = function(selector,parseOnly){
   soFar = selector;
   groups = [];
   preFilters = Expr.preFilter;
-  
+  //如果soFar还有内容 
   while(soFar){
-    //rcomma = /^,*/;
-    //!matched检测是否第一次运行
+    //rcomma = /^,*/
+    //!matched检测是否第一次运行或者还没有等待解析的字符串
+    //如果选择器为"p,span" 解析完变成",span"
     if(!matched || (match = rcomma.exec(soFar))){
       if(match){
         soFar = soFar.slice(match[0].length) || soFar;
