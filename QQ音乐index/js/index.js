@@ -2,6 +2,7 @@ $(function (){
 
     console.clear();
 
+
     //搜索框
     (function (){
         var input = $('.sear-input'),
@@ -24,6 +25,7 @@ $(function (){
 
         //搜索栏添加
         add.click(function (e){
+            console.log(e.__proto__);
             var res = input.val(),
                 len = arr.length;
             e.preventDefault();
@@ -65,13 +67,14 @@ $(function (){
             for(var i= 0,len=arr.length;i<len;i++){
                 pic.eq(i).append(arr[i]);
             }
-            change();
+            tab();
             mask();
+            btn();
         }
     });
 
     //切换分类
-    function change(){
+    function tab(){
         var tab = $('.tab>li'),
             pic = $('.pic'),
             num = 0,
@@ -87,7 +90,7 @@ $(function (){
     }
 
     //左右按钮hover,click和二级变色
-    (function btn(){
+    function btn(){
         var btn_l = $('.btn_l'),
             btn_r = $('.btn_r'),
             slide = $('#slide'),
@@ -119,6 +122,10 @@ $(function (){
             }
         })
 
+        function change(obj){
+            pic.animate({left:obj.num*(-1200)},500);
+        }
+
         //左右按钮click
         btn_r.click(function (){
             //防止多次点击的BUG
@@ -128,11 +135,10 @@ $(function (){
             }
             next(btn_a,obj);
             if(pic.css("left") == "-3600px"){
-                pic.css("left",0).animate({left:"-="+1200},500);
+                pic.css("left",0);
             }
-            else{
-                pic.animate({left:"-="+1200},500);
-            }
+            pic.animate({left:"-="+1200},500);
+            console.log(pic.css("left"));
         });
         btn_l.click(function (){
             if(pic.is(":animated")){
@@ -140,12 +146,11 @@ $(function (){
             }
             prev(btn_a,obj);
             if(pic.css("left") == "0px"){
-                pic.css("left",-3600).animate({left:"+="+1200},500);
+                pic.css("left",-3600);
             }
-            else{
-                pic.animate({left:"+="+1200},500);
-            }
+            pic.animate({left:"+="+1200},500);
         })
+
         //下方横条click
         btn.click(function (){
             obj.num = Number(this.innerText)-1;
@@ -153,8 +158,9 @@ $(function (){
             btn_a.eq(obj.lastnum).removeClass("on");
             btn_a.eq(obj.num).addClass("on");
             obj.lastnum = obj.num;
+            console.log(obj.num);
         });
-    })();
+    };
 
     //左右按钮触发的横条变色
     function next(btn_a,obj){

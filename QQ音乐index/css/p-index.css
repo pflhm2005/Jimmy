@@ -1,0 +1,358 @@
+header {
+  border-bottom: 1px solid #f2f2f2;
+  position: relative;
+  height: 90px;
+  line-height: 90px;
+}
+header > h1 {
+  margin-right: 30px;
+  float: left;
+}
+header > h1 > a > img {
+  margin: 19px 0;
+}
+header > .h-ul1 > li {
+  float: left;
+  padding: 0 20px;
+  text-align: center;
+  font-size: 18px;
+}
+header > .h-ul1 > li > a {
+  display: block;
+  line-height: 90px;
+  height: 90px;
+  color: #333;
+}
+header > .h-ul1 > li a:hover {
+  color: #31c27c;
+}
+header > .h-ul1 > li.on {
+  background: #31c27c;
+}
+header > .h-ul1 > li.on > a {
+  color: white;
+}
+header > form {
+  position: relative;
+  margin-right: 30px;
+  float: left;
+  font-size: 14px;
+}
+header > form > .sear {
+  display: none;
+  position: absolute;
+  top: 64px;
+  left: 20px;
+  background: #FFF;
+  width: 237px;
+  border: 1px solid #c9c9c9;
+  z-index: 8;
+  text-align: left;
+  font-size: 14px;
+  line-height: 36px;
+}
+header > form > .sear > li {
+  padding: 0 10px;
+}
+header > form > .sear > li > span:first-child {
+  color: red;
+  padding: 0 10px;
+}
+header > form > .sear > li > span:last-child {
+  opacity: .5;
+  float: right;
+}
+header > form > .sear > li:last-child {
+  opacity: .5;
+}
+header > form > .sear > li:last-child > span {
+  cursor: pointer;
+  opacity: 1;
+  float: right;
+}
+header > form > input {
+  padding-left: 15px;
+  padding-right: 33px;
+  border: 1px solid #c9c9c9;
+  width: 189px;
+  height: 36px;
+  margin-left: 20px;
+}
+header > form > input:focus {
+  outline: none;
+}
+header > form > button {
+  top: 27px;
+  right: 0px;
+  position: absolute;
+  margin-left: -3px;
+  background: #fff;
+  outline: 0;
+  border: 1px solid #c9c9c9;
+  border-left: 0;
+  height: 38px;
+  width: 38px;
+  cursor: pointer;
+}
+header > form > button:hover {
+  background: #31c27c;
+}
+header .h-ul2 {
+  line-height: 90px;
+  position: relative;
+}
+header .h-ul2 > li {
+  float: left;
+}
+header .h-ul2 > .h-reg {
+  font-size: 16px;
+}
+header .h-ul2 > .h-reg > a {
+  display: block;
+  color: #333;
+}
+header .h-ul2 > .h-reg a:hover {
+  color: #31c27c;
+}
+header .h-ul2 > .h-gre,
+header .h-ul2 .h-pay {
+  position: absolute;
+  top: 25px;
+  border-radius: 5px;
+  line-height: 38px;
+  font-size: 13px;
+  height: 38px;
+  padding: 0 11px;
+}
+header .h-ul2 > .h-gre {
+  right: 100px;
+  margin-left: 20px;
+  margin-right: 10px;
+  background: #31c27c;
+}
+header .h-ul2 > .h-gre > a {
+  color: #fff;
+}
+header .h-ul2 > .h-gre:hover {
+  background: #2caf6f;
+}
+header .h-ul2 > .h-pay {
+  right: 0;
+  border: 1px solid #c9c9c9;
+}
+header .h-ul2 > .h-pay > a {
+  color: #333;
+}
+header .h-ul2 > .h-pay:hover {
+  background: #ededed;
+}
+nav > ul {
+  font-size: 15px;
+  height: 52px;
+  line-height: 52px ;
+}
+nav > ul > li {
+  float: left;
+  margin-right: 56px;
+}
+nav > ul > li > a {
+  color: #333;
+}
+nav > ul > li > a:hover {
+  color: #31c27c;
+}
+nav > ul > li:first-child {
+  margin-left: 30px;
+}
+nav > ul > li.on > a {
+  color: #31c27c;
+}
+#slide {
+  overflow: hidden;
+  position: relative;
+  border: 1px solid transparent;
+  height: 734px;
+  background: url("../images/bg_index_new.jpg") repeat 130px;
+}
+#slide > h2 {
+  background: url("../images/index_tit@2x.png") no-repeat 0 80px;
+  width: 193px;
+  height: 48px;
+  background-size: cover;
+  padding-top: 80px;
+  margin: 0 auto;
+}
+#slide > .btn_l,
+#slide .btn_r {
+  transition: all ease .5s;
+  z-index: 5;
+  color: white;
+  font-size: 30px;
+  position: absolute;
+  width: 70px;
+  height: 108px;
+  top: 314px;
+  background: rgba(153, 153, 153, 0.4);
+  border: 0;
+  outline: 0;
+}
+#slide > .btn_l {
+  left: -70px;
+}
+#slide > .btn_r {
+  right: -70px;
+}
+#slide > .tab {
+  margin-left: 400px;
+  margin-top: 50px;
+  height: 50px;
+  font-size: 16px;
+}
+#slide > .tab > li {
+  width: 32px;
+  height: 24px;
+  margin: 0 35px;
+  float: left;
+  opacity: .5;
+}
+#slide > .tab > li > a {
+  cursor: pointer;
+  color: white;
+}
+#slide > .tab > li:hover {
+  opacity: 1;
+}
+#slide > .tab > li.on {
+  opacity: 1;
+}
+#slide > .tab > li:last-child {
+  width: 50px;
+  opacity: 1;
+  margin-right: 100px;
+  float: right;
+}
+#slide > #pic {
+  height: 415px;
+  overflow: hidden;
+}
+#slide > #pic > ul.on {
+  display: block;
+}
+#slide > #pic > ul {
+  display: none;
+  left: 0px;
+  position: relative;
+  width: 6000px;
+  height: 100%;
+}
+#slide > #pic > ul > li {
+  background: rgba(0, 0, 0, 0.8);
+  text-align: center;
+  height: 100%;
+  float: left;
+  position: relative;
+}
+#slide > #pic > ul > li > .img {
+  width: 300px;
+  height: 300px;
+  overflow: hidden;
+}
+#slide > #pic > ul > li > .img > img {
+  transition: all ease .3s;
+}
+#slide > #pic > ul > li > .cover {
+  z-index: 1;
+  display: none;
+  background: rgba(0, 0, 0, 0.2);
+  height: 300px;
+  width: 300px;
+  left: 0;
+  position: absolute;
+}
+#slide > #pic > ul > li > .cover > .go {
+  transition: all ease 1s;
+  display: block;
+  margin: 125px auto;
+  width: 50px;
+  height: 50px;
+  background: url("../images/cover_play.png");
+  background-size: cover;
+}
+#slide > #pic > ul > li > .p {
+  padding: 32px 0;
+  position: relative;
+  font-size: 16px;
+}
+#slide > #pic > ul > li > .p > .p1 {
+  color: white;
+}
+#slide > #pic > ul > li > .p > .p2 {
+  margin-top: 10px;
+  color: #999;
+}
+#slide > #pic > ul > li:hover {
+  background: #31c27c;
+}
+#slide > #pic > ul > li:hover > div > .p2 {
+  color: #c1e9d5;
+}
+#slide > .btn {
+  z-index: 5;
+  position: absolute;
+  bottom: 40px;
+  left: 610px;
+}
+#slide > .btn > li {
+  cursor: pointer;
+  margin: 0 5px;
+  float: left;
+  text-indent: -999px;
+  padding-bottom: 10px;
+  width: 30px;
+}
+#slide > .btn > li > a {
+  display: block;
+  background-color: rgba(255, 255, 255, 0.3);
+  height: 1px;
+}
+#slide > .btn > li > a.on {
+  background: #fff;
+}
+.fix {
+  position: fixed;
+  right: 40px;
+  bottom: 40px;
+  z-index: 20;
+}
+.fix > li {
+  cursor: pointer;
+  width: 50px;
+  height: 50px;
+  margin: 1px 0;
+}
+.fix > li > span {
+  color: white;
+  display: block;
+  text-align: center;
+  height: 100%;
+  background: url("../images/icon_sprite.png") no-repeat;
+  box-sizing: border-box;
+}
+.fix > li > .f1 {
+  display: none;
+  background-position: 0 -120px;
+}
+.fix > li > .f2 {
+  padding: 10px;
+  background-position: -100px -120px;
+}
+.fix > li > .f3 {
+  line-height: 50px;
+  background-position: -150px -280px;
+}
+.fix > li > span.on {
+  background: #31c27c;
+}
+.fix > li.on {
+  background: #31c27c;
+}
