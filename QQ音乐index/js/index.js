@@ -2,6 +2,75 @@ $(function (){
 
     console.clear();
 
+    var arrr = [
+        [
+            {"src":"qb1","title":"遇见爱情的利先生 电视剧原声带…","name":"华语群星"},
+            {"src":"qb2","title":"我可以","name":"王野"},
+            {"src":"qb3","title":"WINTER","name":"악동뮤지션"},
+            {"src":"qb4","title":"嘿嘿嘿","name":"费玉清"},
+            {"src":"qb5","title":"过去了","name":"黄渤"},
+            {"src":"qb6","title":"화랑 OST Part. 4","name":"웬디"},
+            {"src":"qb7","title":"낭만닥터 김사부 OST Part.5","name":"이석훈"},
+            {"src":"qb8","title":"다시, 첫사랑 OST Part.1","name":"김그림"},
+            {"src":"qb9","title":"原宿いやほい","name":"きゃりーぱみゅぱみゅ"},
+            {"src":"qb10","title":"Queen Elizabeth (Remixes)","name":"Cheat Codes"},
+            {"src":"qb11","title":"e of s","name":"澤野弘之"},
+            {"src":"qb12","title":"What Do You Love (Hook N Sling Remix)","name":"Seeb"},
+            {"src":"qb1","title":"遇见爱情的利先生 电视剧原声带…","name":"华语群星"},
+            {"src":"qb2","title":"我可以","name":"王野"},
+            {"src":"qb3","title":"WINTER","name":"악동뮤지션"},
+            {"src":"qb4","title":"嘿嘿嘿","name":"费玉清"}
+        ],
+        [
+            {"src":"hy9","title":"多瑙河畔","name":"沙宝亮"},
+            {"src":"hy10","title":"'17聚幸福'江苏卫视2017跨年晚…","name":"华语群星"},
+            {"src":"hy11","title":"我赖你","name":"苏打绿"},
+            {"src":"hy12","title":"爱在当下","name":"邰正宵"},
+            {"src":"qb1","title":"遇见爱情的利先生 电视剧原声带…","name":"华语群星"},
+            {"src":"qb2","title":"我可以","name":"王野"},
+            {"src":"qb4","title":"嘿嘿嘿","name":"费玉清"},
+            {"src":"qb5","title":"过去了","name":"黄渤"},
+            {"src":"hy5","title":"一枝孤芳","name":"钟汉良"},
+            {"src":"hy6","title":"New Day","name":"黄子韬"},
+            {"src":"hy7","title":"2016安徽卫视国剧盛典","name":"华语群星"},
+            {"src":"hy8","title":"梦想的声音 第10期","name":"梦想的声音"},
+            {"src":"hy9","title":"多瑙河畔","name":"沙宝亮"},
+            {"src":"hy10","title":"'17聚幸福'江苏卫视2017跨年晚…","name":"华语群星"},
+            {"src":"hy11","title":"我赖你","name":"苏打绿"},
+            {"src":"hy12","title":"爱在当下","name":"邰正宵"}
+        ]
+    ];
+
+//    $.ajax({
+//        url:'qb.json',
+//        success: function (data){
+//            var arr=[];
+//            var html = [{list:data[0]},{list:data[1]}];
+//            //分页数据
+//            arr.push(template('qb',html[0]),template('qb',html[1]));
+//            var pic = $('.pic');
+//            for(var i= 0,len=arr.length;i<len;i++){
+//                pic.eq(i).append(arr[i]);
+//            }
+//            tab();
+//            mask();
+//            btn();
+//        }
+//    });
+
+    (function init(){
+        var arr=[];
+        var html = [{list:arrr[0]},{list:arrr[1]}];
+        //分页数据
+        arr.push(template('qb',html[0]),template('qb',html[1]));
+        var pic = $('.pic');
+        for(var i= 0,len=arr.length;i<len;i++){
+            pic.eq(i).append(arr[i]);
+        }
+        tab();
+        mask();
+        btn();
+    })();
 
     //搜索框
     (function (){
@@ -51,27 +120,15 @@ $(function (){
             arr[len].value.insertBefore(last);
         })
         $('.delete').click(function (){
+            if(arr.length ==0){
+                return ;
+            }
             arr.pop();
             $('.sear>li').eq(arr.length+5).remove();
         })
     })();
 
-    $.ajax({
-        url:'qb.json',
-        success: function (data){
-            var arr=[];
-            var html = [{list:data[0]},{list:data[1]}];
-            //分页数据
-            arr.push(template('qb',html[0]),template('qb',html[1]));
-            var pic = $('.pic');
-            for(var i= 0,len=arr.length;i<len;i++){
-                pic.eq(i).append(arr[i]);
-            }
-            tab();
-            mask();
-            btn();
-        }
-    });
+
 
     //切换分类
     function tab(){
