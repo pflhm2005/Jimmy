@@ -55,23 +55,32 @@ var whitespace = /\x20\t\r\n\f/,
     //这个正则匹配变量名
     //\0:The NUL character (\u0000)
     identifier = /(?:\.|[\w-]|[^\0-\xa0])+/,
-    //匹配属性
-    attributes = /"\[" + whitespace + "*(" + identifier + ")(?:" + whitespace + "*([*^$|!~]?=)" + thitespace + "*(?:'((?:\.|[^\'])*)'|"((?:\.|[^\"])*)"|(" + idextifier + "))\) + whitespace + "*\\]"/,
-    //伪类
-    pseudos = ":(" + identifier + ")(?:\\(((['\"])((?:\\\\.|[^\\\\])*?)\\3|((?:\\\\.|[^\\\\()[\\]]|" + attributes.replace( 3, 8 ) + ")*)|.*)\\)|)",
+    //匹配属性 
+    //正则写法
+    attributes = /^\[[\x20\t\r\n\f]*((?:\\.|[\w-]|[^-\xa0])+)(?:[\x20\t\r\n\f]*([*^$|!~]?=)[\x20\t\r\n\f]*(?:'((?:\\.|[^\\'])*)'|"((?:\\.|[^\\"])*)"|((?:\\.|[\w-]|[^-\xa0])+))|)[\x20\t\r\n\f]*\]/,
+    //原写法
+    attributes = "\\[" + whitespace + "*(" + identifier + ")(?:" + whitespace + "*([*^$|!~]?=)" + whitespace + "*(?:'((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\"|(" + identifier + "))|)" + whitespace + "*\\]",
+    //伪类 
+    //正则写法
+    pseudos = /:((?:\\.|[\w-]|[^-\xa0])+)(?:\((('((?:\\.|[^\\'])*)'|"((?:\\.|[^\\"])*)")|((?:\\.|[^\\()[\]]|\[[\x20\t\r\n\f]*((?:\\.|[\w-]|[^-\xa0])+)(?:[\x20\t\r\n\f]*([*^$|!~]?=)[\x20\t\r\n\f]*(?:'((?:\\.|[^\\'])*)'|"((?:\\.|[^\\"])*)"|((?:\\.|[\w-]|[^-\xa0])+))|)[\x20\t\r\n\f]*\])*)|.*)\)|)/,
+    //原写法
+    pseudos = ":(" + identifier + ")(?:\\((" + "('((?:\\\\.|[^\\\\'])*)'|\"((?:\\\\.|[^\\\\\"])*)\")|" + "((?:\\\\.|[^\\\\()[\\]]|" + attributes + ")*)|" + ".*" + ")\\)|)",
+    var rtrim = /^[\x20\t\r\n\f]+|((?:^|[^\\])(?:\\.)*)[\x20\t\r\n\f]+$/g,
+    //匹配关系符
+    rcombinators = /^[\x20\t\r\n\f]*([>+~]|[\x20\t\r\n\f])[\x20\t\r\n\f]*/,
     //正则集合 大概写写就行了
     //whitespace=空格
     //identifier=变量
     matchExpr = {
-      "ID": /^#(变量)/,				//ID 	  #* #slide	
-      "CLASS": /^\.(变量)/,			//CLASS   .*  .content
-      "TAG": /^(变量|[*])/,			//标签	(div),(span)
-      "ATTR": /^ + attributes/,	  //属性	   "href","src"
-      "PSEUDO": /^ +pseudos/,		  //伪元素	  :first
+      "ID": /^#((?:\\.|[\w-]|[^-\xa0])+)/,	//ID 	  #* #slide	
+      "CLASS": /^\.((?:\\.|[\w-]|[^-\xa0])+)/,	//CLASS   .*  .content
+      "TAG": /^((?:\\.|[\w-]|[^-\xa0])+|[*])/,	//标签	(div),(span)
+      "ATTR": /^attributes/,	  //属性	   "href","src"
+      "PSEUDO": /^pseudos/,		  //伪元素	  :first
       //子元素
-      "CHILD": /^:(only|first|last|nth|nth-last)-(child|of-type)(?:\(空格*(even|odd|(([+-]|)(\d*)n|)(空格)*(?:([+-]|)(空格).../,
+      "CHILD": /^:(only|first|last|nth|nth-last)-(child|of-type)(?:\([\x20\t\r\n\f]*(even|odd|(([+-]|)(\d*)n|)[\x20\t\r\n\f]*(?:([+-]|)[\x20\t\r\n\f]*(\d+)|))[\x20\t\r\n\f]*\)|)/i,
       "bool": /^(?:booleans)$,i/,	  //值为布尔的属性 例如checked
-      "needsContext": /.../		  //需要内容的属性
+      "needsContext": /^[\x20\t\r\n\f]*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\([\x20\t\r\n\f]*((?:-\d)?\d*)[\x20\t\r\n\f]*\)|)(?=[^-]|$)/i  //需要内容的属性
     },
     //input标签
     rinput = /^(?:input|select|textarea|button)$/i,
@@ -141,7 +150,7 @@ function Sizzle( selector, context, results, seed){
   //初始化结果集
   results = results || [];
   
-  //如果CSS选择器是非法字符 直接返回结果
+  //如果selector是非法字符 直接返回结果
   if( typeof selector !== "string" || 
      !selector || nodeType !== 1 && 
      nodeType !==9 && nodeType !== 11){
@@ -159,11 +168,11 @@ function Sizzle( selector, context, results, seed){
   }
   //documentIsHTML = !isXML(document)
   if( documentIsHTML ){
-    //requickExpr为快速匹配ID/CLASS/TAG选择器的正则
+    //requickExpr为快速匹配简单ID/CLASS/TAG选择器的正则
     ///^(?:#([\w-]+)|(\w+)|\.([\w-]+))$/
     //1：ID 2：TAG 3：CLASS
     if( nodeType !== 11 && (match = requickExpr.exec( selector )) ){
-      //匹配到#*
+      //匹配到#()*
       if( m = match[1] ){
         //节点类型为document对象
         if( nodeType === 9 ){
@@ -202,12 +211,15 @@ function Sizzle( selector, context, results, seed){
     }
     //如果支持高级查询querySelectorAll
     if( support.qsa && 
+       //且缓存中没有
        !compilerCache[ selector + " " ] && 
+       //rbuggQSA = /:enabled|:disabled/
        (!rbuggQSA || !rbuggyQSA.test( selector )) ){
       if( nodeType !==1 ){
         newContext = context;
         newSelector = selector;
       }
+      //上下文不是document的情况 没见过
       else if( context.nodeName.toLowerCase() !== "object" ){
         if( (nid = context.getAttribute("id")) ){
           nid = nid.replace( rcessescape, fcssescape );
@@ -228,10 +240,13 @@ function Sizzle( selector, context, results, seed){
       }
       if( newSelector ){
         try{
+          //这个方法好叼啊
           push.apply( results, newContext.querySelectorAll( newSelector ));
+          //返回jQuery对象
           return results;
         }
         catch( qsaError ){}
+        //这个是应付上面的else
         finally{
           if( nid === expando ){
             context.removeAttribute("id");
@@ -241,7 +256,7 @@ function Sizzle( selector, context, results, seed){
     }
   }--!seed
   //原生方法搞不定 进入select函数
-  //正则替换(" div ") --> ("$1div$1")
+  //正则替换(" div ") --> ("div")
   return select( selector.replace( rtrim, "$1" ), context, results, seed );
 }
 ```
@@ -372,15 +387,87 @@ Sizzle.uniqueSort = function(results){
 
 
 
-##### markFunction
+
+
+
+
+##### addCombinator
 
 ```javascript
-//标记函数专供Sizzle使用
-function markFunction(fn){
-  fn[ expando ] = true;
-  return fn;
+function addCombinator(match,combinator,base){
+  var dir = combinator.dir,
+      skip = combinator.next,
+      key = skip || dir,
+      checkNonElements = base && key === "parentNode",
+      doneName = done++;
+  if(combinator.first){
+    return function( elem, context, xml){
+      while((elem = elem[dir])){
+        if(elem.nodeType === 1 || checkNonElements){
+          return matcher(elem,context,xml);
+        }
+      }
+      return false;
+    }
+  }
+  else{
+    return function(elem,context,xml){
+      var oldCache,uniqueCache,outerCache,
+          newCache = [dirruns,doneName];
+      //又是xml
+      if(xml){
+        while((elem = elem[dir])){
+          if(elem.nodeType === 1 || checkNonElements){
+            if(matcher(elem,context,xml)){
+              return true;
+            }
+          }
+        }
+      }
+      else{
+        while((elem = elem[dir])){
+          if(elem.nodeType === 1 || checkNonElements){
+            outerCache = elem[expando] || (elem[expando] = {});
+          }
+          //IE<9 不写了
+          //...
+          if(skip && skip === elem.nodeName.toLowerCase()){
+            elem = elem[dir] || elem;
+          }
+          else if((oldCache = uniqueCache[key]) && 
+                 oldCache[0] === dirruns && oldCache[1] === doneName){
+                   return (newCache[2] === oldCache[2]);  
+                 }
+          else{
+            uniqueCache[key] = newCache;
+            if((newCache[2] = matcher(elem,context,xml))){
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    };
+  }
+}  
+```
+
+---
+
+##### addHandle
+
+```javascript
+//attrs是一个字符串
+function addHandle( attrs, handler){
+  var arr = attrs.split("|"),
+      i = arr.length;
+  while( i-- ){
+    Expr.attrHandle[arr[i]] = handler;
+  }
 }
 ```
+
+---
 
 ##### assert
 
@@ -404,45 +491,32 @@ function assert(fn){
 }
 ```
 
-##### addHandle
+---
+
+##### condense
 
 ```javascript
-//attrs是一个字符串
-function addHandle( attrs, handler){
-  var arr = attrs.split("|"),
-      i = arr.length;
-  while( i-- ){
-    Expr.attrHandle[arr[i]] = handler;
-  }
-}
-```
-
-##### siblingCheck
-
-```javascript
-//兄弟元素判断?
-function siblingCheck( a, b ){
-  //只传一个参数 cur,diff都是undefined
-  //如果b是六大false(0,"",null,undefined,NaN,false)cur=b 否则cur=a;
-  //diff同理 根据短路原则哪false哪赋值
-  //正常情况下cur = a , diff = a.sourceIndex - b.sourceIndex
-  //sourceIndex:
-  var cur = b && a,
-      diff = cur && a.nodeType === 1 && b.nodeType ===1 && a.sourceIndex - b.sourceIndex;
-  if(diff){
-    return diff;
-  }
-  //如果a,b为兄弟元素则返回-1
-  if(cur){
-    while( (cur = cur.nextSibling) ){
-      if( cur === b ){
-        return -1;
+function condense(unmatched,map,filter,context,xml){
+  var elem,
+      newUnmatched = [],
+      i = 0,
+      len = unmatched.length,
+      mapped = map != null;
+  for(;i < len;i++){
+    if((elem = unmatched[i])){
+      if(!filter || filter(elem,context,xml)){
+        newUnmatched.push(elem);
+        if(mapped){
+          map.push(i);
+        }
       }
     }
   }
-  return a ? 1 : -1;
+  return newUnmatched;
 }
 ```
+
+---
 
 ##### createInputPseudo
 
@@ -514,89 +588,7 @@ function createPositionalPseudo( fn ){
 }
 ```
 
-##### testContext
-
-```javascript
-//
-function testContext( context ){
-  return context && typeof context.getElementsByTagName !== "undefined" && context;
-}
-```
-
-##### toSelector
-
-```javascript
-function toSelector(tokens){
-  var i = 0,
-      len = tokens.length,
-      selector = "";
-  for(;i < len;i++){
-    selector += tokens[i].value;
-  }
-  return selector;
-}
-```
-
-##### addCombinator
-
-```javascript
-function addCombinator(match,combinator,base){
-  var dir = combinator.dir,
-      skip = combinator.next,
-      key = skip || dir,
-      checkNonElements = base && key === "parentNode",
-      doneName = done++;
-  if(combinator.first){
-    return function( elem, context, xml){
-      while((elem = elem[dir])){
-        if(elem.nodeType === 1 || checkNonElements){
-          return matcher(elem,context,xml);
-        }
-      }
-      return false;
-    }
-  }
-  else{
-    return function(elem,context,xml){
-      var oldCache,uniqueCache,outerCache,
-          newCache = [dirruns,doneName];
-      //又是xml
-      if(xml){
-        while((elem = elem[dir])){
-          if(elem.nodeType === 1 || checkNonElements){
-            if(matcher(elem,context,xml)){
-              return true;
-            }
-          }
-        }
-      }
-      else{
-        while((elem = elem[dir])){
-          if(elem.nodeType === 1 || checkNonElements){
-            outerCache = elem[expando] || (elem[expando] = {});
-          }
-          //IE<9 不写了
-          //...
-          if(skip && skip === elem.nodeName.toLowerCase()){
-            elem = elem[dir] || elem;
-          }
-          else if((oldCache = uniqueCache[key]) && 
-                 oldCache[0] === dirruns && oldCache[1] === doneName){
-                   return (newCache[2] === oldCache[2]);  
-                 }
-          else{
-            uniqueCache[key] = newCache;
-            if((newCache[2] = matcher(elem,context,xml))){
-              return true;
-            }
-          }
-        }
-      }
-      return false;
-    };
-  }
-}  
-```
+---
 
 ##### elementMatcher
 
@@ -619,6 +611,45 @@ function elementMatcher(matchers){
 }
 ```
 
+---
+
+##### testContext
+
+```javascript
+//
+function testContext( context ){
+  return context && typeof context.getElementsByTagName !== "undefined" && context;
+}
+```
+
+---
+
+##### toSelector
+
+```javascript
+function toSelector(tokens){
+  var i = 0,
+      len = tokens.length,
+      selector = "";
+  for(;i < len;i++){
+    selector += tokens[i].value;
+  }
+  return selector;
+}
+```
+
+##### markFunction
+
+```javascript
+//标记函数专供Sizzle使用
+function markFunction(fn){
+  fn[ expando ] = true;
+  return fn;
+}
+```
+
+---
+
 ##### multipleContexts
 
 ```javascript
@@ -632,28 +663,7 @@ function multipleContexts(selector,contexts,results){
 }
 ```
 
-##### condense
 
-```javascript
-function condense(unmatched,map,filter,context,xml){
-  var elem,
-      newUnmatched = [],
-      i = 0,
-      len = unmatched.length,
-      mapped = map != null;
-  for(;i < len;i++){
-    if((elem = unmatched[i])){
-      if(!filter || filter(elem,context,xml)){
-        newUnmatched.push(elem);
-        if(mapped){
-          map.push(i);
-        }
-      }
-    }
-  }
-  return newUnmatched;
-}
-```
 
 ##### setMatcher
 
@@ -730,6 +740,37 @@ function setMatcher(preFilter,selector,matcher,postFilter,postFinder,postSelecto
   });
 }
 ```
+
+---
+
+##### siblingCheck
+
+```javascript
+//兄弟元素判断?
+function siblingCheck( a, b ){
+  //只传一个参数 cur,diff都是undefined
+  //如果b是六大false(0,"",null,undefined,NaN,false)cur=b 否则cur=a;
+  //diff同理 根据短路原则哪false哪赋值
+  //正常情况下cur = a , diff = a.sourceIndex - b.sourceIndex
+  //sourceIndex:
+  var cur = b && a,
+      diff = cur && a.nodeType === 1 && b.nodeType ===1 && a.sourceIndex - b.sourceIndex;
+  if(diff){
+    return diff;
+  }
+  //如果a,b为兄弟元素则返回-1
+  if(cur){
+    while( (cur = cur.nextSibling) ){
+      if( cur === b ){
+        return -1;
+      }
+    }
+  }
+  return a ? 1 : -1;
+}
+```
+
+
 
 ##### matcherFromTokens
 

@@ -38,7 +38,7 @@ a.compareDocumentPosition(b) 返回: 20
 
 ---
 
-##### nodeType-11
+##### nodeType11
 
 1. DocumentFragment接口表示文档的一部分
 2. 该节点不属于文档树，parentNode === null
@@ -59,6 +59,193 @@ a.compareDocumentPosition(b) 返回: 20
 | 修改文本内容会永久销毁内部节点       |                   |
 
 ---
+
+##### querySelectorAll与getElementBy
+
+|      | querySelectorAll | getElementBy             |
+| ---- | ---------------- | ------------------------ |
+| 兼容性  | IE8+             | 最晚添加的ClassName IE9+      |
+| 接受参数 | 接受CSS选择符         | 单一参数                     |
+| 参数规范 | 严格符合规范           | 可接受任何字符 如：...ById("12a") |
+| 返回值  | 返回静态NodeList对象   | 返回 HTMLCollection 对象     |
+| (区别) | 包含所有节点           | 只包含Element节点             |
+| 速度   | 慢                | 快100+倍                   |
+|      |                  |                          |
+
+
+
+## 方法
+
+
+
+##### addCombinator
+
+```javascript
+function addCombinator(match,combinator,base){
+  var dir = combinator.dir,
+      skip = combinator.next,
+      key = skip || dir,
+      checkNonElements = base && key === "parentNode",
+      doneName = done++;
+  if(combinator.first){
+    return function( elem, context, xml){
+      while((elem = elem[dir])){
+        if(elem.nodeType === 1 || checkNonElements){
+          return matcher(elem,context,xml);
+        }
+      }
+      return false;
+    }
+  }
+  else{
+    return function(elem,context,xml){
+      var oldCache,uniqueCache,outerCache,
+          newCache = [dirruns,doneName];
+      //又是xml
+      if(xml){
+        while((elem = elem[dir])){
+          if(elem.nodeType === 1 || checkNonElements){
+            if(matcher(elem,context,xml)){
+              return true;
+            }
+          }
+        }
+      }
+      else{
+        while((elem = elem[dir])){
+          if(elem.nodeType === 1 || checkNonElements){
+            outerCache = elem[expando] || (elem[expando] = {});
+          }
+          //IE<9 不写了
+          //...
+          if(skip && skip === elem.nodeName.toLowerCase()){
+            elem = elem[dir] || elem;
+          }
+          else if((oldCache = uniqueCache[key]) && 
+                 oldCache[0] === dirruns && oldCache[1] === doneName){
+                   return (newCache[2] === oldCache[2]);  
+                 }
+          else{
+            uniqueCache[key] = newCache;
+            if((newCache[2] = matcher(elem,context,xml))){
+              return true;
+            }
+          }
+        }
+      }
+      return false;
+    };
+  }
+}  
+```
+
+
+
+---
+
+##### matcherFromTokens
+
+```javascript
+//懵逼一号函数
+function matcherFromTokens(tokens){
+  var checkContext,matcher,j,
+      len = tokens.length,
+      //判断tokens是否关系符开头
+      leadingRelative = Expr.relative[tokens[0].type],
+      //如果不是关系符开头赋值为" " {dir:"parentNode"}
+      implicitRelative = leadingRelative || Expr.relative[" "],
+      //略
+      i = leadingRelative ? 1 : 0,
+      matchContext = addCombinator(function(elem){
+        return elem === checkContext;
+      },implicitRelative,true),
+      matchAnyContext = addCombinator(function(elem){
+        return indexOf(checkContext,elem) > -1;
+      },implicitRelative,true),
+      matchers = [function(elem,context,xml){
+        var ret = (!leadingRelative && 
+                   (xml || context !== outermostContext)) || 
+            ((checkContext = context).nodeType ? 
+             matchContext(elem,context,xml) : matchAnyContext(elem,context,xml));
+        checkContext = null;
+        return ret;
+      }];
+  for(;i < len;i++){
+    if((matcher = Expr.relative[tokens[i].type])){
+      matchers = [addCombinator(elementMatcher(matchers),matcher)];
+    }
+    else{
+      matcher = Expr.filter[tokens[i].type].apply(null,tokens[i].matches);
+      if(matcher[expando]){
+        j = ++i;
+        for(;j < len;j++){
+          if(Expr.relative[tokens[j].type]){
+            break;
+          }
+        }
+        return setMatcher(
+          i > 1 && elementMatcher(matchers),
+          i > 1 && toSelector(
+          	tokens.slice( 0,i - 1).concat
+            ({value : tokens[i - 2].type === " " ? 
+              "*" : ""})).replace(rtrim,"$1"),
+          matcher,
+          i < j && matcherFromTokens(tokens.slice(i,j)),
+          j < len && matcherFromTokens((tokens = tokens.slice(j))),
+          j < len && toSelector(tokens)
+        );
+      }
+      matchers.push(matcher);
+    }
+  }
+  return elementMatcher(matchers);
+}
+```
+
+
+
+---
+
+
+
+##### matcherFromGroupMatchers
+
+```javascript
+function matcherFromGroupMatchers(elementMatchers,setMatchers){
+  var bySet = setMatchers.length > 0,
+      byElement = elementMatchers.length > 0,
+      superMatcher = function(seed,context,xml,results,outermost){
+        var elem,j,matcher,
+            matchedCount = 0,
+            i = "0",
+            unmatched = seed & [],
+            setMatched = [],
+            contextBackup = outermostContext,
+            //
+            elems = seed || byElement && Expr.find["TAG"]("*",outermost),
+            dirrunsUnique = (dirruns += contextBackup == null ? 
+                             1 : Math.random() || 0.1),
+            len = elems.length; 
+        if(outermost){
+          outermostContext = context === document || context || outermost;
+        }
+        
+        //
+        for(;i !== len && (elem = elems[i]) != null;i++){
+          if(byElement && elem){
+            j = 0;
+            if(!context && elem.ownerDocument !== document){
+              setDocument(elem);
+              xml = !documentIsHTML;
+            }
+            while((matcher = elementMatchers[j++]))
+          }
+        }
+      }
+}
+```
+
+
 
 
 
@@ -113,6 +300,7 @@ var compile = Sizzle.compile = function(selector,match){
     }
     i = match.length;
     while(i--){
+      //懵逼一号函数
       cached = matcherFromTokens(match[i]);
       if(cached[expando]){
         srtMatchers.push(cached);
@@ -121,8 +309,9 @@ var compile = Sizzle.compile = function(selector,match){
         elementMatchers.push(cached);
       }
     }
-    cached = compilerCache(selector,
-                           matchFromGroupMatchers(elementMatchers,setMatchers));
+    cached =
+      //懵逼二号函数
+      compilerCache(selector,matchFromGroupMatchers(elementMatchers,setMatchers));
     cached.selector = selector;
   }
   return cached;
@@ -264,16 +453,16 @@ var Expr = Sizzle.selectors = {
     return fn;
   },  
   match:{
-        "ID": /^#(变量)/,				//ID 	  #* #slide	
-        "CLASS": /^\.(变量)/,			//CLASS   .*  .content
-        "TAG": /^(变量|[*])/,			//标签	(div),(span)
-        "ATTR": /^ + attributes/,	  //属性	   "href","src"
-        "PSEUDO": /^ +pseudos/,		  //伪元素	  :first
-        //子元素
-        "CHILD": /^:(only|first|last|nth|nth-last)-(child|of-type)(?:\(空格*(even|odd|(([+-]|)(\d*)n|)(空格)*(?:([+-]|)(空格).../,
-        "bool": /^(?:booleans)$,i/,	  //值为布尔的属性 例如checked
-        "needsContext": /.../		  //需要内容的属性
-      },
+      "ID": /^#((?:\\.|[\w-]|[^-\xa0])+)/,	//ID 	  #* #slide	
+      "CLASS": /^\.((?:\\.|[\w-]|[^-\xa0])+)/,	//CLASS   .*  .content
+      "TAG": /^((?:\\.|[\w-]|[^-\xa0])+|[*])/,	//标签	(div),(span)
+      "ATTR": /^attributes/,	  //属性	   "href","src"
+      "PSEUDO": /^pseudos/,		  //伪元素	  :first
+      //子元素
+      "CHILD": /^:(only|first|last|nth|nth-last)-(child|of-type)(?:\([\x20\t\r\n\f]*(even|odd|(([+-]|)(\d*)n|)[\x20\t\r\n\f]*(?:([+-]|)[\x20\t\r\n\f]*(\d+)|))[\x20\t\r\n\f]*\)|)/i,
+      "bool": /^(?:booleans)$,i/,	  //值为布尔的属性 例如checked
+      "needsContext": /^[\x20\t\r\n\f]*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\([\x20\t\r\n\f]*((?:-\d)?\d*)[\x20\t\r\n\f]*\)|)(?=[^-]|$)/i	//需要内容的属性
+    },
   attrHandle:{},
   find:{},
   relative:{
@@ -798,46 +987,69 @@ var select = Sizzle.select = function(selector,context,results,seed){
       match = !seed && tokenize((selector = compiled.selector || selector));
   
   results = results || [];
-  //selector只有一个分组(没有逗号)
+  //selector只有一个分组(tokenize函数中的soFar没有逗号)
   if(match.length === 1){
     tokens = match[0] = match[0].slice(0);
-    if(tokens.length > 2 && (token = token[0]).type === "ID" && 
-      	context.nodeType === 9 && documentIsHTML && 
+    
+    //如果传进来的解析字符串对象数组tokens第一个元素type是ID
+    if(tokens.length > 2 && (token = token[0]).type === "ID" &&
+       //context是document且文档是HTML
+      	context.nodeType === 9 && documentIsHTML &&
+       //第二个字符是关系选择符
       	Expr.relative[tokens[1].type]){
-      context = (Expr.find["ID"]
-                   (token.match[0].replace(runescape,funescape),context) || [])[0];
+      //范围指定为该节点
+      context = (Expr.find["ID"](token.match[0].replace(runescape,funescape),context) || [])[0];
+      //如果ID找不到直接返回
       if(!context){
         return results;
       }
       else if(compiled){
         context=  context.parentNode;
       }
+      //去除第一个ID
       selector = selector.slice(tokens.shift().value.length);
     }
-    //
+    //配合上面的if缩小范围
+    //ID开头且第二个为关系运算符[>+~]则i置0
     i = matchExpr["needsContext"].test(selector) ? 0 : tokens.length;
+    
+    //第二种缩小范围方式
     while(i--){
+      //取出最后一个数组对象
       token = tokens[i];
+      //Expr.relative包含4个关系运算符对象 " " + > ~
+      //最后一个是符号就出错了 直接返回
       if(Expr.relative[(type = token.type)]){
         break;
       }
+      //Expr.find包含三个类型函数对象 TAG ID CLASS
+      //只是简单的调用对应的getElementBy...返回对应的匹配标签
+      //这里find代表一个函数fn find(*){return getElementBy...(*)}
       if((find = Expr.find[type])){
         if((seed = find(
           token.matches[0].replace(runescape,funescape),
+          //rsibling是关系正则 /[+~]/
           rsibling.test(token[0].type) && 
+          //context是document返回false
           testContext(context.parentNode) || context
         ))){
-          token.splice(i,1);
+          //去掉已经解析出来的数组对象
+          tokens.splice(i,1);
+          //seed长度为0  即上面find方法找不到对应标签 返回
+          //seed不为0 把tokens对象中的value拼接成字符串赋值给selector
           selector = seed.length && toSelector(tokens);
+          //解析完了就返回
           if(!selector){
             push.apply(results,seed);
             return results;
           }
+          //跳出while
           break;
         }
       }
     }
   }
+  //break到这里 开始懵逼...
   (compiled || compile(selector,match))(
   	seed,
     context,
@@ -1112,43 +1324,65 @@ var tokenize = Sizzle.tokenize = function(selector,parseOnly){
   preFilters = Expr.preFilter;
   //如果soFar还有内容 
   while(soFar){
-    //rcomma = /^,*/
+    //rcomma = /^ , */
     //!matched检测是否第一次运行或者还没有等待解析的字符串
-    //如果选择器为"p,span" 解析完变成",span"
+    //在这里soFar是解析后的字符串
+    //举例soFar = " ,span" 则match = " ,"
     if(!matched || (match = rcomma.exec(soFar))){
       if(match){
+        //匹配后删除match匹配的内容 soFar="span"
         soFar = soFar.slice(match[0].length) || soFar;
       }
+      //第一次运行时tokens = [] 然后将tokens弹入groups
       groups.push((tokens) = []);
     }
     matched = false;
     
+    //关系匹配符 >+~空格
+    //rcombinators = /^[\x20\t\r\n\f]*([>+~]|[\x20\t\r\n\f])[\x20\t\r\n\f]*/
+    //举例:rcombinators.exec(" >div"))会匹配到[" >",">"]
     if((match = rcombinators.exec(soFar))){
+      //此表达式执行后matched = " >" match = [">"] 
       matched = match.shift();
+      //tokens = [{value:" >",type:">"}]
       tokens.push({
         value : matched,
         type : match[0].replace(rtrim," ");
       });
+      //获取到关系符后面的字符串 soFar = "div"
       soFar = soFar.slice(matched.length);
     }
     
+    //type = ["TAG","CLASS","ATTR","CHILD","PSEUDO"]
     for(type in Expr.filter){
-      if((match = matchExpr[type].exec(soFar)) && 
+      //matchExpr对象包含ID,CLASS等选择器的正则
+      if((match = matchExpr[type].exec(soFar)) &&
+         //是否存在type类型的预过滤函数
+         //preFilters对象只对ATTR,CHILD,PSEUDO进行过滤
          (!preFilters[type] || 
+          //进行预过滤并重新赋值
+          //预过滤举例 soFar = :nth-of-type(n)
+          //1. 正则匹配后 match = [":nth-of-type(n)","nth","of-type","n","(0)","undefined(n)","undefined","","1"]
+          //2. 过滤会对第4,5个数组元素进行设置 0,(n)
+          //3. 如果是nth-child(odd/even) 第4,5会设置为2,1(0)
           (match = preFilters[type](match)))){
+        //如果是无需过滤的 比如CLASS:(".div") TAG("div")
+        //那么CLASS: match = [".div","div"] TAG: match = ["div","div"]
         matched = match.shift();
         tokens.push({
-          value : matched,
-          type : type,
-          matches : match
+          value : matched,	//matched就是原匹配字符串
+          type : type,		//type是匹配类型CLASS,TAG等
+          matches : match	//match数组
         });
         soFar = soFar.slice(matched.length);
       }
     }
+    //如果匹配完了 就退出
     if(!matched){
       break;
     } 
   }
+  //soFar应该被解析完了 加入缓存
   return parseOnly ? soFar.length : 
   soFar ? Sizzle:error(selector) : 
   tokenCache(selector,groups).slice(0);

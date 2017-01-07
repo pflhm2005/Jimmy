@@ -128,7 +128,14 @@ $(function (){
         })
     })();
 
-
+    (function (){
+        var ul = $('.h-ul1>li+li');
+        ul.hover(function (){
+            $(this).addClass("on");
+        },function (){
+            $(this).removeClass("on");
+        })
+    })();
 
     //切换分类
     function tab(){
