@@ -4,7 +4,9 @@
 
 # jQuery源码4-jQuery对象初始化
 
-## jQuery调用Sizzle方法
+
+
+## jQuery引用Sizzle方法
 
 ```javascript
 jQuery.find = Sizzle;
@@ -25,133 +27,11 @@ jQuery.escapeSelector = Sizzle.escape;
 
 
 
+## $(' ')
 
 
-## 变量 
 
-
-
-##### wrapMap
-
-```javascript
-var wrapMap = {
-  //IE<=9
-  option: [1,"<select mutiple = 'multiple'>","</select>"],
-  thead: [1,"<table>","</table>"],
-  col: [2,"<table><colgroup>","</colgroup></table>"],
-  tr: [2,"<table><tbody>","</tbody></table>"],
-  td: [3,"<table><tbody><tr>","</tr></tbody></table>"],
-  
-  _default: [0,"",""]
-};
-```
-
-## 正则
-
-
-
----
-
-##### 环视
-
-| 名字   | 语法       |
-| ---- | -------- |
-| 右肯定  | (?=...)  |
-| 右否定  | (?!...)  |
-| 左肯定  | (?<=...) |
-| 左否定  | (?<!...) |
-|      |          |
-
-##### rhtml
-
-```javascript
-var rhtml = /<|&#?\w+;/;
-```
-
-
-
----
-
-
-
-##### risSimple
-
-```javascript
-var risSimple = /^.[^:#\[\.,]*$/;
-```
-
-
-
----
-
-
-
-##### rneedsContext
-
-```javascript
-//等于:/^[\x20\t\r\n\f]*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\([\x20\t\r\n\f]*((?:-\d)?\d*)[\x20\t\r\n\f]*\)|)(?=[^-]|$)/i
-var rneedsContext = jQuery.expr.match.needsContext;
-```
-
-
-
----
-
-
-
-##### rparentsprev
-
-```javascript
-//?:代表不捕获括号内容
-var rparentsprev = /^(?:parents|prev(?:Until|All))/
-```
-
-
-
----
-
-
-
-##### rsingleTag
-
-```javascript
-//快速匹配标签
-var rsingleTag = /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i;
-```
-
-
-
----
-
-
-
-##### rscriptType
-
-```javascript
-var rscriptType = /^$|\/(?:java|ecma)script/i;
-```
-
-
-
----
-
-
-
-##### rtagName
-
-```javascript
-var rtagName = /<([a-z][^\/\0>\x20\t\r\n\f]+)/i;
-```
-
-
-
----
-
-
-
-## jQuery对象初始化
-
-
+#### main
 
 ```javascript
 //初始化一个jQuery对象
@@ -258,6 +138,173 @@ rootjQuery = jQuery( document );
 
 
 
+
+
+
+
+#### 变量 
+
+
+
+
+
+
+
+##### wrapMap
+
+```javascript
+var wrapMap = {
+  //IE<=9
+  option: [1,"<select mutiple = 'multiple'>","</select>"],
+  thead: [1,"<table>","</table>"],
+  col: [2,"<table><colgroup>","</colgroup></table>"],
+  tr: [2,"<table><tbody>","</tbody></table>"],
+  td: [3,"<table><tbody><tr>","</tr></tbody></table>"],
+  
+  _default: [0,"",""]
+};
+```
+
+
+
+---
+
+
+
+##### dataPriv
+
+```javascript
+var dataPriv = new Data();
+```
+
+
+
+---
+
+
+
+##### dataUser
+
+```javascript
+var dataUser = new Data();
+```
+
+
+
+## 正则
+
+
+
+---
+
+#### 环视
+
+| 名字   | 语法       |
+| ---- | -------- |
+| 右肯定  | (?=...)  |
+| 右否定  | (?!...)  |
+| 左肯定  | (?<=...) |
+| 左否定  | (?<!...) |
+|      |          |
+
+#### replace替换文本
+
+
+
+| 字符          | 替换文本                      |
+| ----------- | ------------------------- |
+| \$1 \$2 ... | 与RegExp中第1，2...个子表达式匹配的文本 |
+| \$&         | 与RegExp匹配的子串              |
+| \$`         | 位于匹配子串左侧的文本               |
+| \$'         | 位于匹配子串右侧的文本               |
+| \$\$        | 直接量符号                     |
+|             |                           |
+
+
+
+#### rhtml
+
+```javascript
+var rhtml = /<|&#?\w+;/;
+```
+
+
+
+---
+
+
+
+#### risSimple
+
+```javascript
+var risSimple = /^.[^:#\[\.,]*$/;
+```
+
+
+
+---
+
+
+
+#### rneedsContext
+
+```javascript
+//等于:/^[\x20\t\r\n\f]*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\([\x20\t\r\n\f]*((?:-\d)?\d*)[\x20\t\r\n\f]*\)|)(?=[^-]|$)/i
+var rneedsContext = jQuery.expr.match.needsContext;
+```
+
+
+
+---
+
+
+
+#### rparentsprev
+
+```javascript
+//?:代表不捕获括号内容
+var rparentsprev = /^(?:parents|prev(?:Until|All))/
+```
+
+
+
+---
+
+
+
+#### rsingleTag
+
+```javascript
+//快速匹配标签
+var rsingleTag = /^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i;
+```
+
+
+
+---
+
+
+
+#### rscriptType
+
+```javascript
+var rscriptType = /^$|\/(?:java|ecma)script/i;
+```
+
+
+
+---
+
+
+
+#### rtagName
+
+```javascript
+var rtagName = /<([a-z][^\/\0>\x20\t\r\n\f]+)/i;
+```
+
+
+
 ---
 
 
@@ -268,7 +315,7 @@ rootjQuery = jQuery( document );
 
 
 
-##### buildFragment
+#### buildFragment
 
 ```javascript
 //elems = ["<div></div><span></span>"]
@@ -356,7 +403,7 @@ function buildFragment(elems,context,scripts,selection,ignored){
 
 
 
-##### dir
+#### dir
 
 ```javascript
 var dir = function(elem,dir,until){
@@ -380,7 +427,7 @@ var dir = function(elem,dir,until){
 
 
 
-##### getAll
+#### getAll
 
 ```javascript
 function getAll(context,tag){
@@ -412,7 +459,7 @@ function getAll(context,tag){
 
 
 
-##### setGlobalEval
+#### setGlobalEval
 
 ```javascript
 var dataPriv = new Data();
@@ -435,7 +482,7 @@ function setGlobalEval(elems,refElements){
 
 
 
-##### sibling
+#### sibling
 
 ```javascript
 function sibling(cur,dir){
@@ -453,7 +500,7 @@ function sibling(cur,dir){
 
 
 
-##### siblings
+#### siblings
 
 ```javascript
 //获取兄弟节点(不包括elem)
@@ -474,7 +521,7 @@ var siblings = function(n,elem){
 
 
 
-##### winnow
+#### winnow
 
 ```javascript
 function winnow(elements,qualifier,not){
@@ -521,7 +568,7 @@ function winnow(elements,qualifier,not){
 
 ## jQuery方法
 
-##### jQuery.filter
+#### jQuery.filter
 
 ```javascript
 jQuery.filter = function(expr,elems,not){
@@ -543,7 +590,7 @@ jQuery.filter = function(expr,elems,not){
 
 ---
 
-##### jQuery.parseHTML
+#### jQuery.parseHTML
 
 ```javascript
 //将字符串解析成DOM节点集合
@@ -589,6 +636,8 @@ jQuery.parseHTML = function( data, context, keepScripts){
 
 
 ## jQuery.extend()主方法
+
+
 
 ```javascript
 //合并对象 接受2-n个参数 (布尔值,合并对象1,...)
@@ -655,6 +704,10 @@ jQuery.extend = jQuery.fn.extend = function(){
 
 
 
+
+
+
+
 ----
 
 
@@ -665,7 +718,7 @@ jQuery.extend = jQuery.fn.extend = function(){
 
 
 
-##### add
+#### add
 
 ```javascript
 //<div></div><span></span>:$('span').add('div') - [div,span]
@@ -684,7 +737,7 @@ add: function(selector,context){
 
 
 
-##### addBack
+#### addBack
 
 ```javascript
 addBack: function(selector){
@@ -702,7 +755,7 @@ addBack: function(selector){
 
 
 
-##### closest
+#### closest
 
 ```javascript
 closest: function(selectors,context){
@@ -741,7 +794,7 @@ closest: function(selectors,context){
 
 
 
-##### filter
+#### filter
 
 ```javascript
 filter: function(selector){
@@ -755,7 +808,7 @@ filter: function(selector){
 
 
 
-##### find
+#### find
 
 ```javascript
 find: function(selector){
@@ -783,7 +836,7 @@ find: function(selector){
 
 
 
-##### has
+#### has
 
 ```javascript
 //
@@ -806,7 +859,7 @@ has: function(target){
 
 ---
 
-##### not
+#### not
 
 ```javascript
 not: function(selector){
@@ -820,7 +873,7 @@ not: function(selector){
 
 
 
-##### index
+#### index
 
 ```javascript
 //索引
@@ -850,7 +903,7 @@ index: function(elem){
 
 
 
-##### is
+#### is
 
 ```javascript
 is: function(selector){

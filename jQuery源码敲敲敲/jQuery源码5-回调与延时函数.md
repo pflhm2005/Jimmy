@@ -262,6 +262,8 @@ jQuery.extend({...});
 
 
 
+---
+
 
 
 #### Deferred
@@ -269,12 +271,15 @@ jQuery.extend({...});
 ```javascript
 Deferred: function(fnc){
   var tuples = [
+    //进度回调列表
     ["notify","progress",
      jQuery.Callbacks("memory"),
      jQuery.Callbacks("memory"),2],
+    //成功回调列表 
     ["resolve","done",
      jQuery.Callbacks("once memory"),
      jQuery.Callbacks("once memory"),0,"resolved"],
+    //失败回调列表
     ["reject","fail",
      jQuery.Callbacks("once memory"),
      jQuery.Callbacks("once memory"),1,"rejected"]
@@ -522,6 +527,64 @@ when: function(singleValue){
   return master.promise();
 }
 ```
+
+
+
+---
+
+
+
+
+
+
+
+## jQuery.fn.extend
+
+
+
+
+
+---
+
+
+
+#### promise
+
+```javascript
+promise: function(type,obj){
+  var tmp,
+      count = 1,
+      defer = jQuery.Deferred(),
+      elements = this,
+      i = this.length,
+      resolve = function(){
+        if(!(--count)){
+          defer.resolveWith(elements,[elements]);
+        }
+      };
+  if(typeof type !== "string"){
+    obj = type;
+    type = "undefined";
+  }
+  type = type || "fx";
+  
+  while(i--){
+    tmp = dataPriv.get(elements[i],type + "dequeueHooks");
+    if(tmp && tmp.empty){
+      count++;
+      tmp.empty.add(resolve);
+    }
+  }
+  resolve();
+  return defer.promise(obj);
+}
+```
+
+
+
+---
+
+
 
 
 
