@@ -2,7 +2,7 @@
 
 
 
-# jQuery源码4-jQuery初始化
+# jQuery源码4-jQuery对象初始化
 
 ## jQuery调用Sizzle方法
 
@@ -27,7 +27,7 @@ jQuery.escapeSelector = Sizzle.escape;
 
 
 
-## 变量声明 
+## 变量 
 
 
 
@@ -99,6 +99,19 @@ var rneedsContext = jQuery.expr.match.needsContext;
 
 
 
+##### rparentsprev
+
+```javascript
+//?:代表不捕获括号内容
+var rparentsprev = /^(?:parents|prev(?:Until|All))/
+```
+
+
+
+---
+
+
+
 ##### rsingleTag
 
 ```javascript
@@ -128,6 +141,119 @@ var rscriptType = /^$|\/(?:java|ecma)script/i;
 
 ```javascript
 var rtagName = /<([a-z][^\/\0>\x20\t\r\n\f]+)/i;
+```
+
+
+
+---
+
+
+
+## jQuery对象初始化
+
+
+
+```javascript
+//初始化一个jQuery对象
+var rootjQuery,
+    //快速匹配<tag>...,#id
+    rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/,
+    init = jQuery.fn.init = function( selector, context, root ){
+      var match,elem;
+      
+      //当selector为 "" null undefined false 时
+      //直接返回空jQuery对象
+      if( !selector){
+        return this;
+      }
+      
+      //doucment
+      root = root || rootjQuery;
+      
+      //选择器为字符串
+      if(typeof selector === "string"){
+        //如果字符串构成类似于 <\w+>
+        if(selector[0] === "<" &&
+          selector[selector.length-1] === ">" && 
+          selector.length >= 3){
+            match = [ null, selector, null ];
+          }
+        //否则调用正则快速匹配
+        //match = [匹配表达式,<tag>,id]
+        else{
+          match = rquickExpr.exec( selector );
+        }
+        
+        //匹配成功
+        if(match && (match[1] || !context)){
+          //匹配到tag标签
+          if(match[1]){
+            context = context instanceof jQuery ? context[0] : context;
+            //将字符串解析成DOM节点集合合并到当前对象
+            //例如: $("<div></div><span></span>")
+            //match[1] = "<div></div><span></span>"
+            //解析后会创建div和span两个节点
+            //this合并节点
+            jQuery.merge(this,jQuery.parseHTML(
+              match[1],	//"<div></div>"
+              //document
+              context && context.nodeType ? 
+              context.ownerDocument || context : document,
+              true
+            ));
+            
+            //正则:/^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i
+            //判断是不是一个单独的标签 
+            //例如:"<div></div>"
+            if(rsingleTag.test(match[1]) && jQuery.isPlainObject(context)){
+              for(match in context){
+                if(jQuery.isFunction( this[match] )){
+                  this[match]( context[match] );
+                }
+                else{
+                  this.attr( match, context[match] );
+                }
+              }
+            }
+            //返回合并后的对象
+            return this;
+          }
+          //匹配ID
+          else{
+            elem = document.getElementById( match[2] );
+            if(elem){
+              this[0] = elem;
+              this.length = 1;
+            }
+            return this;
+          }
+        }
+        //匹配:$(expr,$(...)) 调用$(...).find(expr)
+        else if( !context || context.jQuery){
+          return ( context || root ).find( selector );
+        }
+        //匹配:$(expr,context) 调用$(context).find(expr)
+        else{
+          return this.constructor(context).find(selector);
+        }
+      }
+      //DOM节点 包装成伪数组返回
+      else if( selector.nodeType ){
+        this[0] = selector;
+        this.length = 1;
+        return this;
+      }
+      //函数 执行函数
+      else if(jQuery.isFunction(selector)){
+        return root.ready !== undefined ? 
+          root.ready( selector ) : selector( jQuery );
+      }
+      return jQuery.makeArray( selector, this );
+    }
+
+init.prototype = jQuery.fn;
+//初始化核心引用...
+rootjQuery = jQuery( document );
 ```
 
 
@@ -302,6 +428,24 @@ function setGlobalEval(elems,refElements){
   }
 }
 ```
+
+
+
+---
+
+
+
+##### sibling
+
+```javascript
+function sibling(cur,dir){
+  //dir为节点方法
+  while((cur = cur[dir]) && cur.nodeType !== 1){}
+  return cur;
+}
+```
+
+
 
 
 
@@ -519,6 +663,84 @@ jQuery.extend = jQuery.fn.extend = function(){
 
 
 
+
+
+##### add
+
+```javascript
+//<div></div><span></span>:$('span').add('div') - [div,span]
+add: function(selector,context){
+  return this.pushStack(
+    //去重排序
+    jQuery.uniqueSort(
+      //this.get()获取所有元素
+      jQuery.merge(this.get(),jQuery(selector,context))));
+}
+```
+
+
+
+---
+
+
+
+##### addBack
+
+```javascript
+addBack: function(selector){
+  return this.add(selector == null ?
+                 //对this与this.prevObject调用add
+                 this.prevObject : 
+                  //只返回满足$(selector)的元素
+                  this.prevObject.filter(selector));
+}
+```
+
+
+
+---
+
+
+
+##### closest
+
+```javascript
+closest: function(selectors,context){
+  var cur,
+      i = 0,
+      l = this.length,
+      matched = [],
+      //selectors不是string则targets = $(selectors)
+      targets = typeof selectors !== "string" && jQuery(selectors);
+  
+  //rneedContext:/^[\x20\t\r\n\f]*[>+~]|:(even|odd|eq|gt|lt|nth|first|last)(?:\([\x20\t\r\n\f]*((?:-\d)?\d*)[\x20\t\r\n\f]*\)|)(?=[^-]|$)/i
+  //不存在>+~或者...进入分支
+  if(!rneedContext.test(selectors)){
+    for(;i < l;i++){
+      //向上取父元素
+      for(cur = this[i];cur && cur !== context;cur = cur.parentNode){
+        //跳过文档碎片节点
+        if(cur.nodeType < 11 &&
+           //targets与cur同级
+           (targets ? targets.index(cur) > -1 :
+            //否则调用Sizzles
+            cur.nodeType === 1 && jQuery.find.matchesSelector(cur,selectors))){
+          matched.push(cur);
+          break;
+        }
+      }
+    }
+  }
+  return this.pushStack(matched.length > 1 ? jQuery.uniqueSort(matched) : matched);
+}
+```
+
+
+
+---
+
+
+
 ##### filter
 
 ```javascript
@@ -530,6 +752,8 @@ filter: function(selector){
 
 
 ---
+
+
 
 ##### find
 
@@ -557,6 +781,31 @@ find: function(selector){
 
 ---
 
+
+
+##### has
+
+```javascript
+//
+has: function(target){
+  //$(this).find(target)
+  var targers = jQuery(target,this),
+      l = target.length;
+  return this.filter(function(){
+    var i = 0;
+    for(;i < l;i++){
+      if(jQuery.contains(this,target[i])){
+        return true;
+      }
+    }
+  });
+}
+```
+
+
+
+---
+
 ##### not
 
 ```javascript
@@ -568,6 +817,38 @@ not: function(selector){
 
 
 ---
+
+
+
+##### index
+
+```javascript
+//索引
+index: function(elem){
+  //如果没有传参
+  //返回该标签在父元素中的索引位置
+  if(!elem){
+    //是否存在且有父元素
+    return (this[0] && this[0].parentNode) ?
+      //返回所有前面元素的长度
+      this.first().prevAll().length : -1;
+  }
+  
+  //返回元素在$(elem)中的索引位置
+  if(typeof elem === "string"){
+    return indexOf.call(jQuery(elem),this[0]);
+  }
+  
+  //返回this[0]在$(elem)中的索引位置
+  return indexOf.call(this,elem.jquery ? elem[0] : elem);
+}
+```
+
+
+
+---
+
+
 
 ##### is
 
@@ -587,113 +868,6 @@ is: function(selector){
 ---
 
 
-
-## jQuery对象初始化
-
-
-
-```javascript
-//初始化一个jQuery对象
-var rootjQuery,
-    //快速匹配<tag>...,#id
-    rquickExpr = /^(?:\s*(<[\w\W]+>)[^>]*|#([\w-]+))$/,
-    init = jQuery.fn.init = function( selector, context, root ){
-      var match,elem;
-      
-      //当selector为 "" null undefined false 时
-      //直接返回空jQuery对象
-      if( !selector){
-        return this;
-      }
-      
-      //doucment
-      root = root || rootjQuery;
-      
-      //选择器为字符串
-      if(typeof selector === "string"){
-        //如果字符串构成类似于 <\w+>
-        if(selector[0] === "<" &&
-          selector[selector.length-1] === ">" && 
-          selector.length >= 3){
-            match = [ null, selector, null ];
-          }
-        //否则调用正则快速匹配
-        //match = [匹配表达式,<tag>,id]
-        else{
-          match = rquickExpr.exec( selector );
-        }
-        
-        //匹配成功
-        if(match && (match[1] || !context)){
-          //匹配到tag标签
-          if(match[1]){
-            context = context instanceof jQuery ? context[0] : context;
-            //将字符串解析成DOM节点集合合并到当前对象
-            //例如: $("<div></div><span></span>")
-            //match[1] = "<div></div><span></span>"
-            //解析后会创建div和span两个节点
-            //this合并节点
-            jQuery.merge(this,jQuery.parseHTML(
-              match[1],	//"<div></div>"
-              //document
-              context && context.nodeType ? 
-              context.ownerDocument || context : document,
-              true
-            ));
-            
-            //正则:/^<([a-z][^\/\0>:\x20\t\r\n\f]*)[\x20\t\r\n\f]*\/?>(?:<\/\1>|)$/i
-            //判断是不是一个单独的标签 
-            //例如:"<div></div>"
-            if(rsingleTag.test(match[1]) && jQuery.isPlainObject(context)){
-              for(match in context){
-                if(jQuery.isFunction( this[match] )){
-                  this[match]( context[match] );
-                }
-                else{
-                  this.attr( match, context[match] );
-                }
-              }
-            }
-            //返回合并后的对象
-            return this;
-          }
-          //匹配ID
-          else{
-            elem = document.getElementById( match[2] );
-            if(elem){
-              this[0] = elem;
-              this.length = 1;
-            }
-            return this;
-          }
-        }
-        //匹配:$(expr,$(...)) 调用$(...).find(expr)
-        else if( !context || context.jQuery){
-          return ( context || root ).find( selector );
-        }
-        //匹配:$(expr,context) 调用$(context).find(expr)
-        else{
-          return this.constructor(context).find(selector);
-        }
-      }
-      //DOM节点 包装成伪数组返回
-      else if( selector.nodeType ){
-        this[0] = selector;
-        this.length = 1;
-        return this;
-      }
-      //函数 执行函数
-      else if(jQuery.isFunction(selector)){
-        return root.ready !== undefined ? 
-          root.ready( selector ) : selector( jQuery );
-      }
-      return jQuery.makeArray( selector, this );
-    }
-
-init.prototype = jQuery.fn;
-//初始化核心引用...
-rootjQuery = jQuery( document );
-```
 
 
 

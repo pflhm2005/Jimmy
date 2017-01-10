@@ -361,17 +361,23 @@ Sizzle.uniqueSort = function(results){
       duplicates = [],
       j = 0,
       i = 0;
-
+	
+  //先假设有重复
   hasDuplicate = !support.detechDuplicates;
   sortInput = !support.sortStable && results.slice(0);
+  //按元素在文档中顺序排序
   results.sort(sortOrder);
-
+	
+  //去重
   if(hasDuplicate){
     while(elem = results[i++]){
       if(elem === results[i]){
+        //j代表重复项数量
+        //duplicates数组保存重复项索引
         j = duplicates.push[i];
       }
     }
+    //依次删除
     while(j--){
       results.splice(duplicates[j],1);
     }
@@ -458,6 +464,8 @@ function addCombinator(match,combinator,base){
 
 ```javascript
 //attrs是一个字符串
+//给所有属性添加处理程序
+//attrs = "a|b|c|d"	-->	arr = [a,b,c,d] 
 function addHandle( attrs, handler){
   var arr = attrs.split("|"),
       i = arr.length;
@@ -474,6 +482,7 @@ function addHandle( attrs, handler){
 ```javascript
 //好像是用这个标签元素测试什么东西
 //据查是做特征测试 比如是否支持某个API
+//测试fn传入fieldset的返回值
 function assert(fn){
   var el = document.createElement("fieldset");
   try{
@@ -521,7 +530,7 @@ function condense(unmatched,map,filter,context,xml){
 ##### createInputPseudo
 
 ```javascript
-//创建输入标签的伪类
+//返回input指定type原子函数
 function createInputPseudo( type ){
   return function( elem ){
     var name = elem.nodeName.toLowerCase();
@@ -588,30 +597,19 @@ function createPositionalPseudo( fn ){
 }
 ```
 
----
 
-##### elementMatcher
 
-```javascript
-function elementMatcher(matchers){
-  if(matchers.length > 1){
-    return function(elem,context,xml){
-      var i = matchers.length;
-      while(i--){
-        if(!matchers[i](elem,context,xml)){
-          return false;
-        }
-      }
-      return true;
-    }
-  }
-  else{
-    return matchers[0];
-  }
-}
-```
+
 
 ---
+
+
+
+
+
+---
+
+
 
 ##### testContext
 
@@ -641,7 +639,7 @@ function toSelector(tokens){
 ##### markFunction
 
 ```javascript
-//标记函数专供Sizzle使用
+//伪类标记函数专供Sizzle使用
 function markFunction(fn){
   fn[ expando ] = true;
   return fn;
@@ -754,7 +752,10 @@ function siblingCheck( a, b ){
   //正常情况下cur = a , diff = a.sourceIndex - b.sourceIndex
   //sourceIndex:
   var cur = b && a,
-      diff = cur && a.nodeType === 1 && b.nodeType ===1 && a.sourceIndex - b.sourceIndex;
+      diff = cur && 
+             a.nodeType === 1 && 
+             b.nodeType ===1 && 
+             a.sourceIndex - b.sourceIndex;
   if(diff){
     return diff;
   }

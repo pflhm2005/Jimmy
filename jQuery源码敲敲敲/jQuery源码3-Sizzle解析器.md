@@ -81,12 +81,19 @@ a.compareDocumentPosition(b) 返回: 20
 ##### addCombinator
 
 ```javascript
-function addCombinator(match,combinator,base){
+//关联函数 负责将关系符与原子匹配器关联 例如：div>
+//matcher: 原子匹配
+//combinator: 关系符
+//true
+function addCombinator(matcher,combinator,base){
   var dir = combinator.dir,
+      //next???
       skip = combinator.next,
       key = skip || dir,
       checkNonElements = base && key === "parentNode",
       doneName = done++;
+  
+  //匹配到 > +
   if(combinator.first){
     return function( elem, context, xml){
       while((elem = elem[dir])){
@@ -97,6 +104,7 @@ function addCombinator(match,combinator,base){
       return false;
     }
   }
+  //匹配到 ~ " "
   else{
     return function(elem,context,xml){
       var oldCache,uniqueCache,outerCache,
@@ -143,6 +151,33 @@ function addCombinator(match,combinator,base){
 
 ---
 
+##### elementMatcher
+
+```javascript
+function elementMatcher(matchers){
+  if(matchers.length > 1){
+    return function(elem,context,xml){
+      var i = matchers.length;
+      while(i--){
+        if(!matchers[i](elem,context,xml)){
+          return false;
+        }
+      }
+      return true;
+    }
+  }
+  else{
+    return matchers[0];
+  }
+}
+```
+
+
+
+
+
+---
+
 ##### matcherFromTokens
 
 ```javascript
@@ -150,18 +185,22 @@ function addCombinator(match,combinator,base){
 function matcherFromTokens(tokens){
   var checkContext,matcher,j,
       len = tokens.length,
-      //判断tokens是否关系符开头
+      //判断tokens是否关系符开头 即ID过滤
       leadingRelative = Expr.relative[tokens[0].type],
       //如果不是关系符开头赋值为" " {dir:"parentNode"}
       implicitRelative = leadingRelative || Expr.relative[" "],
       //略
       i = leadingRelative ? 1 : 0,
+      //
       matchContext = addCombinator(function(elem){
         return elem === checkContext;
       },implicitRelative,true),
+      //
       matchAnyContext = addCombinator(function(elem){
         return indexOf(checkContext,elem) > -1;
       },implicitRelative,true),
+      
+      //最终匹配函数
       matchers = [function(elem,context,xml){
         var ret = (!leadingRelative && 
                    (xml || context !== outermostContext)) || 
@@ -170,12 +209,16 @@ function matcherFromTokens(tokens){
         checkContext = null;
         return ret;
       }];
+  
   for(;i < len;i++){
+    //匹配到关系符
     if((matcher = Expr.relative[tokens[i].type])){
       matchers = [addCombinator(elementMatcher(matchers),matcher)];
     }
+    //匹配到原子标签	
     else{
       matcher = Expr.filter[tokens[i].type].apply(null,tokens[i].matches);
+      //
       if(matcher[expando]){
         j = ++i;
         for(;j < len;j++){
@@ -195,6 +238,7 @@ function matcherFromTokens(tokens){
           j < len && toSelector(tokens)
         );
       }
+      //把原子匹配器弹入函数数组
       matchers.push(matcher);
     }
   }
@@ -211,6 +255,7 @@ function matcherFromTokens(tokens){
 ##### matcherFromGroupMatchers
 
 ```javascript
+//懵逼二号函数
 function matcherFromGroupMatchers(elementMatchers,setMatchers){
   var bySet = setMatchers.length > 0,
       byElement = elementMatchers.length > 0,
@@ -229,7 +274,7 @@ function matcherFromGroupMatchers(elementMatchers,setMatchers){
         if(outermost){
           outermostContext = context === document || context || outermost;
         }
-        
+
         //
         for(;i !== len && (elem = elems[i]) != null;i++){
           if(byElement && elem){
@@ -238,10 +283,63 @@ function matcherFromGroupMatchers(elementMatchers,setMatchers){
               setDocument(elem);
               xml = !documentIsHTML;
             }
-            while((matcher = elementMatchers[j++]))
+            while((matcher = elementMatchers[j++])){
+              if(matcher(elem,context || document,xml)){
+                results.push(elem);
+                break;
+              }
+            }
+            if(outermost){
+              dirruns = dirrunsUnique;
+            }
+          }
+
+          //
+          if(bySet){
+            //遍历
+            if((elem = !matcher && elem)){
+              matchedCount--;
+            }
+            if(seed){
+              unmatched.push(elem);
+            }
           }
         }
-      }
+        //
+        matchedCount += i;
+
+        //
+        if(bySet && i !== matchedCount){
+          j = 0;
+          while((matcher = setMatchers[j++])){
+            matcher(unmatched,setMatched,context,xml);
+          }
+          if(seed){
+            if(matchedCount > 0){
+              while(i--){
+                if(!(unmatched[i] || setMatched[i])){
+                  setMatched[i] = pop.call(results);
+                }
+              }
+            }
+            setMatched = condense(setMatched);
+          }
+          push.apply(results,setMatched);
+
+          //
+          if(outermost && !seed && 
+             setMatched.length \> 0 && 
+             (matchedCount + setMatched.length) > 1){
+            Sizzle.uniqueSort(results);
+          }
+        }
+        if(outermost){
+          dirruns = dirrunsUnique;
+          outermostContext = contextBackup;
+        }
+        return unmatched;
+      };
+  return bySet ? markFunction(superMatcher) : superMatcher;
 }
 ```
 
@@ -295,16 +393,20 @@ var compile = Sizzle.compile = function(selector,match){
       cached = compilerCache[selector + " "];
   //缓存
   if(!cached){
+    //没有解析先进行词法解析
     if(!match){
       match = tokenize(selector);
     }
+    //第二种方法过滤时 match是剔除最后一个标签的对象数组
     i = match.length;
     while(i--){
       //懵逼一号函数
       cached = matcherFromTokens(match[i]);
+      //判断是否有伪类
       if(cached[expando]){
         srtMatchers.push(cached);
       }
+      //普通选择器压入elementMatchers
       else{
         elementMatchers.push(cached);
       }
@@ -512,18 +614,24 @@ var Expr = Sizzle.selectors = {
         match[2] = match[4] || match[5] || "";
       }
       //rpseudo伪类
-      else if(unquoted && rpseudo.test(unquoted) && (excess = tokenize(unquoted,true)) && (excess = unquoted.indexOf(")",unquoted.length - excess) - unquoted.length)){
+      else if(unquoted && rpseudo.test(unquoted) && 
+              (excess = tokenize(unquoted,true)) && 
+              (excess = unquoted.indexOf(")",unquoted.length - excess) 
+               - unquoted.length)){
         match[0] = match[0].slice(0, excess);
         match[0] = unquoted.slice(0, excess);
       }
       return match.slice(0,3);
     }
   },
-  
+  //原子匹配器 返回一个函数
   filter:{
+    //传入TAG名称
     "TAG" : function(nodeNameSelector){
       var nodeName = nodeNameSelector.replace(runescape.funescape).toLowerCase();
-      return nodeNameSelector === "*" ? function(){return true;} : 
+      //通配符全部符合
+      return nodeNameSelector === "*" ? function(){return true;} :
+      //判断节点的nodeName是否符合传入的TAG类型
       function(elem){
         return elem.nodeName && elem.nodeName.toLowerCase() === nodeName;
       };
@@ -533,7 +641,7 @@ var Expr = Sizzle.selectors = {
       var pattern = classCache[className + " "];
       //pattern = /^|className|$/;
       return pattern || 
-        (pattern = new RegExp("(^|" + 空格 + ")" + className + "(" + 空格 + "|$)")) && classCache(className,function(elem){
+        (pattern = new RegExp("(^|" + whitespace + ")" + className + "(" + whitespace + "|$)")) && classCache(className,function(elem){
         if(typeof elem.className === "string"){
           return pattern.test(elem.className);
         }
