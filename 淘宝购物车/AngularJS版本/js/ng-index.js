@@ -1,3 +1,4 @@
+
 	var app=angular.module('app',[]);
 	
 	app.factory('getJSON',['$http',function ($http){
@@ -10,6 +11,7 @@
 	    getJSON('content.json').then(function (result){
 		    $scope.data=result.data;
 	    });
+	
 
 		//定义对象
 		$scope.obj={
@@ -41,7 +43,7 @@
 		    }
 			$scope.obj.all=$scope.obj.arr.reduce(function (prev,curr){
 			    return prev+curr;
-			})
+			});
 		}
 
 		//计算单价
@@ -53,7 +55,9 @@
 		$scope.add=function (index){
 		    ++$scope.obj.num[index];
 			countPrice(index);
-			countAll();
+			if($scope.obj.sum[index]){
+                countAll();
+            }
 		};
 		$scope.sub=function (index){
 		    if($scope.obj.num[index]==1){
@@ -62,18 +66,22 @@
 			else{
 			    --$scope.obj.num[index];
 			    countPrice(index);
-			    countAll();
+                if($scope.obj.sum[index]){
+                    countAll();
+                }
 		    }
 		};
 
 		//手动输入事件
 		$scope.count=function (index){
-			//直接做非数字与数字过大判断
+			//非数字与数字过大判断
 			if(isNaN($scope.obj.num[index])||$scope.obj.num[index]>500){
 				$scope.obj.num[index]=1;
 			}
 			countPrice(index);
-			countAll();
+            if($scope.obj.sum[index]){
+                countAll();
+            }
 		};
 
 		//checkbox选项变动事件

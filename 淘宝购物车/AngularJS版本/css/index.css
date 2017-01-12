@@ -1,0 +1,336 @@
+header {
+  background: #f5f5f5;
+  height: 40px;
+  line-height: 40px;
+  font-size: 10px;
+}
+header > .bx > .n-l > ul > li {
+  float: left;
+  padding-right: 20px;
+}
+header > .bx > .n-l > ul > li > a:hover {
+  color: red;
+  text-decoration: none;
+}
+header > .bx > .n-r > ul > li:first-child > a {
+  color: red;
+}
+header > .bx > .n-r > ul > li + li {
+  position: relative;
+}
+header > .bx > .n-r > ul > li + li > ul {
+  background: #fff;
+  display: none;
+  left: 0;
+  width: 100%;
+  border: 1px solid #eee;
+  border-top: 0;
+  position: absolute;
+  z-index: 2;
+}
+header > .bx > .n-r > ul > li + li > ul > li {
+  line-height: 30px;
+  padding: 0 10px;
+  height: 30px;
+}
+header > .bx > .n-r > ul > li + li > ul > li:hover {
+  background: #f5f5f5;
+}
+header > .bx > .n-r > ul > li + li:hover {
+  background: #fff;
+}
+header > .bx > .n-r > ul > li + li:hover > ul {
+  display: block;
+}
+header > .bx > .n-r > ul > li {
+  padding: 0 15px;
+  float: left;
+}
+header > .bx > .n-r > ul > li > a > span {
+  padding: 0 3px;
+}
+header > .bx > .n-r > ul > li > a:hover {
+  color: red;
+  text-decoration: none;
+}
+.logo {
+  height: 76px;
+}
+.logo > h1 {
+  line-height: 76px;
+}
+.logo > .search {
+  margin: 20px 0;
+  position: relative;
+}
+.logo > .search > input {
+  border: 3px solid #ff4400;
+  padding: 6px;
+  width: 500px;
+}
+.logo > .search > input:focus {
+  outline: none;
+}
+.logo > .search > button {
+  border: 3px solid #ff4400;
+  background: #ff4400;
+  color: white;
+  font-size: 18px;
+  padding: 2px 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.logo > .search > button:focus {
+  outline: none;
+}
+.tab {
+  margin-top: 20px;
+  height: 35px;
+  border-bottom: 2px solid #e6e6e6;
+}
+.tab > .tab-l {
+  position: relative;
+}
+.tab > .tab-l > li:first-child > a {
+  color: red;
+}
+.tab > .tab-l > li {
+  font-weight: bold;
+  font-size: 16px;
+  float: left;
+  padding-bottom: 11px;
+}
+.tab > .tab-l > li > a {
+  padding: 0 20px;
+}
+.tab > .tab-l > li > a > span {
+  color: red;
+  padding: 0 5px;
+}
+.tab > .tab-l > li > a:hover {
+  text-decoration: none;
+}
+.tab > .tab-l > li + li:before {
+  opacity: .3;
+  content: "|";
+}
+.tab > .tab-l > div {
+  width: 130px;
+  border-bottom: 2px solid #ff4400;
+  position: absolute;
+  bottom: -2px;
+}
+.tab > .tab-r > li {
+  line-height: 23px;
+  padding: 0 10px;
+  float: left;
+  font-size: 12px;
+}
+.tab > .tab-r > li > button {
+  border: none;
+  background: #aaa;
+  color: white;
+  padding: 1px 15px;
+}
+.tab > .tab-r > li > button:hover {
+  color: white;
+}
+.tab > .tab-r > li > button.btn {
+  background: #ff4400;
+}
+.tab > .tab-r > li > button:focus {
+  outline: none;
+}
+.content {
+  font-size: 12px;
+  height: 100%;
+  margin-bottom: 100px;
+}
+.content > .content-head {
+  height: 60px;
+  line-height: 60px;
+}
+.content > .content-head > .fl {
+  padding-left: 20px;
+}
+.content > .content-head > .fl > li {
+  padding-right: 150px;
+  float: left;
+}
+.content > .content-head > .fr > li {
+  float: left;
+  padding: 0 52px;
+}
+.content > .content-head > .fr > li:first-child {
+  padding-right: 30px;
+}
+.content > .content-head > .fr > li:last-child {
+  padding: 0 69px 0 33px;
+}
+.content > .box {
+  position: relative;
+  height: 100%;
+}
+.content > .box > ul > li:first-child {
+  margin: 20px 0;
+  padding-left: 25px;
+  background: #fff;
+  border: 1px solid #fcd3b6;
+  outline: 2px solid #fff8d9;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 5px;
+}
+.content > .box > ul > li > .shop {
+  width: 300px;
+  margin: 10px 0;
+  height: 27px;
+  line-height: 27px;
+  padding-left: 20px;
+}
+.content > .box > ul > li > .shop > li:first-child > label {
+  padding: 0 10px;
+}
+.content > .box > ul > li > .shop > li {
+  float: left;
+}
+.content > .box > ul > li > .c {
+  border: 1px solid #ccc;
+  height: 130px;
+}
+.content > .box > ul > li > .c > ul.on {
+  background: #fff8e1;
+}
+.content > .box > ul > li > .c > ul {
+  padding: 20px 20px 30px;
+  height: 100%;
+  background: #fcfcfc;
+}
+.content > .box > ul > li > .c > ul > li:first-child {
+  padding-left: 0;
+}
+.content > .box > ul > li > .c > ul > li {
+  padding: 0 10px;
+  float: left;
+}
+.content > .box > ul > li > .c > ul > li > a:hover {
+  color: red;
+  text-decoration: underline;
+}
+.content > .box > ul > li > .c > ul > li.c-tip {
+  padding-left: 5px;
+  padding-right: 20px;
+  width: 210px;
+  margin-right: 10px;
+}
+.content > .box > ul > li > .c > ul > li.c-tip > ul > .c-icon {
+  margin-top: 20px;
+}
+.content > .box > ul > li > .c > ul > li.c-tip > ul > .c-icon > a {
+  margin-right: 2px;
+}
+.content > .box > ul > li > .c > ul > li.c-type {
+  width: 150px;
+}
+.content > .box > ul > li > .c > ul > li.c-type > ul > li {
+  opacity: .5;
+}
+.content > .box > ul > li > .c > ul > li.c-price {
+  width: 110px;
+}
+.content > .box > ul > li > .c > ul > li.c-price > ul {
+  text-align: center;
+}
+.content > .box > ul > li > .c > ul > li.c-price > ul > .c-price-last {
+  opacity: .5;
+  text-decoration: line-through;
+}
+.content > .box > ul > li > .c > ul > li.c-price > ul > .c-price-now {
+  font-size: 14px;
+}
+.content > .box > ul > li > .c > ul > li.c-price > ul > .c-price-tip > span {
+  display: inline-block;
+  text-align: center;
+  background: #fff0e7;
+  width: 70px;
+  height: 20px;
+  line-height: 20px;
+}
+.content > .box > ul > li > .c > ul > li.c-count {
+  position: relative;
+  height: 25px;
+  width: 140px;
+}
+.content > .box > ul > li > .c > ul > li.c-count > input {
+  text-align: center;
+  height: 100%;
+  width: 50px;
+  border: 1px solid #aaa;
+}
+.content > .box > ul > li > .c > ul > li.c-count > button {
+  border: 0;
+  height: 100%;
+}
+.content > .box > ul > li > .c > ul > li.c-count > .tip {
+  position: absolute;
+  display: none;
+}
+.content > .box > ul > li > .c > ul > li.c-total {
+  width: 125px;
+}
+footer {
+  width: 992px;
+  position: fixed;
+  left: 178.5px;
+  bottom: 0;
+  font-size: 12px;
+  height: 50px;
+  line-height: 50px;
+  background: #e5e5e5;
+}
+footer > .foot-l {
+  height: 100%;
+}
+footer > .foot-l > li {
+  float: left;
+  padding-right: 30px;
+}
+footer > .foot-l > li > a:hover {
+  color: red;
+}
+footer > .foot-r {
+  height: 100%;
+}
+footer > .foot-r > li {
+  float: left;
+  height: 50px;
+}
+footer > .foot-r > li > button {
+  height: 100%;
+  background: #aaa;
+  border: 0;
+  width: 100px;
+  color: white;
+  font-size: 20px;
+}
+footer > .foot-r > li > button:hover {
+  color: white;
+}
+footer > .foot-r > li > button.btn {
+  background: #ff4400;
+}
+footer > .foot-r > li > button:focus {
+  outline: none;
+}
+footer > .foot-r > li.f-count > span {
+  padding: 0 8px;
+}
+footer > .foot-r > li.f-total {
+  height: 50px;
+  line-height: 45px;
+  padding: 0 20px;
+}
+footer > .foot-r > li.f-total > span {
+  font-size: 20px;
+}

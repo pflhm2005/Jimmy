@@ -200,7 +200,7 @@ var rbrace = /^(?:\{[\w\W]*\}|\[[\w\W]*\])$/;
 ##### rmultiDash
 
 ```javascript
-var rmultiDash = /A-Z/g;
+var rmultiDash = /[A-Z]/g;
 ```
 
 
@@ -239,15 +239,18 @@ Data.prototype = {}
 
 ```javascript
 access: function(owner,key,value){
-  //
+  //未传key、value
+  //或者key为string且未传value
+  //获得key对应的值
   if(key === undefined || 
      ((key && typeof key === "string") && 
       value === undefined)){
     return this.get(owner,key);
   }
-  //设置缓存
+  //三个参数时设置缓存
   this.set(owner,key,value);
-  return value !==undefined
+  //返回value的值是否有意义
+  return value !== undefined;
 }
 ```
 
@@ -436,16 +439,22 @@ function getData(data){
 ##### dataAttr
 
 ```javascript
+//自定义属性
 function dataAttr(elem,key,data){
   var name;
+  //不传第三个参数且elem为DOM节点
   if(data === undefined && elem.nodeType === 1){
+    //$&: 与RegExp匹配的子串  rmutiDah: = /[A-Z]/g
+    //驼峰化 camelCase --> camel-case
     name = "data-" + key.replace(rmultiDash,"-$&").toLowerCase();
+    //获取自定义属性值
     data = elem.getAttribute(name);
     if(typeof data === "string"){
       try{
         data = getData(data);
       }
       catch(e){}
+      //缓存对象
       dataUser.set(elem,key,data);
     }
     else{
@@ -537,56 +546,69 @@ _removeData: function(elem,name){
 ```javascript
 data: function(key,value){
   var i,name,data,
+      //elem为调用函数的DOM节点
       elem = this[0],
+      //获取节点属性
       attrs = elem && elem.attributes;
   
-  //
+  //不传参数时
   if(key === undefined){
+    //节点存在
     if(this.length){
+      //获取该节点的缓存对象
       data = dataUser.get(elem);
+      //节点类型为元素且没有hasDataAttrs属性时
       if(elem.nodeType === 1 && !dataPriv.get(elem,"hasDataAttrs")){
         i = attrs.length;
         while(i--){
           //IE-11 only
           if(attrs[i]){
+            //样式名 style、id、class等
             name = attrs[i].name;
+            //存在自定义属性data0-*时
             if(name.indexOf("data") === 0){
+              //去掉前缀并进行驼峰处理
               name = jQuery.camelCase(name.slice(5));
               dataAttr(elem,name,data[name]);
             }
           }
         }
+        //设置"hasDataAttrs"属性为true
         dataPriv.set(elem,"hasDataAttrs",true);
       }
     }
     return data;
   }
   
-  //
+  //传入key为对象
   if(typeof key === "object"){
     return this.each(function(){
       dataUser.set(this,key);
     });
   }
   
+  //
   return access(this,function(value){
     var data;
     if(elem && value === undefined){
+      //从缓存中寻找key的值
       data = dataUser.get(elem,key);
       if(data !== undefined){
         return data;
       }
-      
+      //从h5默认自定义标签寻找key的值
       data = dataAttr(elem,key);
       if(data !== undefined){
         return data;
       }
-      
+      //这里的翻译超萌
       return;
     }
+    //设置缓存
     this.each(function(){
       dataUser.set(this,key,value);
     });
+    //这么多参数是想干什么???
   },null,value,arguments.length > 1,null,true);
 }
 ```
@@ -828,17 +850,24 @@ toggle: function(state){
 queue: function(elem,type,data){
   var queue;
   if(elem){
+    //默认	type = "fxqueue" 
+    //有传参  type = type + "queue"
     type = (type || "fx") + "queue";
+    //尝试获取缓存中的queue值
     queue = dataPriv.get(elem,type);
     
+    //如果传了data参数
     if(data){
+      //未获取到queue值或者传入data参数为数组
       if(!queue || jQuery.isArray(data)){
+        //设置对应缓存对象
         queue = dataPriv.access(elem,type,jQuery.makeArray(data));
       }
       else{
         queue.push(data);
       }
     }
+    //返回queue或空数组
     return queue || [];
   }
 }

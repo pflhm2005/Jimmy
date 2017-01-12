@@ -35,7 +35,7 @@ var rnothtmlwhite = /[^\x20\t\r\n\f]+/g;
 
 
 
-## 主方法
+## 回调函数
 
 
 

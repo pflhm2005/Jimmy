@@ -1,0 +1,150 @@
+.box {
+  width: 500px;
+  background: #fff;
+  border-radius: 5px;
+  margin: 10px auto;
+  padding-top: 10px;
+}
+.box > form {
+  position: relative;
+  background: linear-gradient(#fff, #f0f0f0);
+  padding: 0 20px;
+  height: 210px;
+}
+.box > form > .name-tip {
+  position: absolute;
+  font: bold 16px "΢���ź�";
+  border: 1px solid #eee;
+  background: #eee;
+  border-radius: 8px;
+  top: 30px;
+  display: none;
+}
+.box > form > .content-tip {
+  position: absolute;
+  font: bold 20px "΢���ź�";
+  border: 1px solid #eee;
+  background: #eee;
+  border-radius: 8px;
+  bottom: calc(45%);
+  right: calc(35%);
+  display: none;
+}
+.box > form > h2 {
+  color: #333;
+}
+.box > form > .pic {
+  float: left;
+}
+.box > form > .pic > li {
+  opacity: .6;
+  overflow: hidden;
+  float: left;
+  width: 27px;
+  height: 27px;
+  margin-right: 5px;
+}
+.box > form > .pic > li > span {
+  display: none;
+}
+.box > form > .pic > li > img {
+  cursor: pointer;
+  height: 100%;
+  width: 100%;
+}
+.box > form > input {
+  float: left;
+  border: 1px solid #E9E9E9;
+  padding: 5px;
+  margin-bottom: 10px;
+}
+.box > form > textarea {
+  box-sizing: border-box;
+  width: 100%;
+  resize: none;
+}
+.box > form > p {
+  margin-top: 10px;
+  height: 30px;
+  float: right;
+  color: #9999a4;
+}
+.box > form > p > button {
+  margin-left: 20px;
+  color: white;
+  font: bold 20px "΢���ź�";
+  padding: 2px 40px;
+  background: linear-gradient(#99c96f, #95CE1F);
+  border-radius: 8px;
+  border: 2px solid #b9ea8a ;
+  cursor: pointer;
+}
+.box > form > p > button:hover {
+  background: linear-gradient(#95CE1F, #99c96f);
+}
+.box .t {
+  padding: 10px;
+}
+.box .t > .head {
+  background: #e3eaec;
+}
+.box .t > .head > h3 {
+  color: #333;
+  background: #fff;
+  display: inline-block;
+  margin: 5px 10px 0;
+  padding: 5px 10px;
+}
+.box .t > .comment > li {
+  position: relative;
+  border-bottom: 1px dashed #D8D8D8;
+  height: 50px;
+  clear: both;
+  padding: 15px;
+}
+.box .t > .comment > li > div {
+  float: left;
+}
+.box .t > .comment > li > div img {
+  width: 50px;
+  height: 50px;
+}
+.box .t > .comment > li > ul {
+  width: 390px;
+  margin-left: 10px;
+  float: left;
+}
+.box .t > .comment > li > ul > li:first-child {
+  font-size: 14px;
+}
+.box .t > .comment > li > ul > li:first-child > a:hover {
+  text-decoration: underline;
+}
+.box .t > .comment > li > ul > li:last-child {
+  margin: 5px 0;
+  color: #889db6;
+}
+.box .t > .comment > li > .delete {
+  display: none;
+  bottom: 15px;
+  right: 10px;
+  position: absolute;
+  color: #889db6;
+  cursor: pointer;
+}
+.box .t > .comment > li > .delete > i {
+  display: none;
+}
+.box .t > .comment > li > .delete:hover {
+  text-decoration: underline;
+}
+li.on {
+  opacity: 1!important;
+  outline: 1px solid orange;
+}
+.show {
+  display: block!important;
+}
+.hide {
+  display: none!important;
+}
