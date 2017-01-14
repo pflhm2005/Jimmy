@@ -15,7 +15,7 @@
         <!--表单区域-->
         <div class="content">
             <div>
-                <input type="text" v-model="name">
+                <input type="text" v-model="name" placeholder="name required">
                 <ul>
                     <template v-for="(item,index) in items">
                         <li :class="{on:iter===index}" @click="iter=index">
@@ -24,7 +24,7 @@
                     </template>
                 </ul>
             </div>  
-            <textarea v-model="str" @keydown="count"></textarea>
+            <textarea v-model="str" @keydown="count" placeholder="content required"></textarea>
             <button @click="add">go</button>
             <p>还能输入<span>{{max}}</span>个字</p>
         </div>
@@ -41,7 +41,7 @@
                             <p><a href="javascript:;">{{item.name}}</a>: &nbsp;{{item.str}}</p>
                             <p>{{time}}</p>
                         </div>
-                        <a href="javascript:;" @click="del(index)">删除</a>
+                        <a href="javascript:;" @click="del(index)" :class="{on:index==iter2}">删除</a>
                     </li>
                 </template>
             </ul>

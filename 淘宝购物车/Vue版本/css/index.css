@@ -1,0 +1,346 @@
+header {
+  height: 40px;
+  background: #f5f5f5;
+  line-height: 40px;
+}
+header > div > .h-l > ul > li {
+  padding-right: 30px;
+  float: left;
+}
+header > div > .h-l > ul > li > a:hover {
+  color: red;
+}
+header > div > .h-r > ul > li:first-child > a {
+  color: red;
+}
+header > div > .h-r > ul > li {
+  padding: 0 15px;
+  float: left;
+}
+header > div > .h-r > ul > li > a > span {
+  padding: 0 3px;
+}
+header > div > .h-r > ul > li > a:hover {
+  color: red;
+  text-decoration: none;
+}
+header > div > .h-r > ul > li + li {
+  position: relative;
+}
+header > div > .h-r > ul > li + li > ul {
+  background: #fff;
+  display: none;
+  left: 0;
+  width: 100%;
+  border: 1px solid #eee;
+  border-top: 0;
+  position: absolute;
+  z-index: 1;
+}
+header > div > .h-r > ul > li + li > ul > li {
+  text-align: left;
+}
+header > div > .h-r > ul > li + li > ul > li > a {
+  display: block;
+  padding: 0 10px;
+  height: 30px;
+  line-height: 30px;
+  color: black;
+}
+header > div > .h-r > ul > li + li > ul > li:hover {
+  background: #f5f5f5;
+}
+header > div > .h-r > ul > li + li:hover {
+  background: #fff;
+}
+header > div > .h-r > ul > li + li:hover > ul {
+  display: block;
+}
+.logo {
+  height: 76px;
+}
+.logo > h1 {
+  line-height: 76px;
+}
+.logo > div {
+  margin: 20px 0;
+  position: relative;
+}
+.logo > div > input {
+  border: 3px solid #ff4400;
+  padding: 6px;
+  width: 500px;
+}
+.logo > div > input:focus {
+  outline: none;
+}
+.logo > div > button {
+  border: 3px solid #ff4400;
+  background: #ff4400;
+  color: white;
+  font-size: 18px;
+  padding: 2px 20px;
+  position: absolute;
+  right: 0;
+  top: 0;
+}
+.logo > div > button:focus {
+  outline: none;
+}
+.logo > div > div {
+  top: 35px;
+  position: absolute;
+  border: 3px solid #ff4400;
+  border-top: 0;
+}
+.logo > div > div > p {
+  background: #fff;
+  width: 494px;
+  font-family: "微软雅黑";
+  height: 30px;
+  line-height: 30px;
+  padding-left: 10px;
+  cursor: pointer;
+}
+.logo > div > div > p > p:hover {
+  background: #f5f5f5;
+}
+#app {
+  margin-bottom: 150px;
+}
+#app > .count {
+  height: 35px;
+  margin-top: 20px;
+  border-bottom: 2px solid #e6e6e6;
+}
+#app > .count > .fl > li {
+  font-weight: bold;
+  font-size: 16px;
+  float: left;
+  padding-bottom: 11px;
+}
+#app > .count > .fl > li > a {
+  color: black;
+  padding: 0 20px;
+}
+#app > .count > .fl > li > a > span {
+  color: red;
+}
+#app > .count > .fl > li > a.on {
+  color: red;
+}
+#app > .count > .fl > li > a:hover {
+  text-decoration: none;
+}
+#app > .count > .fl > li + li:before {
+  content: "|";
+  opacity: .3;
+}
+#app > .count > .fl > li.on {
+  border-bottom: 2px solid #ff4400;
+}
+#app > .count > .fr > li {
+  line-height: 23px;
+  padding: 0 10px;
+  float: left;
+  font-size: 12px;
+}
+#app > .count > .fr > li > button {
+  border: none;
+  background: #aaa;
+  color: white;
+  padding: 1px 15px;
+  cursor: not-allowed;
+}
+#app > .count > .fr > li > button.on {
+  cursor: pointer;
+  background: #ff4400;
+}
+#app > .count > .fr > li > button:focus {
+  outline: none;
+}
+#app > .count > .fr > li:nth-child(2) {
+  color: red;
+}
+#app > .content > .c-t {
+  height: 60px;
+  line-height: 60px;
+}
+#app > .content > .c-t > label {
+  margin: 0 20px;
+}
+#app > .content > .c-t > span {
+  margin-left: 140px;
+}
+#app > .content > .c-t > div > span {
+  display: inline-block;
+  margin: 0 45px;
+}
+#app > .content .box > ul > li:first-child {
+  margin: 20px 0;
+  padding-left: 25px;
+  background: #fff;
+  border: 1px solid #fcd3b6;
+  outline: 2px solid #fff8d9;
+  height: 36px;
+  line-height: 36px;
+  border-radius: 5px;
+}
+#app > .content .box > ul > li:first-child > a {
+  color: red;
+}
+#app > .content .box > ul > li {
+  margin: 20px 0;
+}
+#app > .content .box > ul > li > label {
+  margin-left: 20px;
+}
+#app > .content .box > ul > li:last-child > ul.on {
+  background: #fff8e1;
+}
+#app > .content .box > ul > li:last-child > ul {
+  padding: 20px 20px 30px;
+  height: 100%;
+  background: #fcfcfc;
+  border: 1px solid #ccc;
+  height: 130px;
+}
+#app > .content .box > ul > li:last-child > ul > li {
+  padding: 0 20px;
+  float: left;
+}
+#app > .content .box > ul > li:last-child > ul > li:first-child {
+  padding: 0;
+}
+#app > .content .box > ul > li:last-child > ul > .c3 {
+  padding-left: 5px;
+  padding-right: 20px;
+  width: 210px;
+  margin-right: 10px;
+}
+#app > .content .box > ul > li:last-child > ul > .c4 {
+  width: 160px;
+  opacity: .5;
+}
+#app > .content .box > ul > li:last-child > ul > .c5 {
+  text-align: center;
+  width: 94px;
+  padding: 0;
+}
+#app > .content .box > ul > li:last-child > ul > .c5 > .c5_prev {
+  opacity: .5;
+  text-decoration: line-through;
+}
+#app > .content .box > ul > li:last-child > ul > .c5 > .c5_now {
+  font-size: 14px;
+  font-weight: bold;
+}
+#app > .content .box > ul > li:last-child > ul > .c5 > p:nth-child(3) {
+  margin: 0 auto;
+  color: red;
+  background: #fff0e7;
+  width: 60px;
+  height: 20px;
+  line-height: 20px;
+}
+#app > .content .box > ul > li:last-child > ul > .c5 > .c5_sale {
+  margin: 5px 0;
+  border: 1px solid #fcd3b6;
+  outline: 2px solid #fff8d9;
+  background: #fff;
+  border-radius: 10px;
+  text-align: center;
+  width: 110px;
+  opacity: 0;
+  transition: all 1s;
+}
+#app > .content .box > ul > li:last-child > ul > .c5 > .c5_sale > span {
+  color: red;
+  font-weight: bold;
+}
+#app > .content .box > ul > li:last-child > ul > .c5 > .c5_sale.on {
+  opacity: 1;
+}
+#app > .content .box > ul > li:last-child > ul > .c6 {
+  width: 143px;
+  height: 25px;
+  padding-right: 15px;
+}
+#app > .content .box > ul > li:last-child > ul > .c6 > input {
+  text-align: center;
+  height: 100%;
+  width: 50px;
+  border: 1px solid #aaa;
+}
+#app > .content .box > ul > li:last-child > ul > .c6 > button {
+  height: 100%;
+  width: 25px;
+  text-align: center;
+}
+#app > .content .box > ul > li:last-child > ul > .c7 {
+  width: 134px;
+  color: red;
+  font-weight: bold;
+}
+#app > .content .box > ul > li:last-child > ul > .c8 a:hover {
+  color: red;
+}
+#app > footer {
+  width: 992px;
+  position: fixed;
+  left: 178.5px;
+  bottom: 0;
+  font-size: 12px;
+  height: 50px;
+  line-height: 50px;
+  background: #e5e5e5;
+}
+#app > footer > .foot-l {
+  height: 100%;
+}
+#app > footer > .foot-l > li {
+  float: left;
+  padding-right: 30px;
+}
+#app > footer > .foot-l > li > a {
+  color: black;
+}
+#app > footer > .foot-l > li > a:hover {
+  color: red;
+}
+#app > footer > .foot-r {
+  height: 100%;
+}
+#app > footer > .foot-r > li {
+  float: left;
+  height: 50px;
+}
+#app > footer > .foot-r > li > button {
+  height: 100%;
+  background: #aaa;
+  border: 0;
+  width: 100px;
+  color: white;
+  font-size: 20px;
+  cursor: not-allowed;
+}
+#app > footer > .foot-r > li > button.on {
+  cursor: pointer;
+  background: #ff4400;
+}
+#app > footer > .foot-r > li > button:focus {
+  outline: none;
+}
+#app > footer > .foot-r > li.f-count > span {
+  color: red;
+  padding: 0 8px;
+}
+#app > footer > .foot-r > li.f-total {
+  height: 50px;
+  line-height: 45px;
+  padding: 0 20px;
+}
+#app > footer > .foot-r > li.f-total > span {
+  color: red;
+  font-size: 20px;
+}

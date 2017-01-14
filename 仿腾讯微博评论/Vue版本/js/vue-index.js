@@ -39,11 +39,17 @@ var app = new Vue({
     },
     methods: {
         count: function(e){
-            //bug
-            this.str = this.str.length<10?this.str:this.str.substr(0,9);
+            //bug已修复
+            if(this.str.length>9 && e.keyCode != 8){
+                this.str = this.str.substr(0,9);
+            }
+            // this.str = this.str.length<10?this.str:this.str.substr(0,9);
         },
         //添加评论
         add: function(){
+            if(!this.name||!this.str){
+                return ;
+            }
             var obj = {};
             obj.src = "images/"+(this.iter+1)+".jpg";
             obj.name = this.name;
@@ -54,6 +60,15 @@ var app = new Vue({
         //删除评论
         del: function(index){
             this.items2.splice(index,1);
+        }
+    },
+    //自动轮播
+    created: function() {
+        var _ = this;
+        window.onkeydown = function(e){
+            if(e.ctrlKey&&e.keyCode === 13){
+                _.add();
+            }
         }
     }
 });
