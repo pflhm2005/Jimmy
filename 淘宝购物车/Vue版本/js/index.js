@@ -29,32 +29,38 @@ var app = new Vue({
         count:[],           //商品数量
         checked:[],         //是否选中
         arr:[],             //选中商品价格
-        del_iter:[],        //删除商品
+        del_iter:[],        //删除与撤销删除商品
         new_price:[],       //每个商品的价格
         checkedAll:false,   //全选按钮
         take:0,             //已选中商品数量
         sale:[],            //折扣率
-        tip_iter:[],
+        tip_iter:[],        //是否是降价商品
     },
     computed:{
         //计算总价
         totalPrice: function(){
-            var all = 0;
-            for(var i=0;i<this.take;i++){
+            for(var i=0,all = 0;i<this.take;i++){
                 all += this.arr[i];
             }
             return all.toFixed(2);
         },
         //计算剩余商品数量
         all_content: function(){
-            var all = 7;
-            console.log(this.del_iter);
-            for(var i=0;i<this.del_iter.length;i++){
+            for(var i=0,all = 7;i<this.del_iter.length;i++){
                 if(!this.del_iter[i]){
                     all--;
                 }
             }
             return all;
+        },
+        //降价商品数量
+        sale_content: function(){
+            for(var i=0,sale=0,len=this.tip_iter.length;i<len;i++){
+                if(!this.tip_iter[i]){
+                    sale++;
+                }
+            }
+            return sale;
         }
     },
     methods: {
@@ -86,10 +92,9 @@ var app = new Vue({
         //全选
         checkAll: function(checked){
             this.checkedAll = checked;
-            var len = this.count.length;
-            for(var i=0;i<len;i++){
-                this.checked[i] = checked ? true : false;
-                this.new_price[i][1] = checked ? true : false;
+            for(var i=0,len = this.count.length;i<len;i++){
+                this.checked[i] = checked;
+                this.new_price[i][1] = checked;
             }
             this.countAll();
         },
@@ -100,7 +105,6 @@ var app = new Vue({
         },
         //删除并重置商品选项
         del: function(index){
-            //
             this.$set(this.del_iter,index,false);
             this.new_price[index][0] = items[index].price;
             this.count[index] = 1;
@@ -109,6 +113,15 @@ var app = new Vue({
                 this.$set(this.checked,index,false);
                 this.new_price[index][1] = false;
                 this.countAll();
+            }
+            if(items[index].extra){
+                this.$set(this.tip_iter,index,true);
+            }
+        },
+        cancel: function(index){
+            this.$set(this.del_iter,index,true);
+            if(items[index].extra){
+                this.$set(this.tip_iter,index,false);
             }
         },
         //更新选中商品数组和数量
@@ -141,18 +154,19 @@ var app = new Vue({
     }
 });
 
+//搜索框对应效果
 var sear = new Vue({
     el:"#sear",
     data:{
         content:[],
         input:"",
         match:[],
+        iter:null,
     },
     methods: {
         //显示搜索匹配内容
         showTag: function(){
-            var arr = [];
-            for(var i=0;i<this.content.length;i++){
+            for(var i=0,arr = [];i<this.content.length;i++){
                 if(this.content[i].indexOf(this.input) === 0 && this.input){
                     arr.push(this.content[i]);
                 }
@@ -165,9 +179,10 @@ var sear = new Vue({
             this.match = [];
         },
     },
+    //初始化匹配库
     created: function(){
         for(var item in items){
             this.content.push(items[item].tip);
         }
     }
-})
+});

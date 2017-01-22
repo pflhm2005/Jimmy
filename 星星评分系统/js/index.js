@@ -3,59 +3,50 @@ $(function (){
         li=$('li+li'),
         iter=true,
         len=$('li').length- 1,
-        p=document.getElementsByTagName('p')[0],
-        span=document.getElementsByTagName('span')[0];
-    //var l=document.getElementsByTagName("li");
-    //var l2=$('li');
-    //ÀàÊı×é 6¸öÔªËØ
-    //console.log(l);
-    //ÀàÊı×é 7¸öÔªËØ ¶à³öÒ»¸ö¶ÔÏóprevObject
-    //console.log(l2);
+        p=$("p");
+        span=$("span");
     li.hover(function (){
         //that=this;
         num=this.innerHTML;
-        $('p').eq(0).css('left',40+(num-1)*30);
+        p.css('left',40+(num-1)*30);
         switch (num) {
             case "1":
-                p.innerHTML='<p><b>1</b>·Ö ºÜ²»ÂúÒâ</p>';
+                p.html("<p><b>1æ˜Ÿ:</b>å¾ˆä¸æ»¡æ„|å·®å¾—å¤ªç¦»è°±ï¼Œä¸å–å®¶æè¿°çš„ä¸¥é‡ä¸ç¬¦ï¼Œéå¸¸ä¸æ»¡</p>");
                 break;
             case "2":
-                p.innerHTML='<p><b>2</b>·Ö ²»ÂúÒâ</p>';
+                p.html("<p><b>2æ˜Ÿ:</b>ä¸æ»¡æ„|éƒ¨åˆ†æœ‰ç ´æŸï¼Œä¸å–å®¶æè¿°çš„ä¸ç¬¦ï¼Œä¸æ»¡æ„</p>");
                 break;
             case "3":
-                p.innerHTML='<p><b>3</b>·Ö Ò»°ã</p>';
+                p.html("<p><b>3æ˜Ÿ:</b>ä¸€èˆ¬|è´¨é‡ä¸€èˆ¬ï¼Œæ²¡æœ‰å–å®¶æè¿°çš„é‚£ä¹ˆå¥½</p>");
                 break;
             case "4":
-                p.innerHTML='<p><b>4</b>·Ö ÂúÒâ</p>';
+                p.html("<p><b>4æ˜Ÿ:</b>æ»¡æ„|è´¨é‡ä¸é”™ï¼Œä¸å–å®¶æè¿°çš„åŸºæœ¬ä¸€è‡´ï¼Œè¿˜æ˜¯æŒºæ»¡æ„çš„</p>");
                 break;
             case "5":
-                p.innerHTML='<p><b>5</b>·Ö ·Ç³£ÂúÒâ</p>';
+                p.html("<p><b>5æ˜Ÿ:</b>éå¸¸æ»¡æ„|è´¨é‡éå¸¸å¥½ï¼Œä¸å–å®¶æè¿°çš„å®Œå…¨ä¸€è‡´ï¼Œéå¸¸æ»¡æ„</p>");
                 break;
         }
         for(var i=0;i<num;i++){
-            //li.eq(i).css("backgroundPositionY",-28);
             li.eq(i).addClass('on');
+            p.addClass("on");
         }
         //go();
     },function (){
-        p.innerHTML="";
+        p.html("");
         for(var i=0;i<len;i++){
-            //li.eq(i).css("backgroundPositionY",0);
             li.eq(i).removeClass('on');
         }
+        p.removeClass("on");
     });
-    //µã»÷ÊÂ¼ş
     li.click(function (){
         num=this.innerHTML;
-        console.log(num);
         fresh();
         for(var i=0;i<num;i++){
             li.eq(i).css("backgroundPositionY",-28);
         }
-        span.innerHTML=p.innerText;
-        $('p').eq(0).css('display',"none");
+        span[0].innerHTML=p[0].innerText;
+        p.eq(0).css('display',"none");
     });
-    //ÖØÖÃĞÇĞÇ
     function fresh(){
         var len=$('li').length-1;
         for(var i=0;i<len;i++){

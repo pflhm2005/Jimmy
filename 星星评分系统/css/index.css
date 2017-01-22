@@ -1,14 +1,14 @@
 .content {
   position: relative;
-  width: 400px;
+  width: 500px;
   margin: 0 auto;
 }
-.content ul {
+.content > ul {
   display: inline-block;
   height: 18px;
   margin-top: 20px;
 }
-.content ul > li + li {
+.content > ul > li + li {
   background: url("../images/star.png") no-repeat;
   width: 20px;
   height: 20px;
@@ -16,10 +16,13 @@
   text-indent: -999px;
   position: relative;
 }
-.content ul > li {
+.content > ul > li {
   color: #666666;
   float: left;
   padding-right: 10px;
+}
+.content > ul > li.on {
+  background-position-y: -28px !important;
 }
 .content > p {
   margin: 30px 0;
@@ -29,8 +32,13 @@
   left: 60px;
   width: 159px;
   height: 60px;
-  font: 14px "΢���ź�";
+  font: 14px "microsoft yahei";
 }
-li.on {
-  background-position-y: -28px !important;
+.content > p.on{
+  border:2px solid #ff4400;
+}
+.content > span {
+  margin-top: 20px;
+  float: right;
+  width: 240px;
 }

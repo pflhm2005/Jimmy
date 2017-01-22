@@ -6,7 +6,9 @@ var app = new Vue({
         iter:0,
         iter2:null,
         arr:[],
-        pattern:/\s(\d{2})\s\w*\s(\d{2}:\d{2})/g,
+        max:10,
+        len:0,
+        input_pattern:/[^\x00-\xff]/g,
         items : [
             {src:"images/1.jpg"},         
             {src:"images/2.jpg"},
@@ -18,42 +20,40 @@ var app = new Vue({
             {src:"images/8.jpg"}
         ],
         items2:[
-            {src:"images/1.jpg",name:"日丶久生情",str:"新增删除广播功能。"},
-            {src:"images/1.jpg",name:"日丶久生情",str:"新增Ctrl+Enter快捷键发送广播。"},
-            {src:"images/1.jpg",name:"日丶久生情",str:"新增选择头像功能。"},
-            {src:"images/1.jpg",name:"日丶久生情",str:"增加了记录广播时间的功能。"},
-            {src:"images/1.jpg",name:"日丶久生情",str:"增加了输入字符检测功能，英文/半角为半个字符，汉字/全角为一个字符。"},
-            {src:"images/1.jpg",name:"日丶久生情",str:"仿腾讯微博效果，欢迎大家测试！"},
+            {src:"images/6.jpg",name:"日丶久生情",str:"新增删除广播功能。",time:"07月05日 15:14"},
+            {src:"images/4.jpg",name:"日丶久生情",str:"新增Ctrl+Enter快捷键发送广播。",time:"07月05日 15:14"},
+            {src:"images/8.jpg",name:"日丶久生情",str:"新增选择头像功能。",time:"07月05日 15:14"},
+            {src:"images/3.jpg",name:"日丶久生情",str:"增加了记录广播时间的功能。",time:"07月05日 15:14"},
+            {src:"images/5.jpg",name:"日丶久生情",str:"增加了输入字符检测功能，英文/半角为半个字符，汉字/全角为一个字符。",time:"07月05日 15:14"},
+            {src:"images/1.jpg",name:"日丶久生情",str:"仿腾讯微博效果，欢迎大家测试！",time:"07月05日 15:14"},
         ]
     },
     computed: {
         max: function(){
-            return 10-this.str.length;
+            var len_match = this.str.match(this.input_pattern) ? this.str.match(this.input_pattern).length : 0;
+            this.len = len_match + this.str.length;
+            return 10-0.5 * this.len;
         },
-        time: function(){
-            var m = new Date().getMonth()+1;
-            m = m < 10 ? "0" + m : m;
-            var match = this.pattern.exec(Date());
-            return m + "月" + match[1] + "日 " + match[2];
+    },
+    filters: {
+        filter: function(value){
+            return value.toFixed(0);
+        },
+        filter2: function(value){
+            return Math.abs(value.toFixed(0));
         }
     },
     methods: {
-        count: function(e){
-            //bug已修复
-            if(this.str.length>9 && e.keyCode != 8){
-                this.str = this.str.substr(0,9);
-            }
-            // this.str = this.str.length<10?this.str:this.str.substr(0,9);
-        },
         //添加评论
         add: function(){
-            if(!this.name||!this.str){
+            if(!this.name||!this.str||this.max<0){
                 return ;
             }
             var obj = {};
             obj.src = "images/"+(this.iter+1)+".jpg";
             obj.name = this.name;
             obj.str = this.str;
+            obj.time = getTime();
             this.items2.unshift(obj);
             this.name=this.str="";
         },
@@ -62,13 +62,20 @@ var app = new Vue({
             this.items2.splice(index,1);
         }
     },
-    //自动轮播
+    //ctrl+enter发送评论
     created: function() {
         var _ = this;
         window.onkeydown = function(e){
             if(e.ctrlKey&&e.keyCode === 13){
                 _.add();
             }
-        }
+        };
     }
 });
+function getTime(){
+    var m = new Date().getMonth()+1,
+        data_pattern=/\s(\d{2})\s\w*\s(\d{2}:\d{2})/g,
+    m = m < 10 ? "0" + m : m;
+    var match = data_pattern.exec(Date());
+    return m + "月" + match[1] + "日 " + match[2];
+}

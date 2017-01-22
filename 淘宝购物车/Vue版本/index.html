@@ -78,7 +78,9 @@
             <button @click="input=''">搜索</button>
             <div v-show="match[0]">
                 <template v-for="(item,index) in match"> 
-                    <p @click="search(index)">{{match[index]}}</p>
+                    <p @click="search(index)">
+                        {{match[index]}}
+                    </p>
                 </template>
             </div>  
         </div>
@@ -88,7 +90,7 @@
         <div class="count bx" id="count">
             <ul class="fl">
                 <li :class="{on:tab===1}" @mouseenter="tab=1"><a href="" class="on">全部商品 <span>{{all_content}}</span></a></li>
-                <li :class="{on:tab===2}" @mouseenter="tab=2" @mouseleave="tab=1"><a href="">降价商品 <span>0</span></a></li>
+                <li :class="{on:tab===2}" @mouseenter="tab=2" @mouseleave="tab=1"><a href="">降价商品 <span>{{sale_content}}</span></a></li>
                 <li :class="{on:tab===3}" @mouseenter="tab=3" @mouseleave="tab=1"><a href="">库存紧张 <span>0</span></a></li>
             </ul>
             <ul class="fr">
@@ -116,8 +118,12 @@
             <div class="box">
                 <template v-for="(item,index) in items">
                     <ul>
-                        <li v-show="!del_iter[index]">成功删除 1 件宝贝，可
-                            <a href="javascript:;" @click="$set(del_iter,index,true)">撤销本次删除</a>
+                        <li v-show="!del_iter[index]">
+                            成功删除 1 件宝贝，可
+                            <a href="javascript:;"
+                                @click="cancel(index)">
+                                撤销本次删除
+                            </a>
                         </li>
                         <li v-show="del_iter[index]">
                             <label>
@@ -147,17 +153,34 @@
                                     <p>{{item.size}}</p>
                                 </li>
                                 <li class="c5">
-                                    <p class="c5_prev" v-if="item.prev_price">￥<span>{{item.prev_price}}</span></p>
+                                    <p class="c5_prev" v-if="item.prev_price">
+                                        ￥
+                                        <span>
+                                            {{item.prev_price}}
+                                        </span>
+                                    </p>
                                     <p class="c5_now">￥<span>{{item.price}}</span></p>
-                                    <p @mouseenter="tip(index,true)" @mouseleave="tip(index,false)" v-if="item.extra">{{item.extra}}</p>
-                                    <p class="c5_sale" v-if="item.extra" :class="{on:tip_iter[index]}">超值商品<span>{{sale[index]}}</span>折优惠</p>
+                                    <p @mouseenter="tip(index,true)" 
+                                        @mouseleave="tip(index,false)" 
+                                        v-if="item.extra">
+                                        {{item.extra}}
+                                    </p>
+                                    <p class="c5_sale" 
+                                        v-if="item.extra" 
+                                        :class="{on:tip_iter[index]}">
+                                        超值商品
+                                        <span>
+                                            {{sale[index]}}
+                                        </span>
+                                        折优惠
+                                    </p>
                                 </li>
                                 <li class="c6">
                                     <button @click="btn(index)">-</button>
                                     <input type="text" 
-                                    v-model="count[index]" 
-                                    oninput="this.value=this.value.replace(/\D/g,'')" 
-                                    @keyup="key(index)">
+                                        v-model="count[index]" 
+                                        oninput="this.value=this.value.replace(/\D/g,'')" 
+                                        @keyup="key(index)">
                                     <button @click="btn(index,true)">+</button>
                                 </li>
                                 <li class="c7">
