@@ -1,0 +1,206 @@
+#container {
+  padding-bottom: 300px;
+}
+#container #title {
+  background: #fff;
+  height: 44px;
+  position: relative;
+  line-height: 44px;
+}
+#container #title > a {
+  display: inline-block;
+  font-size: 25px;
+  color: red;
+  position: absolute;
+  left: 10px;
+  top: 10px;
+  z-index: 10;
+}
+#container #title > h3 {
+  height: 44px;
+  text-align: center;
+  font-size: 17px;
+  padding: 0 25%;
+  position: relative;
+}
+#container #main {
+  border-top: 1px solid #eee;
+}
+#container #main > a {
+  display: block;
+  position: relative;
+}
+#container #main > a > img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+#container #main > a:after {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-top: 32%;
+}
+#container #time {
+  background-color: #eee;
+  height: 40px;
+  position: relative;
+  overflow: hidden;
+  border-bottom: 1px solid #ffabab;
+}
+#container #time.on {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  z-index: 160;
+}
+#container #time > ul {
+  position: relative;
+  z-index: 1;
+  width: 1000px;
+  padding-left: 169.5px;
+  transition: all .3s;
+}
+#container #time > ul:after {
+  display: table;
+  content: "";
+  clear: both;
+}
+#container #time > ul > li {
+  font-size: 12px;
+  width: 75px;
+  text-align: center;
+  position: relative;
+  color: #333;
+  line-height: 16px;
+  float: left;
+  padding: 4px 0;
+}
+#container #time > ul > li:after {
+  content: "";
+  position: absolute;
+  right: 0;
+  top: 8px;
+  height: 24px;
+  width: 1px;
+  background-color: #dcdcdc;
+}
+#container #time > ul > li.on {
+  color: #fff;
+}
+#container #time > span {
+  position: absolute;
+  background-color: #ff3c3c;
+  width: 75px;
+  height: 100%;
+  top: 0;
+  left: 50%;
+  transform: translateX(-50%);
+}
+#container #content {
+  background-color: #fff;
+}
+#container #content > .content_text {
+  height: 32px;
+  line-height: 32px;
+  padding: 0 3%;
+  border-bottom: 1px solid #e0e0e0;
+  color: #757575;
+}
+#container #content > .product_list > a {
+  display: flex;
+  padding: 3%;
+  border-bottom: 1px solid #e0e0e0;
+}
+#container #content > .product_list > a > img {
+  width: 90px;
+  height: 90px;
+  display: block;
+  margin-right: 10px;
+}
+#container #content > .product_list > a > .info {
+  flex: 1;
+  width: 100%;
+  color: #333;
+}
+#container #content > .product_list > a > .info > h2 {
+  height: 40px;
+  line-height: 20px;
+  margin-bottom: 5px;
+  font-size: 14px;
+  font-weight: normal;
+}
+#container #content > .product_list > a > .info > .price > span {
+  float: left;
+  height: 20px;
+  line-height: 20px;
+  margin-top: 25px;
+  font-size: 14px;
+  color: #ff3c25;
+}
+#container #content > .product_list > a > .info > .price > span > i {
+  font-size: 20px;
+  font-style: normal;
+}
+#container #content > .product_list > a > .info > .price > del {
+  float: left;
+  height: 10px;
+  line-height: 10px;
+  margin-top: 33px;
+  margin-left: 5px;
+  font-size: 10px;
+  color: #bbb;
+  text-decoration: none;
+}
+#container #content > .product_list > a > .info > .price > .count {
+  position: relative;
+  z-index: 0;
+  border: 1px solid  #ff3c25;
+  border-radius: 5px;
+  text-align: center;
+  float: right;
+  width: 75px;
+  height: 45px;
+}
+#container #content > .product_list > a > .info > .price > .count.on {
+  border: 1px solid  #4c92f4;
+}
+#container #content > .product_list > a > .info > .price > .count:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#container #content > .product_list > a > .info > .price > .count > .percentage {
+  color: #ff3c25;
+  position: relative;
+  display: block;
+  height: 16px;
+  line-height: 16px;
+  font-size: 10px;
+}
+#container #content > .product_list > a > .info > .price > .count > .percentage.on {
+  color: #4c92f4;
+}
+#container #content > .product_list > a > .info > .price > .count > .percentage > .progress {
+  display: block;
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  height: 100%;
+  background-color: #ffc4bd;
+}
+#container #content > .product_list > a > .info > .price > .count > .btn {
+  font-size: 12px;
+  color: #fff;
+  height: 27px;
+  line-height: 27px;
+  display: block;
+  background-color: #ff3c25;
+}
+#container #content > .product_list > a > .info > .price > .count > .btn.on {
+  background-color: #4c92f4;
+}

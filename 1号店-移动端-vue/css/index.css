@@ -1,0 +1,725 @@
+#container {
+  width: 100%;
+  height: auto;
+  position: relative;
+  padding-bottom: 200px;
+  overflow: hidden;
+}
+#container > header {
+  position: relative;
+}
+#container > header > img {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  left: 0;
+  top: 0;
+}
+#container > header > .btn {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  text-indent: -999px;
+}
+#container > header > .btn > .close {
+  float: left;
+  width: 8.33%;
+  height: 100%;
+}
+#container > header > .btn > .open {
+  float: left;
+  width: 91.67%;
+  height: 100%;
+}
+#container > header:after {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-top: 11.73%;
+}
+#container #mask {
+  z-index: 100;
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+#container #mask > .address {
+  text-align: center;
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  width: 85.33%;
+  padding: 10px 0 20px;
+  background-color: #fff;
+  border-radius: 7px;
+}
+#container #mask > .address > .adr-text {
+  font-size: 14px;
+  height: 50px;
+  line-height: 50px;
+}
+#container #mask > .address > .adr-select {
+  padding: 0 25px;
+}
+#container #mask > .address > .adr-select > .sel-content {
+  height: 44px;
+  position: relative;
+  border: 1px solid #ccc;
+  border-radius: 7px;
+}
+#container #mask > .address > .adr-select > .sel-content > .sel-title {
+  position: relative;
+  display: flex;
+  height: 44px;
+  line-height: 44px;
+  padding-right: 30px;
+  font-size: 14px;
+  color: #aaa;
+}
+#container #mask > .address > .adr-select > .sel-content > .sel-title > .icon1 {
+  display: block;
+  width: 24px;
+  height: 44px;
+  line-height: 44px;
+  padding-left: 5px;
+  font-size: 18px;
+  color: #ccc;
+}
+#container #mask > .address > .adr-select > .sel-content > .sel-title > .sel-text {
+  display: block;
+}
+#container #mask > .address > .adr-select > .sel-content > .sel-title > .sel-main {
+  display: block;
+  flex: 1;
+  color: #333;
+  line-height: 44px;
+  white-space: nowrap;
+}
+#container #mask > .address > .adr-select > .sel-content > .sel-title > .icon2 {
+  position: absolute;
+  right: 10px;
+  top: 0;
+  width: 20px;
+  line-height: 50px;
+  height: 44px;
+  color: #666;
+  font-size: 12px;
+}
+#container #mask > .address > .adr-submit {
+  height: 50px;
+  text-align: center;
+}
+#container #mask > .address > .adr-submit > a {
+  display: inline-block;
+  width: 82px;
+  height: 28px;
+  line-height: 28px;
+  margin-top: 20px;
+  border: 1px solid #f23939;
+  border-radius: 5px;
+  background-color: #ff3c3c;
+  color: white;
+  font-size: 14px;
+}
+#container #sear {
+  background-color: #fff;
+  display: flex;
+  height: 56px;
+  width: 100%;
+  margin-top: 2.5px;
+  position: relative;
+}
+#container #sear.on {
+  margin: 0;
+  z-index: 1000;
+  position: fixed;
+}
+#container #sear > .logo {
+  overflow: hidden;
+  display: block;
+  width: 60px;
+  height: 55px;
+  transition: all .3s;
+}
+#container #sear > .logo.on {
+  width: 0;
+}
+#container #sear > .logo > img {
+  display: block;
+  width: 50px;
+  height: 50px;
+  margin-left: 10px;
+}
+#container #sear > .adr {
+  display: block;
+  line-height: 50px;
+  height: 55px;
+  width: 52.5px;
+  margin-left: 6.25px;
+  transition: all .3s;
+}
+#container #sear > .adr.on {
+  width: 0;
+  text-indent: -999px;
+}
+#container #sear > .sear-arrow {
+  position: absolute;
+  display: block;
+  width: 28.75px;
+  height: 37.5px;
+  padding: 0 6.25px;
+  font-size: 30px;
+  left: 3px;
+  top: 10px;
+  color: red;
+}
+#container #sear > .search {
+  margin: 0 6.25px 0 12.5px;
+  flex: 1;
+  height: 44px;
+  padding: 7px 0;
+  position: relative;
+  transition: all .3s linear;
+}
+#container #sear > .search.on {
+  margin: 0 93.75px 0 41.25px;
+}
+#container #sear > .search > span {
+  position: absolute;
+  left: 10.25px;
+  top: 8px;
+  width: 31.25px;
+  height: 37.5px;
+  line-height: 37.5px;
+  font-size: 20px;
+  opacity: .5;
+}
+#container #sear > .search > input {
+  border: 1px solid #c6c6c6;
+  background: #fff;
+  width: 100%;
+  height: 37.5px;
+  padding: 6.25px 6.25px 6.25px 37.5px;
+  border-radius: 18px;
+  font-size: 14px;
+}
+#container #sear > .sear_btn2 {
+  width: 68.75px;
+  height: 37.5px;
+  font-size: 16   px;
+  line-height: 37.5px;
+  border-radius: 5px;
+  display: block;
+  opacity: 0;
+  position: absolute;
+  right: 10px;
+  top: 7px;
+  text-align: center;
+  background-color: #ff3c3c;
+  color: white;
+}
+#container #sear > .sear_btn2.on {
+  opacity: 1;
+}
+#container #sear > .sear-tag {
+  padding-bottom: 10px;
+  background-color: #f5f5f5;
+  position: absolute;
+  z-index: 1000;
+  left: 0;
+  top: 56.25px;
+  width: 100%;
+}
+#container #sear > .sear-tag > a {
+  float: left;
+  width: 30%;
+  height: 30px;
+  line-height: 30px;
+  margin-top: 10px;
+  margin-left: 2.3%;
+  color: #666;
+  text-align: center;
+  background-color: #fff;
+  padding: 0 10px;
+  border: 1px solid #dcdcdc;
+  border-radius: 14px;
+}
+#container #sear > .sear_btn {
+  display: flex;
+  height: 100%;
+}
+#container #sear > .sear_btn > a {
+  display: block;
+  position: relative;
+  text-align: center;
+  color: #ff3c3c;
+}
+#container #sear > .sear_btn > a > .glyphicon {
+  width: 42.5px;
+  height: 35px;
+  display: block;
+  font-size: 25px;
+  line-height: 35px;
+}
+#container #sear > .sear_btn > a > .text {
+  font-size: 13px;
+  display: block;
+  font-size: 12px;
+}
+#container #sear_mask {
+  position: fixed;
+  left: 0;
+  top: 0;
+  z-index: 950;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.4);
+}
+#container > #adv {
+  position: relative;
+}
+#container > #adv > .pic {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  transition: all 1s;
+}
+#container > #adv > .pic > a > img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+#container > #adv > .btn {
+  position: absolute;
+  bottom: 5px;
+  left: 0;
+  width: 100%;
+  z-index: 10;
+  text-align: center;
+}
+#container > #adv > .btn > span {
+  display: inline-block;
+  width: 8px;
+  height: 8px;
+  border: 1px solid rgba(0, 0, 0, 0.5);
+  background-color: transparent;
+  border-radius: 3px;
+  margin-right: 5px;
+}
+#container > #adv > .btn > span.on {
+  background-color: #fff;
+}
+#container > #adv:after {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-top: 32%;
+}
+#container > nav {
+  background-color: #fff;
+}
+#container > nav > a {
+  float: left;
+  width: 20%;
+  padding-top: 15px;
+  text-align: center;
+  height: 97.5px;
+}
+#container > nav > a > .pic {
+  height: 50px;
+  width: 50px;
+  position: relative;
+  display: inline-block;
+}
+#container > nav > a > .pic > img {
+  vertical-align: top;
+  width: 100%;
+  height: 100%;
+}
+#container > nav > a > .text {
+  display: block;
+  height: 32.5px;
+  line-height: 32.5px;
+  color: #666;
+}
+#container > nav:after {
+  content: "";
+  display: table;
+  clear: both;
+}
+#container > #nav-foot > a {
+  margin: 2.67%;
+  display: block;
+  position: relative;
+}
+#container > #nav-foot > a > img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+#container > #nav-foot > a:after {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-top: 21.13%;
+}
+#container > #hand {
+  background-color: #fff;
+}
+#container > #hand > .hand-top {
+  height: 55px;
+  position: relative;
+}
+#container > #hand > .hand-top > .hand-title {
+  height: 55px;
+  float: left;
+  padding: 16.25px 0;
+}
+#container > #hand > .hand-top > .hand-title > h3 {
+  height: 22.5px;
+  line-height: 22.5px;
+  font-size: 13px;
+  padding-left: 12.5px;
+  border-left: 2px solid #ff3c25;
+}
+#container > #hand > .hand-top > .hand-time {
+  font-size: 0;
+  float: left;
+  height: 22.5px;
+  line-height: 22.5px;
+  position: relative;
+  z-index: 1;
+  margin-left: 12.5px;
+  margin-top: 16.25px;
+}
+#container > #hand > .hand-top > .hand-time > span {
+  font-size: 12px;
+  vertical-align: middle;
+}
+#container > #hand > .hand-top > .hand-time > .text {
+  color: #666;
+}
+#container > #hand > .hand-top > .hand-time > .num {
+  text-align: center;
+  display: inline-block;
+  width: 25px;
+  height: 22.5px;
+  margin: 0 3.75px;
+  position: relative;
+  color: white;
+}
+#container > #hand > .hand-top > .hand-time > .num:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  width: 100%;
+  height: 22.5px;
+  background-color: #5c5c5c;
+  border-radius: 4px;
+}
+#container > #hand > .hand-top > .hand-time > .dot {
+  position: relative;
+  display: inline-block;
+  width: 3.75px;
+  height: 15px;
+}
+#container > #hand > .hand-top > .hand-time > .dot:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 3.75px;
+  height: 3.75px;
+  background-color: #666;
+  border-radius: 50%;
+}
+#container > #hand > .hand-top > .hand-time > .dot:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 3.75px;
+  height: 3.75px;
+  background-color: #666;
+  border-radius: 50%;
+}
+#container > #hand > .hand-top > .hand-more {
+  float: right;
+  font-size: 12px;
+  margin-top: 16.25px;
+  margin-right: 6.25px;
+}
+#container > #hand > .hand-top > .hand-more > span {
+  display: inline-block;
+  height: 22.5px;
+  line-height: 22.5px;
+  vertical-align: middle;
+}
+#container > #hand > .hand-top > .hand-more > span:first-child {
+  background-color: #ff3c25;
+  padding: 0 6.25px;
+  color: #fff;
+}
+#container > #hand > .hand-top > .hand-more > .glyphicon {
+  font-size: 18px;
+  color: #ff3c25;
+  width: 20px;
+}
+#container > #hand > .hand-content {
+  font-size: 0;
+  white-space: nowrap;
+  padding-bottom: 12.5px;
+}
+#container > #hand > .hand-content > .hand-product {
+  display: inline-block;
+  width: 138.5px;
+  position: relative;
+  font-size: 12px;
+  padding: 0 12.5px;
+  border-right: 1px solid #e0e0e0;
+}
+#container > #hand > .hand-content > .hand-product > a {
+  display: block;
+}
+#container > #hand > .hand-content > .hand-product > a > .pic {
+  width: 112.5px;
+  height: 112.5px;
+  margin-bottom: 10px;
+}
+#container > #hand > .hand-content > .hand-product > a > .pic > img {
+  width: 100%;
+  height: 100%;
+}
+#container > #hand > .hand-content > .hand-product > a > h3 {
+  color: #666;
+  font-size: 12px;
+  font-weight: normal;
+  height: 45px;
+  line-height: 22.5px;
+  overflow: hidden;
+}
+#container > #hand > .hand-content > .hand-product > a > .price-box {
+  margin-top: 10px;
+  display: flex;
+  height: 25px;
+  line-height: 25px;
+}
+#container > #hand > .hand-content > .hand-product > a > .price-box > .price {
+  display: block;
+  color: #ff3c25;
+  font-size: 14px;
+}
+#container > #hand > .hand-content > .hand-product > a > .price-box > .old-price {
+  position: relative;
+  display: inline-block;
+}
+#container > #hand > .hand-content > .hand-product > a > .price-box > .old-price > span {
+  position: absolute;
+  left: 0;
+  color: #757575;
+  top: -12.5px;
+  border: 1px solid #c8c8c8;
+  padding: 0 2.5px;
+  height: 17px;
+  line-height: 17px;
+  font-size: 10px;
+}
+#container > #hand > .hand-content > .hand-product > a > .price-box > .old-price > del {
+  font-size: 10px;
+  color: #bbb;
+  text-decoration: none;
+}
+#container > #hand-foot {
+  margin: 2.67%;
+  display: flex;
+}
+#container > #hand-foot > a {
+  display: block;
+  flex: 1;
+  margin-right: 1.41%;
+  position: relative;
+}
+#container > #hand-foot > a > img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+#container > #hand-foot > a:after {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-top: 100%;
+}
+#container > #seckill {
+  display: flex;
+  margin: 2.67% 0;
+  border-top: 1px solid #e0e0e0;
+  border-bottom: 1px solid #e0e0e0;
+}
+#container > #seckill > .seckill-left {
+  display: block;
+  width: 38.67%;
+  border-right: 1px solid #e0e0e0;
+  position: relative;
+}
+#container > #seckill > .seckill-left > div {
+  top: 40px;
+  left: 10px;
+  height: 25px;
+  line-height: 25px;
+  z-index: 1;
+  font-size: 0;
+  position: relative;
+  color: #666;
+}
+#container > #seckill > .seckill-left > div > .text {
+  font-size: 15px;
+}
+#container > #seckill > .seckill-left > div > .num {
+  text-align: center;
+  margin: 0 3.75px;
+  display: inline-block;
+  position: relative;
+  width: 27.5px;
+  font-size: 17px;
+}
+#container > #seckill > .seckill-left > div > .num:before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0;
+  z-index: -1;
+  width: 100%;
+  height: 11.25px;
+  background-color: #e0e0e0;
+  border-radius: 5px 5px 0 0;
+}
+#container > #seckill > .seckill-left > div > .num:after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  z-index: -1;
+  width: 100%;
+  height: 11.25px;
+  background-color: #e0e0e0;
+  border-radius: 0 0 5px 5px;
+}
+#container > #seckill > .seckill-left > div > .dot {
+  display: inline-block;
+  width: 3px;
+  height: 12px;
+  position: relative;
+}
+#container > #seckill > .seckill-left > div > .dot:before {
+  content: "";
+  position: absolute;
+  width: 3.75px;
+  height: 3.75px;
+  top: 0;
+  background-color: #e0e0e0;
+  border-radius: 50%;
+}
+#container > #seckill > .seckill-left > div > .dot:after {
+  content: "";
+  position: absolute;
+  width: 3.75px;
+  height: 3.75px;
+  bottom: 0;
+  background-color: #e0e0e0;
+  border-radius: 50%;
+}
+#container > #seckill > .seckill-left > img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+#container > #seckill > .seckill-right {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+#container > #seckill > .seckill-right > a {
+  position: relative;
+  display: block;
+}
+#container > #seckill > .seckill-right > a > img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+#container > #seckill > .seckill-right > a:after {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-top: 43.48%;
+}
+#container > #seckill > .seckill-right > div {
+  display: flex;
+  border-top: 1px solid #e0e0e0;
+}
+#container > #seckill > .seckill-right > div > a {
+  display: block;
+  width: 50%;
+  position: relative;
+}
+#container > #seckill > .seckill-right > div > a > img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+#container > #seckill > .seckill-right > div > a:first-child {
+  border-right: 1px solid #e0e0e0;
+}
+#container > #seckill > .seckill-right > div a:after {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-top: 86.09%;
+}
+#container > #seckill-foot {
+  display: flex;
+  margin: 2.67%;
+}
+#container > #seckill-foot > a {
+  background-color: #fff;
+  display: block;
+  flex: 1;
+  margin-right: 1.41%;
+  position: relative;
+}
+#container > #seckill-foot > a > img {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 100%;
+  height: 100%;
+}
+#container > #seckill-foot > a:after {
+  content: "";
+  display: block;
+  width: 100%;
+  padding-top: 100%;
+}
