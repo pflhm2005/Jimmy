@@ -43,9 +43,6 @@ new Vue({
             return last;
         }
     },
-    methods: {
-        
-    },
     filters:{
         filter_hour: function(value){
         var hour = parseInt(value/3600);
@@ -63,8 +60,7 @@ new Vue({
     created () {
         var _ = this;
         setInterval(function(){
-        _.now++;
-        },1000)
+            _.now++;},1000)
     },
     mounted() {
         var _ = this;

@@ -25,40 +25,27 @@
         <div id="time" :class="{on:scroll}">
             <ul :style="slide">
                 <template v-for="(item,index) in times">  
-                    <li :class="{on:iter==index}" @click="iter=index">
-                        <span>{{item.time}}</span>
+                    <li :class="{on:iter_slide==index}" @click="iter_slide=index">
+                        <span v-if="item.time">{{item.time}}</span>
+                        <span v-else>
+                            <span class="hour">{{clock|filter_hour}}</span>
+                            <span>:</span>
+                            <span class="min">{{clock|filter_min}}</span>
+                            <span>:</span>
+                            <span class="sec">{{clock|filter_sec}}</span>
+                        </span>
                         <p v-if="item.p">{{item.p}}</p>
                         <p v-else>即将开始</p>
                     </li>
                 </template>
-                <!--<li class="on" @click="iter=0">
-                    <span>00:00</span>
-                    <p>已开抢</p>
-                </li>
-                <li @click="iter=1">
-                    <span>09:00</span>
-                    <p>即将开始</p>
-                </li>
-                <li @click="iter=2">
-                    <span>13:00</span>
-                    <p>即将开始</p>
-                </li>
-                <li @click="iter=3">
-                    <span>17:00</span>
-                    <p>即将开始</p>
-                </li>
-                <li @click="iter=4">
-                    <span>21:00</span>
-                    <p>即将开始</p>
-                </li>-->
             </ul>
             <span></span>
         </div>
         <!--商品-->
         <div id="content">
             <template v-for="(item,index) in products">
-                <div class="content_text" v-show="iter==index">{{item.title}}</div>
-                <div class="product_list" v-show="iter==index">
+                <div class="content_text" v-show="iter_slide ==index">{{item.title}}</div>
+                <div class="product_list" v-show="iter_slide==index">
                     <template v-for="list in item.product">
                         <a href="">
                             <img :src="list.src">
@@ -90,6 +77,6 @@
     <script src="js/seckill.js"></script>
 </body>
 <script>
-    console.log(Date.now());
+    console.clear();
 </script>
 </html>
