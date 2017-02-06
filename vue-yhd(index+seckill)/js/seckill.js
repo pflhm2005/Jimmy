@@ -84,15 +84,15 @@ new Vue({
         now: new Date().getHours()*3600 + new Date().getMinutes()*60 + new Date().getSeconds(),
     },
     computed:{
-        slide: function(){
+        slide(){
             return "transform:translateX("+(-75*this.iter_slide)+"px)";
         },
-        clock: function(){
+        clock(){
             return this.stage[this.iter] - this.now;
         }
     },
     methods:{
-        setPercentage: function(){
+        setPercentage(){
             var count = this.iter + 1;
             while(count--){
                 if(!this.products[count].product[0].percentage){
@@ -103,10 +103,8 @@ new Vue({
                 }
             }
         },
-        getRandom: function(num){
-            return Math.floor(Math.random()*num);
-        },
-        replace: function(num){
+        getRandom:num=>Math.floor(Math.random()*num),
+        replace(num){
             this.times.splice(this.iter,1,{p:"正在进行"});
             var count = this.iter;
             while(count--){
@@ -114,7 +112,7 @@ new Vue({
             }
             this.setPercentage();
         },
-        fresh: function(){
+        fresh(){
             var count  = this.times.length-1;
             while(count--){
                 if(count === 1){
@@ -126,11 +124,10 @@ new Vue({
                 }
             }
         },
-        test: function(){
+        test(){
             if(this.now === 86400){
                 this.now = 0;
-                var _ = this;
-                setTimeout(function(){_.fresh();},0)
+                this.fresh();
             }
             if(this.now < 36000){
                 if(this.iter === 1){
@@ -166,23 +163,21 @@ new Vue({
         },
     },
     filters:{
-        filter_hour: function(value){
+        filter_hour(value){
             var hour = parseInt(value/3600);
-            return hour < 10 ? "0"+hour : hour;
+            return hour < 10 ? "0"+ hour : hour;
         },
-        filter_min: function(value){
+        filter_min(value){
             var min = parseInt((value/60)%60);
-            return min < 10 ? "0"+min : min;
+            return min < 10 ? "0"+ min : min;
         },
-        filter_sec: function(value){
+        filter_sec(value){
             var sec = parseInt(value%60);
-            return sec < 10 ? "0"+sec : sec;
+            return sec < 10 ? "0"+ sec : sec;
         }
     },
     created () {
-        var _ = this;
-        setInterval(function(){
-            _.now++;},1000)
+        setInterval(()=>this.now++,1000);
     },
     mounted() {
         var _ = this;
