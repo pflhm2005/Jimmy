@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html>
+<head lang="en">
+    <meta charset="UTF-8">
+    <title>Vue</title>
+    <link rel="stylesheet" href="css/common.css"/>
+    <link rel="stylesheet" href="css/index.css"/>
+</head>
+<body>
+    <div id="box">
+        <!--头部-->
+        <header>
+            <h6>来，说说你在做什么，想什么</h6>
+        </header>
+        <!--表单区域-->
+        <div class="content">
+            <div>
+                <input type="text" v-model="name" placeholder="name required">
+                <ul>
+                    <template v-for="(item,index) in items">
+                        <li :class="{on:iter===index}" @click="iter=index">
+                            <img :src="item.src">
+                        </li>
+                    </template>
+                </ul>
+            </div>  
+            <textarea v-model="str" placeholder="content required"></textarea>
+            <button @click="add" :class="{on:name && str && max>=0}">发送</button>
+            <p :class="{on:max<0}">还能输入 <span>{{max|filter}}</span> 个字</p>
+            <p :class="{on:max>=0}">已经超出 <span>{{max|filter2}}</span> 个字</p>
+        </div>
+        <!--评论区域-->
+        <footer>
+            <div>
+                <p>大家在说</p>
+            </div>
+            <ul id="comment">
+                <template v-for="(item,index) in items2">
+                    <li :class="{on:index==iter2}" @mouseenter="iter2=index" @mouseleave="iter2=null">
+                        <img :src="item.src">
+                        <div>
+                            <p><a href="javascript:;">{{item.name}}</a>: &nbsp;{{item.str}}</p>
+                            <p>{{item.time}}</p>
+                        </div>
+                        <a href="javascript:;" @click="del(index)" :class="{on:index==iter2}">删除</a>
+                    </li>
+                </template>
+            </ul>
+        </footer>
+    </div>
+
+    <script src="lib/js/vue.min.js"></script>
+    <script src="js/vue-index.js"></script>
+</body>
+<script>
+    console.clear();
+</script>
+</html>

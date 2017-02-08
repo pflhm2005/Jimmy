@@ -180,10 +180,9 @@ new Vue({
         setInterval(()=>this.now++,1000);
     },
     mounted() {
-        var _ = this;
-        setInterval(function(){
-            _.test();
-            _.scroll = window.pageYOffset > 176.6 ? true : false;
+        setInterval(()=>{
+            this.test();
+            this.scroll = window.pageYOffset > 176.6 ? true : false;
         },100);
     }
 })
