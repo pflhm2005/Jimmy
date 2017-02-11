@@ -11,7 +11,7 @@ var app = new Vue({
         take:0,             //已选中商品数量
         sale:[],            //折扣率
         tip_iter:[],        //是否是降价商品
-        items:[]    
+        items:[]            //商品全部信息
     },
     computed:{
         //计算总价
@@ -120,7 +120,7 @@ var app = new Vue({
     },
     //初始化
     created: function(){
-        this.$http.get("http://localhost:9000/json/cart").then((result)=>{
+        this.$http.get("http://localhost:9000/json/cart/product").then((result)=>{
             this.items = result.data;
             for(var item in this.items){
                 this.new_price.push([this.items[item].price,false]);
@@ -142,13 +142,14 @@ var sear = new Vue({
         input:"",
         match:[],
         iter:null,
+        sear:[]
     },
     methods: {
         //显示搜索匹配内容
         showTag: function(){
             for(var i=0,arr = [];i<this.content.length;i++){
-                if(this.content[i].indexOf(this.input) === 0 && this.input){
-                    arr.push(this.content[i]);
+                if(this.content[i].info.indexOf(this.input) === 0 && this.input){
+                    arr.push(this.content[i].info);
                 }
             }
             this.match = arr;
@@ -161,8 +162,8 @@ var sear = new Vue({
     },
     //初始化匹配库
     created: function(){
-        for(var item in this.items){
-            this.content.push(this.items[item].tip);
-        }
+        this.$http.get("http://localhost:9000/json/cart/search").then((result)=>{
+            this.content = result.data;
+        });
     }
 });

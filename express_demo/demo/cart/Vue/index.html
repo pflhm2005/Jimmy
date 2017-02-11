@@ -74,7 +74,10 @@
             <a href=""><img src="images/logo.png"></a>
         </h1>
         <div class="fr">
-            <input v-model="input" @keyup="showTag" type="text" placeholder="请输入内容">
+            <input v-model="input" 
+                    @keyup="showTag" 
+                    type="text" 
+                    placeholder="请输入内容">
             <button @click="input=''">搜索</button>
             <div v-show="match[0]">
                 <template v-for="(item,index) in match"> 
@@ -89,9 +92,17 @@
         <!--结算-->
         <div class="count bx" id="count">
             <ul class="fl">
-                <li :class="{on:tab===1}" @mouseenter="tab=1"><a href="" class="on">全部商品 <span>{{all_content}}</span></a></li>
-                <li :class="{on:tab===2}" @mouseenter="tab=2" @mouseleave="tab=1"><a href="">降价商品 <span>{{sale_content}}</span></a></li>
-                <li :class="{on:tab===3}" @mouseenter="tab=3" @mouseleave="tab=1"><a href="">库存紧张 <span>0</span></a></li>
+                <li :class="{on:tab===1}" @mouseenter="tab=1">
+                    <a href="" class="on">
+                        全部商品 <span>{{all_content}}</span>
+                    </a>
+                </li>
+                <li :class="{on:tab===2}" @mouseenter="tab=2" @mouseleave="tab=1">
+                    <a href="">降价商品 <span>{{sale_content}}</span></a>
+                </li>
+                <li :class="{on:tab===3}" @mouseenter="tab=3" @mouseleave="tab=1">
+                    <a href="">库存紧张 <span>0</span></a>
+                </li>
             </ul>
             <ul class="fr">
                 <li>已选商品（不含运费）</li>
