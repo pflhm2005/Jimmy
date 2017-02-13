@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>深圳市炫彩酷游科技有限公司-专注精品手机游戏研发</title>
+    <link rel="stylesheet" href="css/common.css">
+    <link rel="stylesheet/less" href="css/index.less">
+    <script src="lib/less.min.js"></script>
+    
+</head>
+<body>
+    <div id="tip">
+        <ul>
+            <template v-for="(item,index) in tips">
+                <li :class="{on:scroll===index}"
+                    @mouseenter="scroll=index"
+                    @mouseleave="scroll=null"
+                    @click="scrolling_index(index)">
+                    {{item.name}}
+                </li>
+            </template>
+        </ul>
+    </div>
+    <!--头部-->
+    <header id="header">
+        <div class="head-content bx">
+            <a href="#" class="fl">
+                <h1>炫彩酷游</h1>
+            </a>
+            <ul class="fl">
+                <template v-for="(item,index) in navs">
+                    <li>
+                        <a-tab :tab_default="tab_default" 
+                            :index="index"
+                            :url="item.url" 
+                            :msg="item.name">
+                        </a-tab>
+                    </li>
+                </template>
+            </ul>
+        </div>
+    </header>
+    <!--路由部分-->
+    <div id="index">
+        <!--使用轮播图插件-->
+        <div id="slide" 
+            @mouseenter="slideMouse(true)"
+            @mouseleave="slideMouse(false)"
+            @mousemove="arrowToggle">
+            <div class="btn_l" 
+                :class="{on:arrow}"
+                @click="slidePic(false)"><
+            </div>
+            <div class="btn_r" 
+                :class="{on:arrow}"
+                @click="slidePic(true)">>
+            </div>
+            <ul class="pic">
+                <template v-for="(item,index) in slide">
+                    <li :class="{on:slider===index}">
+                        <img :src="item.src">
+                    </li>
+                </template>
+            </ul>
+            <ul class="dot">
+                <template v-for="(item,index) in slide">
+                    <li :class="{on:slider===index}"
+                        @mouseenter="slider=index">
+                        {{index}}
+                    </li>
+                </template>
+            </ul>
+        </div>
+        <div class="diliver"></div>
+        <!--游戏-->
+        <div class="game-list bx">
+            <div class="list-title title">
+                <p class="fl">精品手游<span>Latest game</span></p>
+                <a href="#" class="fr">more</a>
+            </div>
+            <div class="list-content clearfix">
+                <!--精品手游-->
+                <template v-for="item in games">
+                    <div class="list-item">
+                        <a :href="item.url" class="list-pic">
+                            <img :src="item.src">
+                        </a>
+                        <a :href="item.url" class="list-info">{{item.name}}</a>
+                    </div>
+                </template>
+            </div>
+        </div>
+        <div class="diliver"></div>
+        <!--关于-->
+        <div class="about">
+            <div class="about-content bx">
+                <img src="images/gywm.jpg">
+                <ul>
+                    <li class="ac-1 ac">关于炫彩酷游</li>
+                    <li class="ac-2 ac">ABOUT XCKOO GAME</li>
+                    <li class="ac-3">深圳市炫彩酷游科技有限公司是一家专注制作手机游戏的公司，公司坐落在深圳南山科兴科学园，团队成员由80/90后组成，是一家年轻开放并充满活力和热情的好玩的游戏公司。创造最炫最酷的手机游戏是我们炫彩酷游所追求的目标。也希望通过我们的努力给用户带来最...</li>
+                    <li class="ac-4"><a href="#">查看详情</a></li>
+                </ul>
+            </div>
+        </div>
+        <!--动态-->
+        <div class="news bx clearfix">
+            <div class="news-l">
+                <div class="title">
+                    <p>公司动态<span>Company News</span></p>
+                    <a href="#" class="fr">more</a>
+                </div>
+                <div class="article">
+                    <img src="images/news1.jpg">
+                    <ul>
+                        <li>
+                            <a href="#">我们一起去体验漂流的刺激吧~</a>
+                            <span>2015-08-28</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+            <div class="news-r">
+                <div class="title">
+                    <p>游戏动态<span>Game News</span></p>
+                    <a href="#" class="fr">more</a>
+                </div>
+                <div class="article">
+                    <img src="images/news2.jpg">
+                    <ul>
+                        <li>
+                            <a href="#">刀塔无双~</a>
+                            <span>2015-08-28</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+        <div class="diliver"></div>
+        <!--合作伙伴-->
+        <div class="partner bx">
+            <div class="title">
+                <p>合作伙伴<span>Partner</span></p>
+            </div>
+            <div class="diliver"></div>
+            <div class="partner-list clearfix">
+                <template v-for="(item,index) in partners">
+                    <a-tab :index="index"
+                        :url="item.url">
+                        <img :src="item.src">
+                    </a-tab>
+                </template>
+            </div>
+        </div>
+    </div>
+    <div class="diliver"></div>
+    <!--底部-->
+    <footer>
+        <div class="foot bx">
+            <div class="foot-l fl">
+                <ul class="foot-top foot1">
+                    <li><a href="#">关于我们</a></li>
+                    <li><a href="#">精品手游</a></li>
+                    <li><a href="#">咨询中心</a></li>
+                    <li><a href="#">诚聘英才</a></li>
+                    <li><a href="#">法律声明</a></li>
+                    <li><a href="#">联系我们</a></li>
+                </ul>
+                <div class="foot2">
+                    <span>地址:深圳市南山区高新中四道31号研祥科技大厦18楼</span>
+                    <span>邮箱:job@xckoo.com</span>
+                    <span>电话:0755-86955725</span>
+                </div>
+            </div>
+            <div class="foot-r fl">
+                <div class="foot1">
+                    <p>联系我们 Contact US</p>
+                </div>
+                <div class="foot2">
+                    <div class="wechat">
+                        <img src="images/weixin.jpg" alt="weixin">
+                        <span>微信：<a href="#">炫彩酷游</a></span>
+                    </div>
+                    <div class="blog">
+                        <img src="images/weibo.jpg" alt="weibo">
+                        <span>微博：<a href="#">炫彩酷游</a></span>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="foot-bottom">
+            <div class="bx">
+                <p class="fl">Copyright © 2017 炫彩酷游 ALL Right Reserved.
+                    <a href="http://www.miibeian.gov.cn/state/outPortal/loginPortal.action">粤ICP证668554896号</a>
+                </p>
+                <p class="fr">技术支持：
+                    <a href="http://www.zhuoruisz.com/">卓睿网络</a>
+                </p>
+            </div>
+        </div>
+    </footer>
+    <script src="lib/vue.min.js"></script>
+    <script src="lib/vue-resource.min.js"></script>
+    <script src="lib/vue-router.min.js"></script>
+    <script src="js/index.js"></script>
+</body>
+<script>
+    console.clear();
+</script>
+</html>

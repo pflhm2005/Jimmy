@@ -9,7 +9,7 @@ var app = express();
 //打印日志
 app.use(morgan("short"));
 
-//解析POST请求 数据库未实现
+//好像没什么卵用
 app.use(bodyParser.urlencoded({extended: true}));
 
 //确定静态路径 东西全在这里面

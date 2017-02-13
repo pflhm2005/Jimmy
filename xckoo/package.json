@@ -1,0 +1,22 @@
+{
+  "name": "xckoo",
+  "version": "1.0.0",
+  "description": "xuancai",
+  "main": "app.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Jimmy",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.14.1",
+    "less": "^2.7.2",
+    "vue": "^2.1.10",
+    "vue-resource": "^1.2.0",
+    "vue-router": "^2.2.0",
+    "body-parser": "^1.16.0",
+    "ejs": "^2.5.5",
+    "morgan": "^1.8.0",
+    "mustache": "^2.3.0"
+  }
+}

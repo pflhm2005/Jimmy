@@ -1,0 +1,378 @@
+@foot1:foot1;
+.@{foot1}{
+    font-weight: bold;
+    font-size: 13px;
+    width: 100%;
+    height: 38px;
+    color:white;
+}
+@foot2:foot2;
+.@{foot2}{
+    text-indent: 10px;
+    width: 100%;
+    height: 62px;
+    line-height: 62px;
+    font-size: 13px;
+    color: #CACACA;
+    border-top:1px solid #848484;
+    border-bottom:1px solid #848484;
+}
+@ac:ac;
+.@{ac}{
+    font-size: 22px;
+    font-weight: bold;
+}
+@title:title;
+.@{title}{
+    height: 24px;
+    padding:18px 0;
+    >p{
+        font-size: 20px;
+        color:#333;
+        font-weight: bold;
+        >span{
+            opacity: .5;
+        }
+    }
+    >a{
+        text-align: center;
+        background-color: #51bbeb;
+        width: 43px;
+        height: 18px;
+        border-radius: 5px;
+        color:white;
+    }
+   
+}
+@article:article;
+.@{article}{
+    width: 100%;
+    >img{
+        width: 145px;
+        height: 195px;
+        float: left;
+    }
+    >ul{
+        width: 295px;
+        height: 195px;
+        float: left;
+        >li{
+            height: 32px;
+            line-height: 32px;
+            color:#333;
+            font-size: 13px;
+            >a{
+
+            }
+            >a::before{
+                content:"-";
+                padding:0 10px;
+            }
+            >span{
+                float: right;
+            }
+        }
+    }
+}
+@diliver:diliver;
+.@{diliver}{
+    height: 30px;
+    width: 100%;
+}
+
+#header{
+    background-color: white;
+    height: 137px;
+    >.head-content{
+        height: 100%;
+        >a{
+            height: 100%;
+            >h1{
+                text-indent: -999px;
+                background: url("../images/logo.jpg");
+                height: 100%;
+                width: 300px;
+            }
+        }
+        >ul{
+            padding-top:60px;
+            padding-left: 35px;
+            >li{
+                font-weight: bold;
+                font-size: 14px;
+                width: 94px;
+                height: 28px;
+                line-height: 28px;
+                text-align: center;
+                float:left;
+                margin:6px;
+                >a{
+                    width: 100%;
+                    height: 100%;
+                    border-radius: 14px;
+                    &.on{
+                        background-color:#50BAEA;
+                        color:white; 
+                    }
+                }
+            }
+        }
+    }
+}
+
+#tip{
+    position: fixed;
+    right: 80px;
+    bottom: 100px;
+    text-align: center;
+    font-size: 16px;
+    >ul{
+        >li{
+            background-color:black;
+            opacity: .5;
+            border-bottom:1px solid white;
+            padding:5px;
+            cursor:pointer;
+            color:white;
+            &.on{
+                opacity: .8;
+            }
+        }
+    }
+}
+
+#index{
+    >#slide{
+        width: 1000px;
+        height: 700px;
+        position: relative;
+        margin:0 auto;
+        overflow: hidden;
+        left: 0;
+        top: 0;
+        >div{
+            font-size: 28px;
+            line-height: 84px;
+            font-family: "Microsoft yahei";
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor:pointer;
+            z-index: 10;
+            width: 10%;
+            height: 12%;
+            background-color: rgba(0,0,0,.8);
+            text-align: center;
+            color:white;
+            opacity: 0;
+            transition: all .5s;
+            &.on{
+                opacity: 1;
+            }
+        }
+        .btn_l{
+            left: 0;
+            text-indent: -1px;
+        }
+        .btn_r{
+            right: 0;
+        }
+        >.pic{
+            left: 0;
+            top: 0;
+            position: relative;
+            width: 100%;
+            height: 100%;
+            >li{
+                left: 0;
+                top: 0;
+                opacity: 0;
+                position: absolute;
+                height: 100%;
+                width: 100%;
+                transition: all 1s;
+                &.on{
+                    opacity: 1;
+                }
+                >img{
+                    width: 100%;
+                    height: 100%;
+                }
+            }
+        }
+        >.dot{
+            z-index: 10;
+            position: relative;
+            bottom:10%;
+            right: 0;
+            transform: translateX(50%);
+            height: 28px;
+            >li{
+                width: 28px;
+                height: 100%;
+                background-color: #eee;
+                margin: 0 1.5%;
+                float: left;
+                border-radius: 50%;
+                text-indent: -999px;
+                &.on{
+                    background-color: #50BAEB;
+                }
+            }
+        }
+    }
+    >.game-list{
+        >.list-title{
+            border-bottom:1px dashed #B7B7B7;
+        }
+        >.list-content{
+            >.list-item{
+                float: left;
+                text-align: center;
+                width: 30%;
+                margin:30px 1.5% 0;
+                >.list-pic{
+                    width: 100%;
+                    >img{
+                        width: 100%;
+                    }
+                }
+                >.list-info{
+                    margin-top:10px;
+                    color:#525252;
+                    font-size: 14px;
+                    font-weight: bold;
+                }
+            }
+        }
+    }
+    >.about{
+        width: 100%;
+        height: 470px;
+        background-color: #F8F8F8;
+        >.about-content{
+            height: 100%;
+            padding-top:80px;
+            >img{
+                float: left;
+            }
+            >ul{
+                margin-left: 50px;
+                width: 470px;
+                height: 280px;
+                float: left;
+                >.ac-1{
+                    margin:10px 0;
+                    color:#333;
+                }
+                >.ac-2{
+                    color:#93cf5d;
+                }
+                >.ac-3{
+                    text-indent: 2em;
+                    color:#666;
+                    font-size: 16px;
+                    line-height: 25px;
+                }
+                >.ac-4{
+                    border-radius: 10px;
+                    margin-top:20px;
+                    width: 108px;
+                    height: 36px;
+                    background-color: #50baea;
+                    >a{
+                        font-size: 14px;
+                        width: 100%;
+                        color:white;
+                        line-height: 36px;
+                        text-align: center;
+                    }
+                }
+            }
+        }
+    }
+    >.news{
+        >.news-l,.news-r{
+            width: 45%;
+            margin-right: 5%;
+            float: left;
+            >.title{
+                >p{
+                    float: left;
+                }
+            }
+        }
+    }
+    >.partner{
+        >.title{
+            border-bottom:1px dashed #B7B7B7;
+        }
+        >.partner-list{
+            >a{
+                opacity: .5;
+                float: left;
+                width: 16%;
+                margin: 0 2%;
+                &.on{
+                    opacity: 1;
+                }
+                >img{
+                    height: 100%;
+                    width: 100%;
+                    vertical-align: middle;
+                }
+            }
+        }
+    }
+}
+footer{
+    background-color:#5A5A5A;
+    height: 300px;
+    >.foot{
+        padding:70px 0;
+        height: 100px;
+        >.foot-l{
+            margin-right: 35px;
+            width: 625px;
+            height: 100px;
+            >ul{
+                >li{
+                    padding:0 10px;
+                    float: left;
+                    >a{
+                        color:white;
+                    }
+                }
+            }
+        }
+        >.foot-r{
+            width: 320px;
+            >.foot2{
+                >div{
+                    float: left;
+                    >img{
+                        vertical-align: middle;
+                    }
+                    >span{
+                        >a{
+                            color: #CACACA;
+                        }
+                    }
+                }
+            }
+        }
+    } 
+    >.foot-bottom{
+        color:white;
+        height: 60px;
+        line-height: 60px;
+        background-color:#343434;
+        >div{
+            >p{
+                >a{
+                    color:white;
+                }
+            }
+        }
+    }
+}

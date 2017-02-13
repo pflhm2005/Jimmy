@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <link rel="stylesheet" href="slide.css">
+</head>
+<body>
+    <div id="slide">
+        <div class="btn_l"></div>
+        <div class="btn_r"></div>
+        <ul class="pic">
+            <li><img src="1.jpg"></li>
+            <li><img src="2.jpg"></li>
+            <li><img src="3.jpg"></li>
+        </ul>
+        <ul class="dot"></ul>
+    </div>
+    <script src="jquery.min.js"></script>
+    <script src="slide.js"></script>
+</body>
+<script>
+    $("#slide").slide({
+        width:1000,
+        height:600,
+    });
+</script>
+</html>
