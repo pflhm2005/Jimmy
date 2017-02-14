@@ -1,10 +1,17 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <link rel="stylesheet" href="slide.css">
 </head>
+<style>
+    #slide {
+        width: 600px;
+        height: 300px;
+    }
+</style>
+
 <body>
     <div id="slide">
         <div class="btn_l"></div>
@@ -20,9 +27,7 @@
     <script src="slide.js"></script>
 </body>
 <script>
-    $("#slide").slide({
-        width:1000,
-        height:600,
-    });
+    $("#slide").slide();
 </script>
+
 </html>
