@@ -1,0 +1,30 @@
+body {
+  width: 100%;
+  margin-top: 10px;
+}
+body > button {
+  margin-left: 20px;
+  padding: 6px 12px;
+}
+body > label > input {
+  border: 1px solid black;
+  border-radius: 5px;
+  padding: 5px;
+}
+body > #table {
+  padding-left: 50px;
+  padding-top: 50px;
+}
+body > #table > ul {
+  clear: both;
+}
+body > #table > ul > li {
+  line-height: 20px;
+  text-align: center;
+  float: left;
+  border: 1px solid black;
+  padding: 10px;
+  width: 40px;
+  height: 40px;
+  box-sizing: border-box;
+}
