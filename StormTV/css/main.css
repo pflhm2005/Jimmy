@@ -1,0 +1,220 @@
+header {
+  height: 30px;
+  line-height: 30px;
+  background-color: #333;
+}
+header > .head-content {
+  font-size: 12px;
+}
+header > .head-content > .head-l {
+  float: left;
+}
+header > .head-content > .head-l > li {
+  float: left;
+  margin-right: 30px;
+}
+header > .head-content > .head-l > li > a {
+  color: #aaa;
+}
+header > .head-content > .head-l > li > a:hover {
+  color: #fff;
+}
+header > .head-content > .head-r {
+  float: right;
+}
+header > .head-content > .head-r > li {
+  float: left;
+  margin-left: 20px;
+  color: #666;
+}
+header > .head-content > .head-r > li > a {
+  color: #aaa;
+}
+header > .head-content > .head-r > li > a:hover {
+  color: #fff;
+}
+#nav {
+  height: 60px;
+  line-height: 60px;
+}
+#nav > .logo {
+  float: left;
+  height: 100%;
+  margin-right: 140px;
+}
+#nav > .logo > a {
+  height: 100%;
+}
+#nav > .logo > a > img {
+  vertical-align: middle;
+  width: 54px;
+  height: 54px;
+}
+#nav > .nav-list {
+  font-size: 13px;
+}
+#nav > .nav-list > li {
+  float: left;
+  margin-right: 40px;
+}
+#nav > .nav-list > li > a {
+  color: black;
+}
+#nav > .nav-list > li > a:hover {
+  color: blue;
+}
+#slide {
+  position: relative;
+  height: 460px;
+}
+#slide > .mask {
+  height: 100%;
+  position: relative;
+  z-index: 1;
+}
+#slide > .mask > ul {
+  width: 180px;
+  background-color: rgba(0, 0, 0, 0.5);
+  height: 100%;
+  position: relative;
+}
+#slide > .mask > ul > li {
+  font-size: 14px;
+}
+#slide > .mask > ul > li:hover > .mask-detail {
+  display: block;
+}
+#slide > .mask > ul > li > a {
+  text-align: center;
+  padding: 20px 0;
+  display: inline-block;
+  width: 100%;
+  height: 100%;
+  color: white;
+}
+#slide > .mask > ul > li > a:hover {
+  background-color: #eee;
+  color: black;
+}
+#slide > .mask > ul > li > .mask-detail {
+  display: none;
+  position: absolute;
+  height: 100%;
+  top: 0;
+  left: 180px;
+  background-color: rgba(255, 255, 255, 0.96);
+}
+#slide > .mask > ul > li > .mask-detail > ul {
+  margin: 0 20px;
+  width: 175px;
+}
+#slide > .mask > ul > li > .mask-detail > ul > .m-title {
+  width: 100%;
+  height: 40px;
+  line-height: 40px;
+  border-bottom: 1px solid #ccc;
+}
+#slide > .mask > ul > li > .mask-detail > ul > li + li {
+  margin-top: 20px;
+  text-align: center;
+}
+#slide > .mask > ul > li > .mask-detail > ul > li + li > a {
+  color: #222;
+}
+#slide > .mask > ul > li > .mask-detail > ul > li + li > a:hover {
+  color: blue;
+}
+#slide > .mask > ul > li > .mask-detail > ul > li + li > a > img {
+  width: 110px;
+}
+#slide > .mask > ul > li > .mask-detail > ul > li + li > a > p {
+  font-size: 12px;
+  margin-top: 10px;
+}
+#slide > .slide > .pic > a > img {
+  top: 0;
+  left: -50%;
+  width: 200%;
+  height: 100%;
+  position: absolute;
+}
+#slide > .slide > .dot {
+  position: absolute;
+  bottom: 2%;
+  right: 10%;
+}
+#slide > .slide > .dot > li {
+  float: left;
+  margin: 0 5px;
+  width: 10px;
+  height: 10px;
+  border-radius: 50%;
+  background-color: rgba(0, 0, 0, 0.5);
+  text-indent: -9999px;
+}
+#slide > .slide > .dot > li.on {
+  background-color: rgba(0, 0, 0, 0.1);
+  border: 1px solid blue;
+}
+#news {
+  height: 160px;
+}
+#news > ul > li {
+  margin-top: 10px;
+  float: left;
+}
+#news > ul > .news {
+  width: 246px;
+  height: 160px;
+  background-color: #fff;
+}
+#news > ul > .news > .news-title {
+  border-bottom: 1px solid #e2e2e2;
+  font-size: 0;
+  height: 36px;
+  line-height: 36px;
+}
+#news > ul > .news > .news-title > a {
+  margin-left: 40px;
+  font-size: 14px;
+  display: inline-block;
+  height: 36px;
+}
+#news > ul > .news > .news-title > a.on {
+  border-bottom: 1px solid #608FF7;
+}
+#news > ul > .news > .news-list {
+  padding: 3px 0;
+}
+#news > ul > .news > .news-list > li {
+  overflow: hidden;
+  float: left;
+}
+#news > ul > .news > .news-list > li > span {
+  font-size: 12px;
+}
+ > #news > ul > .news > .news-list > li > span:before {
+  content: '[';
+}
+ > #news > ul > .news > .news-list > li > span:after {
+  content: ']';
+}
+#news > ul > .news > .news-list > li > a {
+  height: 30px;
+  line-height: 30px;
+  font-size: 12px;
+  width: 100%;
+  margin: 0 14px;
+}
+#news > ul > .news > .news-list > li > a:after {
+  content: '';
+  display: table;
+  clear: both;
+}
+#news > ul > li + li {
+  margin-left: 5px;
+}
+#news > ul > li + li > a > img {
+  width: 290px;
+  height: 160px;
+}
